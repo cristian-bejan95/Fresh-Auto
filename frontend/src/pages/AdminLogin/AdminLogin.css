@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+:root {
+  --background: #1634c9db;
+  --text: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.admin-login-page {
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 20px;
+  position: relative;
+}
+
+.admin-login-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 10, 20, 0.2);
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 600px;
+  max-width: 100%;
+  min-height: 500px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 30px;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  background: rgba(0, 27, 60, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.block {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.login-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 3vw;
+  transition: 0.3s;
+}
+
+.form-title {
+  margin: 40px 0;
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.form-inputs {
+  width: 100%;
+}
+
+.input-box {
+  position: relative;
+}
+
+.input-field {
+  width: 100%;
+  height: 55px;
+  padding: 0 15px;
+  padding-right: 56px;
+  margin: 14px 0;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+}
+
+.input-field::placeholder {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.input-box .icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: var(--text);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+.forget-pass {
+  display: flex;
+  justify-content: right;
+  margin-top: 4px;
+}
+
+.forget-pass button {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.forget-pass button:hover {
+  text-decoration: underline;
+}
+
+.input-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  font-size: 16px;
+  height: 55px;
+  padding: 0 15px;
+  margin: 14px 0 10px;
+  color: var(--text);
+  background: var(--background);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.input-submit:hover {
+  gap: 15px;
+}
+
+.input-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.login-error {
+  margin-top: 8px;
+  margin-bottom: 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  color: #ffd6d6;
+  background: rgba(255, 0, 0, 0.14);
+  border: 1px solid rgba(255, 120, 120, 0.25);
+  font-size: 14px;
+}
+
+@media (max-width: 892px) {
+  .container {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .login-form {
+    padding: 0 10px;
+  }
+}
