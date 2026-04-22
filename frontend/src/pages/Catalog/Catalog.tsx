@@ -64,16 +64,19 @@ export default function Catalog() {
                 <strong>Preț:</strong> {car.price} €
               </p>
               <p>
-                <strong>An:</strong> {car.year}
+                <strong>Anul Fabricație:</strong> {car.year}
               </p>
               <p>
-                <strong>Km:</strong> {car.mileage}
+                <strong>Parcurs:</strong> {car.mileage}
               </p>
               <p>
                 <strong>Combustibil:</strong> {car.fuel}
               </p>
               <p>
-                <strong>Status:</strong> {car.status}
+                <strong>Transmisie:</strong> {car.transmission}
+              </p>
+              <p>
+                <strong>Tracțiune:</strong> {car.wheldrive}
               </p>
             </div>
           </div>

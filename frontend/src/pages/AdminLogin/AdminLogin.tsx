@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/api";
 import "./AdminLogin.css";
 import bgImage from "../../assets/admin-login.png";
 
 export default function AdminLogin() {
+  useEffect(() => {
+    document.title = "Log-in | Fresh-Auto Admin";
+  }, []);
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");

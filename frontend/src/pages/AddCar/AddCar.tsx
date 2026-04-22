@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
+import { uploadImage } from "../../services/upload";
 import { Link, useNavigate } from "react-router-dom";
 import { createCar } from "../../services/api";
 import "./AddCar.css";
@@ -15,8 +16,9 @@ type CarForm = {
   engine: string;
   power: string;
   color: string;
+  wheldrive: string;
   description: string;
-  image: string;
+  images: string[];
   status: "available" | "reserved" | "sold";
   featured: boolean;
 };
@@ -36,15 +38,24 @@ export default function AddCar() {
     engine: "",
     power: "",
     color: "",
+    wheldrive: "",
     description: "",
-    image: "",
+    images: [],
     status: "available",
     featured: false,
   });
 
+  useEffect(() => {
+    document.title = "Adaugă mașină | Fresh-Auto Admin";
+  }, []);
+
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [fileNames, setFileNames] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -86,11 +97,33 @@ export default function AddCar() {
       engine: "",
       power: "",
       color: "",
+      wheldrive: "",
       description: "",
-      image: "",
+      images: [],
       status: "available",
       featured: false,
     });
+
+    setFileNames([]);
+    setError("");
+    setSuccess("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  const removeImage = (indexToRemove: number) => {
+    setForm((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, index) => index !== indexToRemove),
+    }));
+
+    setFileNames((prev) => prev.filter((_, index) => index !== indexToRemove));
+
+    if (fileInputRef.current && form.images.length === 1) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -112,8 +145,9 @@ export default function AddCar() {
         engine: form.engine,
         power: form.power,
         color: form.color,
+        wheldrive: form.wheldrive,
         description: form.description,
-        images: form.image ? [form.image] : [],
+        images: form.images,
         status: form.status,
         featured: form.featured,
       };
@@ -177,7 +211,7 @@ export default function AddCar() {
             <form className="admin-addcar-form" onSubmit={handleSubmit}>
               <div className="admin-addcar-grid">
                 <div className="admin-addcar-field">
-                  <label>Titlu</label>
+                  <label>Titlu*</label>
                   <input
                     name="title"
                     placeholder="Ex: BMW X5 xDrive"
@@ -187,7 +221,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Brand</label>
+                  <label>Brand*</label>
                   <input
                     name="brand"
                     placeholder="Ex: BMW"
@@ -197,7 +231,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Model</label>
+                  <label>Model*</label>
                   <input
                     name="model"
                     placeholder="Ex: X5"
@@ -207,7 +241,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>An</label>
+                  <label>Anul Fabricație*</label>
                   <input
                     name="year"
                     type="number"
@@ -218,7 +252,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Preț (€)</label>
+                  <label>Preț (€)*</label>
                   <input
                     name="price"
                     type="number"
@@ -229,18 +263,18 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Kilometri</label>
+                  <label>Parcurs*</label>
                   <input
                     name="mileage"
                     type="number"
-                    placeholder="Ex: 146000"
+                    placeholder="Ex: 105000"
                     value={form.mileage}
                     onChange={handleChange}
                   />
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Combustibil</label>
+                  <label>Combustibil*</label>
                   <input
                     name="fuel"
                     placeholder="Ex: Diesel"
@@ -250,7 +284,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Transmisie</label>
+                  <label>Transmisie*</label>
                   <input
                     name="transmission"
                     placeholder="Ex: Automată"
@@ -260,17 +294,17 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Motor</label>
+                  <label>Motor*</label>
                   <input
                     name="engine"
-                    placeholder="Ex: 3.0"
+                    placeholder="Ex: 3.0L"
                     value={form.engine}
                     onChange={handleChange}
                   />
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Putere</label>
+                  <label>Putere*</label>
                   <input
                     name="power"
                     placeholder="Ex: 265 CP"
@@ -280,7 +314,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Culoare</label>
+                  <label>Culoare*</label>
                   <input
                     name="color"
                     placeholder="Ex: Negru"
@@ -290,30 +324,111 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
-                  <label>Status</label>
-                  <select
-                    name="status"
-                    value={form.status}
-                    onChange={handleChange}
-                  >
-                    <option value="available">Disponibilă</option>
-                    <option value="reserved">Rezervată</option>
-                    <option value="sold">Vândută</option>
-                  </select>
-                </div>
-
-                <div className="admin-addcar-field admin-addcar-field-full">
-                  <label>Link imagine</label>
+                  <label>Tracțiune*</label>
                   <input
-                    name="image"
-                    placeholder="https://..."
-                    value={form.image}
+                    name="wheldrive"
+                    placeholder="Ex: 4x4"
+                    value={form.wheldrive}
                     onChange={handleChange}
                   />
                 </div>
 
+                <div className="admin-addcar-field">
+                  <label>Status*</label>
+                  <div className="select-wrapper">
+                    <select
+                      name="status"
+                      value={form.status}
+                      onChange={(e) => {
+                        handleChange(e);
+                        setIsOpen(false); // 👈 închide după selectare
+                      }}
+                      onFocus={() => setIsOpen(true)}
+                      onBlur={() => setIsOpen(false)}
+                    >
+                      <option value="available">Disponibilă</option>
+                      <option value="reserved">Rezervată</option>
+                      <option value="sold">Vândută</option>
+                    </select>
+
+                    <span className={`select-arrow ${isOpen ? "open" : ""}`}>
+                      <svg viewBox="0 0 24 24">
+                        <path d="M7 10l5 5 5-5" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+
                 <div className="admin-addcar-field admin-addcar-field-full">
-                  <label>Descriere</label>
+                  <label>Imagini*</label>
+
+                  <div className="file-upload">
+                    <label className="file-upload-label">
+                      Alege imagini
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={async (e) => {
+                          const files = e.target.files;
+                          if (!files || files.length === 0) return;
+
+                          try {
+                            setUploading(true);
+                            setError("");
+                            setSuccess("");
+
+                            const filesArray = Array.from(files);
+
+                            const uploadedUrls = await Promise.all(
+                              filesArray.map((file) => uploadImage(file)),
+                            );
+
+                            setForm((prev) => ({
+                              ...prev,
+                              images: [...prev.images, ...uploadedUrls],
+                            }));
+
+                            setFileNames((prev) => [
+                              ...prev,
+                              ...filesArray.map((file) => file.name),
+                            ]);
+
+                            setSuccess(
+                              "Imaginile au fost încărcate cu succes.",
+                            );
+                          } catch (err: any) {
+                            setError(
+                              err.message || "Eroare la upload imagini.",
+                            );
+                          } finally {
+                            setUploading(false);
+
+                            if (fileInputRef.current) {
+                              fileInputRef.current.value = "";
+                            }
+                          }
+                        }}
+                      />
+                    </label>
+
+                    <span className="file-upload-name">
+                      {fileNames.length > 0
+                        ? `${fileNames.length} fișier(e) selectat(e)`
+                        : "Nicio imagine selectată"}
+                    </span>
+                  </div>
+
+                  {uploading && (
+                    <p style={{ color: "#84b9ff", marginTop: "8px" }}>
+                      Se încarcă imaginile...
+                    </p>
+                  )}
+                </div>
+
+                <div className="admin-addcar-field admin-addcar-field-full">
+                  <label>Descriere Auto*</label>
                   <textarea
                     name="description"
                     placeholder="Descriere completă a mașinii..."
@@ -347,9 +462,13 @@ export default function AddCar() {
                   <button
                     type="submit"
                     className="admin-addcar-primary-btn"
-                    disabled={loading}
+                    disabled={loading || uploading}
                   >
-                    {loading ? "Se salvează..." : "Salvează mașina"}
+                    {uploading
+                      ? "Se încarcă imaginile..."
+                      : loading
+                        ? "Se salvează..."
+                        : "Salvează mașina"}
                   </button>
                 </div>
               </div>
@@ -370,15 +489,37 @@ export default function AddCar() {
             </div>
 
             <div className="admin-addcar-preview-box">
-              <img
-                src={
-                  form.image?.trim()
-                    ? form.image
-                    : "https://via.placeholder.com/600x380?text=Auto+Preview"
-                }
-                alt={form.title || "Preview mașină"}
-                className="admin-addcar-preview-image"
-              />
+              {form.images.length > 0 ? (
+                <div className="preview-gallery">
+                  {form.images.map((img, index) => (
+                    <div className="preview-gallery-item" key={index}>
+                      <img
+                        src={img}
+                        alt={`Preview ${index + 1}`}
+                        className="admin-addcar-preview-image"
+                      />
+                      <button
+                        type="button"
+                        className="remove-image-btn"
+                        onClick={() => removeImage(index)}
+                      >
+                        Șterge
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="no-preview">
+                  <div style={{ textAlign: "center" }}>
+                    <p style={{ fontSize: "18px", marginBottom: "6px" }}>
+                      Fără imagini
+                    </p>
+                    <span style={{ fontSize: "13px", opacity: 0.7 }}>
+                      Încarcă una sau mai multe imagini pentru preview
+                    </span>
+                  </div>
+                </div>
+              )}
 
               <div className="admin-addcar-preview-content">
                 <h4>{form.title || "Titlul mașinii"}</h4>
@@ -387,7 +528,7 @@ export default function AddCar() {
                 </p>
 
                 <div className="admin-addcar-preview-meta">
-                  <span>{form.year || "An"}</span>
+                  <span>{form.year || "Anul Fabricație"}</span>
                   <span>{form.mileage || "Km"} km</span>
                   <span>{form.fuel || "Combustibil"}</span>
                 </div>
@@ -396,6 +537,7 @@ export default function AddCar() {
                   <span>{form.transmission || "Transmisie"}</span>
                   <span>{form.engine || "Motor"}</span>
                   <span>{form.power || "Putere"}</span>
+                  <span>{form.wheldrive || "Tracțiune"}</span>
                 </div>
 
                 <div className="admin-addcar-preview-status-row">

@@ -51,6 +51,7 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
+    document.title = "Dashboard | Fresh-Auto Admin";
     const loadStats = async () => {
       try {
         setLoading(true);
@@ -213,7 +214,12 @@ export default function AdminDashboard() {
                             </span>
                           </td>
                           <td>
-                            <Link to={`/admin/edit-car/${car._id}`}>Edit</Link>
+                            <Link
+                              to={`/dashboard/edit-car/${car._id}`}
+                              className="admin-car-edit-btn"
+                            >
+                              Edit
+                            </Link>
                           </td>
                         </tr>
                       ))

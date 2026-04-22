@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { deleteCar, getCars } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
+import CarImageSlider from "../../components/CarImgSlider/CarImageSlider";
 import "./AdminCarsList.css";
 
 type Car = {
@@ -16,6 +17,7 @@ type Car = {
   engine: string;
   power: string;
   color: string;
+  wheldrive: string;
   description: string;
   images: string[];
   status: "available" | "reserved" | "sold";
@@ -49,6 +51,7 @@ export default function AdminCarsList() {
   };
 
   useEffect(() => {
+    document.title = "Toate mașinile | Fresh-Auto Admin";
     loadCars();
   }, []);
 
@@ -152,16 +155,8 @@ export default function AdminCarsList() {
               {filteredCars.map((car) => (
                 <div className="admin-car-row" key={car._id}>
                   <div className="admin-car-image-wrap">
-                    <img
-                      src={
-                        car.images?.[0] ||
-                        "https://via.placeholder.com/220x150?text=No+Image"
-                      }
-                      alt={car.title}
-                      className="admin-car-image"
-                    />
+                    <CarImageSlider images={car.images} alt={car.title} />
                   </div>
-
                   <div className="admin-car-info">
                     <div className="admin-car-header">
                       <div>
@@ -177,10 +172,12 @@ export default function AdminCarsList() {
                     <div className="admin-car-meta">
                       <span>{car.mileage} km</span>
                       <span>{car.fuel}</span>
+                      <span>{car.year}</span>
                       <span>{car.transmission}</span>
                       <span>{car.engine}</span>
                       <span>{car.power}</span>
                       <span>{car.color}</span>
+                      <span>{car.wheldrive}</span>
                     </div>
 
                     <div className="admin-car-footer">

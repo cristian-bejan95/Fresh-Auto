@@ -16,6 +16,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       engine,
       power,
       color,
+      wheldrive,
       description,
       images,
       status,
@@ -34,6 +35,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       !engine ||
       !power ||
       !color ||
+      !wheldrive ||
       !description
     ) {
       return res.status(400).json({
@@ -53,6 +55,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       engine,
       power,
       color,
+      wheldrive,
       description,
       images: images || [],
       status: status || "available",

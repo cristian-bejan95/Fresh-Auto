@@ -12,6 +12,7 @@ export interface ICar {
   engine: string;
   power: string;
   color: string;
+  wheldrive: string;
   description: string;
   images: string[];
   status: "available" | "reserved" | "sold";
@@ -64,6 +65,10 @@ const carSchema = new Schema<ICar>(
       required: true,
     },
     color: {
+      type: String,
+      required: true,
+    },
+    wheldrive: {
       type: String,
       required: true,
     },

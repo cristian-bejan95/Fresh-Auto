@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getCarById, updateCar } from "../../services/api";
+import { uploadImage } from "../../services/upload";
 import "./EditCar.css";
 
 type CarForm = {
@@ -15,8 +16,9 @@ type CarForm = {
   engine: string;
   power: string;
   color: string;
+  wheldrive: string;
   description: string;
-  image: string;
+  images: string[];
   status: "available" | "reserved" | "sold";
   featured: boolean;
 };
@@ -37,16 +39,26 @@ export default function EditCar() {
     engine: "",
     power: "",
     color: "",
+    wheldrive: "",
     description: "",
-    image: "",
+    images: [],
     status: "available",
     featured: false,
   });
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [fileNames, setFileNames] = useState<string[]>([]);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    document.title = "Editare mașină | Fresh-Auto Admin";
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -77,11 +89,14 @@ export default function EditCar() {
           engine: car.engine || "",
           power: car.power || "",
           color: car.color || "",
+          wheldrive: car.wheldrive || "",
           description: car.description || "",
-          image: car.images?.[0] || "",
+          images: car.images || [],
           status: car.status || "available",
           featured: !!car.featured,
         });
+
+        setFileNames([]);
       } catch (err: any) {
         setError(err.message || "Eroare la încărcarea mașinii");
       } finally {
@@ -114,6 +129,19 @@ export default function EditCar() {
     }));
   };
 
+  const removeImage = (indexToRemove: number) => {
+    setForm((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, index) => index !== indexToRemove),
+    }));
+
+    setFileNames((prev) => prev.filter((_, index) => index !== indexToRemove));
+
+    if (fileInputRef.current && form.images.length === 1) {
+      fileInputRef.current.value = "";
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -137,14 +165,20 @@ export default function EditCar() {
         engine: form.engine,
         power: form.power,
         color: form.color,
+        wheldrive: form.wheldrive,
         description: form.description,
-        images: form.image ? [form.image] : [],
+        images: form.images,
         status: form.status,
         featured: form.featured,
       };
 
       await updateCar(id, payload);
       setSuccess("Mașina a fost actualizată cu succes.");
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      setFileNames([]);
     } catch (err: any) {
       setError(err.message || "Eroare la actualizarea mașinii.");
     } finally {
@@ -158,7 +192,7 @@ export default function EditCar() {
 
       <aside className="admin-editcar-sidebar">
         <div className="admin-editcar-logo">
-          <h2>AutoPark</h2>
+          <h2>Fresh-Auto</h2>
           <p>Admin Panel</p>
         </div>
 
@@ -187,7 +221,6 @@ export default function EditCar() {
             <div className="admin-editcar-user-avatar">A</div>
             <div>
               <strong>Administrator</strong>
-              <p>admin@parcauto.md</p>
             </div>
           </div>
         </header>
@@ -207,7 +240,7 @@ export default function EditCar() {
               <form className="admin-editcar-form" onSubmit={handleSubmit}>
                 <div className="admin-editcar-grid">
                   <div className="admin-editcar-field">
-                    <label>Titlu</label>
+                    <label>Titlu*</label>
                     <input
                       name="title"
                       placeholder="Ex: BMW X5 xDrive"
@@ -217,7 +250,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Brand</label>
+                    <label>Brand*</label>
                     <input
                       name="brand"
                       placeholder="Ex: BMW"
@@ -227,7 +260,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Model</label>
+                    <label>Model*</label>
                     <input
                       name="model"
                       placeholder="Ex: X5"
@@ -237,7 +270,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>An</label>
+                    <label>Anul Fabricație*</label>
                     <input
                       name="year"
                       type="number"
@@ -248,7 +281,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Preț (€)</label>
+                    <label>Preț (€)*</label>
                     <input
                       name="price"
                       type="number"
@@ -259,7 +292,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Kilometri</label>
+                    <label>Parcurs*</label>
                     <input
                       name="mileage"
                       type="number"
@@ -270,7 +303,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Combustibil</label>
+                    <label>Combustibil*</label>
                     <input
                       name="fuel"
                       placeholder="Ex: Diesel"
@@ -280,7 +313,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Transmisie</label>
+                    <label>Transmisie*</label>
                     <input
                       name="transmission"
                       placeholder="Ex: Automată"
@@ -290,7 +323,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Motor</label>
+                    <label>Motor*</label>
                     <input
                       name="engine"
                       placeholder="Ex: 3.0"
@@ -300,7 +333,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Putere</label>
+                    <label>Putere*</label>
                     <input
                       name="power"
                       placeholder="Ex: 265 CP"
@@ -310,7 +343,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Culoare</label>
+                    <label>Culoare*</label>
                     <input
                       name="color"
                       placeholder="Ex: Negru"
@@ -320,30 +353,111 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field">
-                    <label>Status</label>
-                    <select
-                      name="status"
-                      value={form.status}
-                      onChange={handleChange}
-                    >
-                      <option value="available">Disponibilă</option>
-                      <option value="reserved">Rezervată</option>
-                      <option value="sold">Vândută</option>
-                    </select>
-                  </div>
-
-                  <div className="admin-editcar-field admin-editcar-field-full">
-                    <label>Link imagine</label>
+                    <label>Tracțiune*</label>
                     <input
-                      name="image"
-                      placeholder="https://..."
-                      value={form.image}
+                      name="wheldrive"
+                      placeholder="Ex: 4x4"
+                      value={form.wheldrive}
                       onChange={handleChange}
                     />
                   </div>
 
+                  <div className="admin-editcar-field">
+                    <label>Status*</label>
+                    <div className="select-wrapper">
+                      <select
+                        name="status"
+                        value={form.status}
+                        onChange={(e) => {
+                          handleChange(e);
+                          setIsOpen(false);
+                        }}
+                        onFocus={() => setIsOpen(true)}
+                        onBlur={() => setIsOpen(false)}
+                      >
+                        <option value="available">Disponibilă</option>
+                        <option value="reserved">Rezervată</option>
+                        <option value="sold">Vândută</option>
+                      </select>
+
+                      <span className={`select-arrow ${isOpen ? "open" : ""}`}>
+                        <svg viewBox="0 0 24 24">
+                          <path d="M7 10l5 5 5-5" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+
                   <div className="admin-editcar-field admin-editcar-field-full">
-                    <label>Descriere</label>
+                    <label>Imagini*</label>
+
+                    <div className="file-upload">
+                      <label className="file-upload-label">
+                        Adaugă imagini
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={async (e) => {
+                            const files = e.target.files;
+                            if (!files || files.length === 0) return;
+
+                            try {
+                              setUploading(true);
+                              setError("");
+                              setSuccess("");
+
+                              const filesArray = Array.from(files);
+
+                              const uploadedUrls = await Promise.all(
+                                filesArray.map((file) => uploadImage(file)),
+                              );
+
+                              setForm((prev) => ({
+                                ...prev,
+                                images: [...prev.images, ...uploadedUrls],
+                              }));
+
+                              setFileNames((prev) => [
+                                ...prev,
+                                ...filesArray.map((file) => file.name),
+                              ]);
+
+                              setSuccess(
+                                "Imaginile au fost încărcate cu succes.",
+                              );
+                            } catch (err: any) {
+                              setError(
+                                err.message || "Eroare la upload imagini.",
+                              );
+                            } finally {
+                              setUploading(false);
+
+                              if (fileInputRef.current) {
+                                fileInputRef.current.value = "";
+                              }
+                            }
+                          }}
+                        />
+                      </label>
+
+                      <span className="file-upload-name">
+                        {fileNames.length > 0
+                          ? `${fileNames.length} fișier(e) noi selectat(e)`
+                          : "Poți adăuga imagini noi"}
+                      </span>
+                    </div>
+
+                    {uploading && (
+                      <p style={{ color: "#84b9ff", marginTop: "8px" }}>
+                        Se încarcă imaginile...
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="admin-editcar-field admin-editcar-field-full">
+                    <label>Descriere Auto*</label>
                     <textarea
                       name="description"
                       placeholder="Descriere completă a mașinii..."
@@ -367,7 +481,7 @@ export default function EditCar() {
 
                   <div className="admin-editcar-actions">
                     <Link
-                      to="/admin/cars"
+                      to="/dashboard/cars"
                       className="admin-editcar-secondary-btn link-btn"
                     >
                       Înapoi la listă
@@ -376,9 +490,13 @@ export default function EditCar() {
                     <button
                       type="submit"
                       className="admin-editcar-primary-btn"
-                      disabled={saving}
+                      disabled={saving || uploading}
                     >
-                      {saving ? "Se salvează..." : "Salvează modificările"}
+                      {uploading
+                        ? "Se încarcă imaginile..."
+                        : saving
+                          ? "Se salvează..."
+                          : "Salvează modificările"}
                     </button>
                   </div>
                 </div>
@@ -399,15 +517,37 @@ export default function EditCar() {
               </div>
 
               <div className="admin-editcar-preview-box">
-                <img
-                  src={
-                    form.image?.trim()
-                      ? form.image
-                      : "https://via.placeholder.com/600x380?text=Auto+Preview"
-                  }
-                  alt={form.title || "Preview mașină"}
-                  className="admin-editcar-preview-image"
-                />
+                {form.images.length > 0 ? (
+                  <div className="preview-gallery">
+                    {form.images.map((img, index) => (
+                      <div className="preview-gallery-item" key={index}>
+                        <img
+                          src={img}
+                          alt={`Preview ${index + 1}`}
+                          className="admin-editcar-preview-image"
+                        />
+                        <button
+                          type="button"
+                          className="remove-image-btn"
+                          onClick={() => removeImage(index)}
+                        >
+                          Șterge
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="no-preview">
+                    <div style={{ textAlign: "center" }}>
+                      <p style={{ fontSize: "18px", marginBottom: "6px" }}>
+                        Fără imagini
+                      </p>
+                      <span style={{ fontSize: "13px", opacity: 0.7 }}>
+                        Încarcă una sau mai multe imagini pentru preview
+                      </span>
+                    </div>
+                  </div>
+                )}
 
                 <div className="admin-editcar-preview-content">
                   <h4>{form.title || "Titlul mașinii"}</h4>
@@ -425,6 +565,7 @@ export default function EditCar() {
                     <span>{form.transmission || "Transmisie"}</span>
                     <span>{form.engine || "Motor"}</span>
                     <span>{form.power || "Putere"}</span>
+                    <span>{form.wheldrive || "Tracțiune"}</span>
                   </div>
 
                   <div className="admin-editcar-preview-status-row">
