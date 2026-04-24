@@ -476,7 +476,7 @@ export default function EditCar() {
                       checked={form.featured}
                       onChange={handleChange}
                     />
-                    <span>Marchează ca Featured</span>
+                    <span>Marchează ca Important</span>
                   </label>
 
                   <div className="admin-editcar-actions">
@@ -577,7 +577,7 @@ export default function EditCar() {
 
                     {form.featured && (
                       <span className="admin-editcar-featured-badge">
-                        Featured
+                        Important
                       </span>
                     )}
                   </div>

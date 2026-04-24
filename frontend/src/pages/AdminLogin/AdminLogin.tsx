@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../services/api";
 import "./AdminLogin.css";
-import bgImage from "../../assets/admin-login.png";
+import bgImage from "../../assets/admin-login.jpg";
 
 export default function AdminLogin() {
   useEffect(() => {
@@ -84,6 +84,9 @@ export default function AdminLogin() {
                   <span>{loading ? "Logging in..." : "Log in"}</span>
                   <span>→</span>
                 </button>
+                <Link to="/" className="fresh-auto">
+                  --FreshAuto.md--
+                </Link>
               </div>
             </div>
           </form>

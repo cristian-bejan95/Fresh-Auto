@@ -189,7 +189,7 @@ export default function AdminCarsList() {
                         </span>
 
                         {car.featured && (
-                          <span className="admin-car-featured">Featured</span>
+                          <span className="admin-car-featured">Important</span>
                         )}
                       </div>
 

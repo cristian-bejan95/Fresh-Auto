@@ -447,7 +447,7 @@ export default function AddCar() {
                     checked={form.featured}
                     onChange={handleChange}
                   />
-                  <span>Marchează ca Featured</span>
+                  <span>Marchează ca Important</span>
                 </label>
 
                 <div className="admin-addcar-actions">
@@ -549,7 +549,7 @@ export default function AddCar() {
 
                   {form.featured && (
                     <span className="admin-addcar-featured-badge">
-                      Featured
+                      Important
                     </span>
                   )}
                 </div>

@@ -167,6 +167,17 @@
   font-size: 14px;
 }
 
+.fresh-auto {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 25px;
+  text-transform: uppercase;
+  color: #2bab8b;
+  font-size: 28px;
+  font-weight: 600;
+}
+
 @media (max-width: 892px) {
   .container {
     width: 100%;
