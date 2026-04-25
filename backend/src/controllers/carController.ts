@@ -76,12 +76,33 @@ export async function createCar(req: AuthRequest, res: Response) {
 
 export async function getCars(req: Request, res: Response) {
   try {
-    const cars = await Car.find().sort({ createdAt: -1 });
+    const search = String(req.query.search || "").trim();
+
+    let filter: any = {};
+
+    if (search) {
+      const words = search.split(" ").filter(Boolean);
+
+      filter.$and = words.map((word) => ({
+        $or: [
+          { title: { $regex: word, $options: "i" } },
+          { brand: { $regex: word, $options: "i" } },
+          { model: { $regex: word, $options: "i" } },
+          { fuel: { $regex: word, $options: "i" } },
+          { transmission: { $regex: word, $options: "i" } },
+          { color: { $regex: word, $options: "i" } },
+          { traction: { $regex: word, $options: "i" } },
+          ...(isNaN(Number(word)) ? [] : [{ year: Number(word) }]),
+        ],
+      }));
+    }
+
+    const cars = await Car.find(filter).sort({ createdAt: -1 });
+
     return res.status(200).json(cars);
   } catch (error) {
-    console.error("Eroare getCars:", error);
     return res.status(500).json({
-      message: "Eroare server la încărcarea mașinilor",
+      message: "Eroare la încărcarea mașinilor",
     });
   }
 }

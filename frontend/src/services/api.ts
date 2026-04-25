@@ -39,9 +39,17 @@ export async function createCar(data: any) {
   return result;
 }
 
-export async function getCars() {
-  const res = await fetch(`${API_URL}/api/cars`);
-  return res.json();
+export async function getCars(search = "") {
+  const query = search ? `?search=${encodeURIComponent(search)}` : "";
+
+  const res = await fetch(`${API_URL}/api/cars${query}`);
+  const data = await res.json();
+
+  if (!res.ok) {
+    throw new Error(data.message || "Eroare la încărcarea mașinilor");
+  }
+
+  return data;
 }
 
 export async function getCarById(id: string) {
