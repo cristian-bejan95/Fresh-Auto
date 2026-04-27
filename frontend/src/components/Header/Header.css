@@ -57,7 +57,7 @@
 }
 
 .social-icons a:hover {
-  background: #27b891;
+  background: #05a526;
   color: #fff;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .lang-toggle button.active {
-  background: #27b891;
+  background: #05a526;
   color: #fff;
 }
 
@@ -143,7 +143,7 @@
 }
 
 .favorit:hover {
-  color: #27b891;
+  color: #05a526;
 }
 
 .phone-top {
@@ -156,7 +156,7 @@
 
 .phone-icon-top {
   font-size: 14px;
-  fill: #27b891;
+  fill: #05a526;
 }
 
 .header-main {
@@ -183,7 +183,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #27b891;
+  background: #05a526;
   color: #07192b;
 }
 
@@ -202,7 +202,7 @@
 
 .nav-menu a:hover,
 .nav-menu a.active {
-  color: #27b891;
+  color: #05a526;
 }
 
 .menu-grid-btn {
@@ -210,7 +210,7 @@
   height: 52px;
   border: none;
   border-radius: 14px;
-  background: #27b891;
+  background: #05a526;
   color: #07192b;
   font-size: 24px;
   font-weight: 900;
@@ -248,70 +248,14 @@
   }
 }
 
-.header-search {
-  position: relative;
-  width: 250px;
-  z-index: 999;
-}
-
-.header-search-box {
-  position: relative;
-  z-index: 1002;
-  height: 40px;
+.call-btn.full {
+  width: 100%;
+  background: #05a526;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
   border-radius: 4px;
-  background: #fff;
   display: flex;
   align-items: center;
-  padding: 0 22px;
-  gap: 12px;
-}
-
-.header-search-box input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #777;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.header-search-box input::placeholder {
-  color: #777;
-}
-
-.search-icon-loop {
-  color: #363636;
-  font-size: 24px;
-  flex-shrink: 0;
-}
-
-.search-dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  width: 100%;
-  min-height: 120px;
-  background: #fff;
-  color: #6b7280;
-  border-radius: 18px;
-  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
-  z-index: 1002;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-dropdown p {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.search-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 1000;
+  gap: 7px;
 }

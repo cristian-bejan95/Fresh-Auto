@@ -6,12 +6,10 @@ import { FaFacebookF, FaInstagram, FaPhoneAlt } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
 import { LuSunMedium } from "react-icons/lu";
-import { CiSearch } from "react-icons/ci";
+import { FiPhone } from "react-icons/fi";
 
 export default function Header() {
   const [lang, setLang] = useState<"ro" | "ru">("ro");
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
   const [themeActive, setThemeActive] = useState(false);
 
   return (
@@ -79,33 +77,11 @@ export default function Header() {
           <NavLink to="/contacts">Contacte</NavLink>
         </nav>
 
-        <div className="header-search">
-          <div className="header-search-box">
-            <input
-              type="text"
-              placeholder="Caută mașină"
-              value={searchValue}
-              onFocus={() => setSearchOpen(true)}
-              onChange={(e) => {
-                setSearchValue(e.target.value);
-                setSearchOpen(true);
-              }}
-            />
-            <CiSearch className="search-icon-loop" />
-          </div>
-
-          {searchOpen && (
-            <div className="search-dropdown">
-              <p>Nici o mașină găsită</p>
-            </div>
-          )}
-
-          {searchOpen && (
-            <div
-              className="search-backdrop"
-              onClick={() => setSearchOpen(false)}
-            />
-          )}
+        <div className="search-box">
+          <a href="tel:+3736000000" className="call-btn full">
+            <FiPhone />
+            <span>Sună acum</span>
+          </a>
         </div>
       </div>
     </header>

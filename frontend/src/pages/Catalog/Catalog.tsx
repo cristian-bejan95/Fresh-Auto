@@ -102,30 +102,11 @@ function FilterSelect({
 
 function CatalogCarCard({ car }: { car: Car }) {
   const hasDiscount = car.oldPrice && car.oldPrice > car.price;
-  console.log(car.price, car.oldPrice);
-  const [activeImage, setActiveImage] = useState(0);
   const [favorite, setFavorite] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const images = car.images || [];
-  const currentImage = images[activeImage];
-
-  const nextImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (images.length <= 1) return;
-
-    setActiveImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
-
-  const prevImage = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (images.length <= 1) return;
-
-    setActiveImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+  const images = (car.images || []).slice(0, 5);
+  const currentImage = images[currentIndex];
 
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -135,7 +116,27 @@ function CatalogCarCard({ car }: { car: Car }) {
 
   return (
     <article className="premium-car-card">
-      <Link to={`/cars/${car._id}`} className="premium-card-image">
+      <Link
+        to={`/cars/${car._id}`}
+        className="premium-card-image"
+        onMouseMove={(e) => {
+          if (images.length <= 1) return;
+
+          const rect = e.currentTarget.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const percent = x / rect.width;
+
+          const newIndex = Math.floor(percent * images.length);
+          const safeIndex = Math.min(images.length - 1, Math.max(0, newIndex));
+
+          if (safeIndex !== currentIndex) {
+            setCurrentIndex(safeIndex);
+          }
+        }}
+        onMouseLeave={() => {
+          setCurrentIndex(0);
+        }}
+      >
         {car.status === "discount" && (
           <span className="badge-diagonal-green">Promoție</span>
         )}
@@ -146,9 +147,7 @@ function CatalogCarCard({ car }: { car: Car }) {
           <div className="premium-no-image">Fără imagine</div>
         )}
 
-        {car.oldPrice && car.oldPrice < car.price && (
-          <span className="premium-badge">Reducere</span>
-        )}
+        {hasDiscount && <span className="premium-badge">Reducere</span>}
 
         <button
           type="button"
@@ -159,15 +158,26 @@ function CatalogCarCard({ car }: { car: Car }) {
         </button>
 
         {images.length > 1 && (
-          <>
-            <button className="premium-slider-btn prev" onClick={prevImage}>
-              ‹
-            </button>
-
-            <button className="premium-slider-btn next" onClick={nextImage}>
-              ›
-            </button>
-          </>
+          <div className="premium-slider-dots">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                className={`premium-slider-dot ${
+                  index === currentIndex ? "active" : ""
+                }`}
+                onMouseEnter={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setCurrentIndex(index);
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              />
+            ))}
+          </div>
         )}
       </Link>
 
@@ -245,6 +255,7 @@ function Catalog() {
     { name: "Mitsubishi", icon: <SiMitsubishi /> },
     { name: "Peugeot", icon: <SiPeugeot /> },
   ];
+
   const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
   const [brand, setBrand] = useState("");
@@ -262,10 +273,15 @@ function Catalog() {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [openSort, setOpenSort] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const carsPerPage = 4;
+
   const brandTabsRef = useRef<HTMLDivElement | null>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
+
   const loadCars = async (searchText = "") => {
     try {
       setLoading(true);
@@ -355,6 +371,7 @@ function Catalog() {
     if (sort === "price-asc") result.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") result.sort((a, b) => b.price - a.price);
     if (sort === "km-asc") result.sort((a, b) => a.mileage - b.mileage);
+    if (sort === "km-desc") result.sort((a, b) => b.mileage - a.mileage);
 
     return result;
   }, [
@@ -372,7 +389,40 @@ function Catalog() {
     priceMin,
     priceMax,
     sort,
+    search,
   ]);
+
+  const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+
+  const paginatedCars = filteredCars.slice(
+    (currentPage - 1) * carsPerPage,
+    currentPage * carsPerPage,
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [
+    brand,
+    model,
+    yearFrom,
+    yearTo,
+    fuel,
+    transmission,
+    wheldrive,
+    color,
+    kmFrom,
+    kmTo,
+    priceMin,
+    priceMax,
+    sort,
+    search,
+  ]);
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, totalPages]);
 
   const resetFilters = () => {
     setSearch("");
@@ -389,6 +439,7 @@ function Catalog() {
     setPriceMin("");
     setPriceMax("");
     setSort("");
+    setCurrentPage(1);
     loadCars("");
     window.scrollTo(0, 0);
   };
@@ -558,6 +609,7 @@ function Catalog() {
                     onChange={(e) => {
                       const value = e.target.value;
                       setSearch(value);
+                      setCurrentPage(1);
                       loadCars(value);
                     }}
                     placeholder="Caută marcă, model"
@@ -573,6 +625,7 @@ function Catalog() {
                 </button>
               </div>
             </div>
+
             <div
               className="brand-tabs"
               ref={brandTabsRef}
@@ -610,6 +663,7 @@ function Catalog() {
 
                     setBrand(item.name);
                     setModel("");
+                    setCurrentPage(1);
 
                     e.currentTarget.scrollIntoView({
                       behavior: "smooth",
@@ -634,6 +688,7 @@ function Catalog() {
                 onBlur={() => setOpenSort(false)}
                 onChange={(e) => {
                   setSort(e.target.value);
+                  setCurrentPage(1);
                   setOpenSort(false);
                 }}
               >
@@ -658,11 +713,53 @@ function Catalog() {
           ) : filteredCars.length === 0 ? (
             <p className="catalog-empty">Nu am găsit mașini.</p>
           ) : (
-            <section className="catalog-grid-light">
-              {filteredCars.map((car) => (
-                <CatalogCarCard car={car} key={car._id} />
-              ))}
-            </section>
+            <>
+              <section className="catalog-grid-light">
+                {paginatedCars.map((car) => (
+                  <CatalogCarCard car={car} key={car._id} />
+                ))}
+              </section>
+
+              {totalPages > 1 && (
+                <div className="catalog-pagination">
+                  <button
+                    type="button"
+                    disabled={currentPage === 1}
+                    onClick={() => {
+                      setCurrentPage((prev) => prev - 1);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  >
+                    ‹
+                  </button>
+
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className={currentPage === index + 1 ? "active" : ""}
+                      onClick={() => {
+                        setCurrentPage(index + 1);
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+
+                  <button
+                    type="button"
+                    disabled={currentPage === totalPages}
+                    onClick={() => {
+                      setCurrentPage((prev) => prev + 1);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                  >
+                    ›
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </main>
