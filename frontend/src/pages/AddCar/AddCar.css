@@ -377,6 +377,16 @@
   color: #ff9f9f;
 }
 
+.admin-addcar-status.discount {
+  background: linear-gradient(
+    117deg,
+    rgba(42, 168, 126, 1) 0%,
+    rgba(41, 166, 122, 1) 58%,
+    rgba(62, 168, 136, 1) 100%
+  );
+  color: #ffffff;
+}
+
 .admin-addcar-featured-badge {
   background: rgba(89, 119, 255, 0.18);
   color: #a8bbff;
@@ -525,29 +535,26 @@
 
 .select-wrapper select {
   width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  padding-right: 42px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 19, 34, 0.7);
+  color: #fff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  outline: none;
+  transition: 0.2s ease;
+  font-size: 15px;
 }
 
-.select-arrow {
+/* .select-plus {
   position: absolute;
-  right: 18px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
+  font-size: 20px;
+  font-weight: 900;
+  color: #9fb3c8;
   pointer-events: none;
-}
-
-.select-arrow svg {
-  width: 18px;
-  height: 18px;
-  stroke: #ffffff;
-  stroke-width: 2;
-  fill: none;
   transition: 0.2s ease;
 }
-
-.select-arrow.open svg {
-  transform: rotate(180deg);
-}
+ */

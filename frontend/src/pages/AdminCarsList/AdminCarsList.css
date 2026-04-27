@@ -321,6 +321,16 @@
   color: #ff9f9f;
 }
 
+.admin-car-status.discount {
+  background: linear-gradient(
+    117deg,
+    rgba(42, 168, 126, 1) 0%,
+    rgba(41, 166, 122, 1) 58%,
+    rgba(62, 168, 136, 1) 100%
+  );
+  color: #ffffff;
+}
+
 .admin-car-featured {
   background: rgba(89, 119, 255, 0.18);
   color: #a8bbff;

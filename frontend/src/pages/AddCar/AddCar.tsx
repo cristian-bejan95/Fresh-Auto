@@ -10,6 +10,7 @@ type CarForm = {
   model: string;
   year: string;
   price: string;
+  oldPrice: string;
   mileage: string;
   fuel: string;
   transmission: string;
@@ -19,7 +20,7 @@ type CarForm = {
   wheldrive: string;
   description: string;
   images: string[];
-  status: "available" | "reserved" | "sold";
+  status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
 };
 
@@ -32,6 +33,7 @@ export default function AddCar() {
     model: "",
     year: "",
     price: "",
+    oldPrice: "",
     mileage: "",
     fuel: "",
     transmission: "",
@@ -53,9 +55,9 @@ export default function AddCar() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
   const [fileNames, setFileNames] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [openSelect, setOpenSelect] = useState<string | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -91,6 +93,7 @@ export default function AddCar() {
       model: "",
       year: "",
       price: "",
+      oldPrice: "",
       mileage: "",
       fuel: "",
       transmission: "",
@@ -139,6 +142,7 @@ export default function AddCar() {
         model: form.model,
         year: Number(form.year),
         price: Number(form.price),
+        oldPrice: form.oldPrice ? Number(form.oldPrice) : undefined,
         mileage: Number(form.mileage),
         fuel: form.fuel,
         transmission: form.transmission,
@@ -334,28 +338,36 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field">
+                  <label>Preț Vechi (€)</label>
+                  <input
+                    name="oldPrice"
+                    type="number"
+                    placeholder="Ex: 35000"
+                    value={form.oldPrice}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div className="admin-addcar-field">
                   <label>Status*</label>
+
                   <div className="select-wrapper">
                     <select
                       name="status"
                       value={form.status}
-                      onChange={(e) => {
-                        handleChange(e);
-                        setIsOpen(false); // 👈 închide după selectare
-                      }}
-                      onFocus={() => setIsOpen(true)}
-                      onBlur={() => setIsOpen(false)}
+                      onChange={handleChange}
+                      onFocus={() => setOpenSelect("status")}
+                      onBlur={() => setOpenSelect(null)}
                     >
                       <option value="available">Disponibilă</option>
                       <option value="reserved">Rezervată</option>
                       <option value="sold">Vândută</option>
+                      <option value="discount">Reducere</option>
                     </select>
 
-                    <span className={`select-arrow ${isOpen ? "open" : ""}`}>
-                      <svg viewBox="0 0 24 24">
-                        <path d="M7 10l5 5 5-5" />
-                      </svg>
-                    </span>
+                    {/*  <span className="select-plus">
+                      {openSelect === "status" ? "−" : "+"}
+                    </span> */}
                   </div>
                 </div>
 
@@ -545,6 +557,7 @@ export default function AddCar() {
                     {form.status === "available" && "Disponibilă"}
                     {form.status === "reserved" && "Rezervată"}
                     {form.status === "sold" && "Vândută"}
+                    {form.status === "discount" && "Reducere"}
                   </span>
 
                   {form.featured && (

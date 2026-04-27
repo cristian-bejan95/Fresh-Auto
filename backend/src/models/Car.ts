@@ -6,6 +6,7 @@ export interface ICar {
   model: string;
   year: number;
   price: number;
+  oldPrice?: number;
   mileage: number;
   fuel: string;
   transmission: string;
@@ -15,7 +16,7 @@ export interface ICar {
   wheldrive: string;
   description: string;
   images: string[];
-  status: "available" | "reserved" | "sold";
+  status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
 }
 
@@ -43,6 +44,10 @@ const carSchema = new Schema<ICar>(
     price: {
       type: Number,
       required: true,
+    },
+    oldPrice: {
+      type: Number,
+      default: undefined,
     },
     mileage: {
       type: Number,
@@ -82,7 +87,7 @@ const carSchema = new Schema<ICar>(
     },
     status: {
       type: String,
-      enum: ["available", "reserved", "sold"],
+      enum: ["available", "reserved", "sold", "discount"],
       default: "available",
     },
     featured: {

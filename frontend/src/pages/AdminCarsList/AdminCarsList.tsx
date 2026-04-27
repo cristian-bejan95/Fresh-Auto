@@ -20,7 +20,7 @@ type Car = {
   wheldrive: string;
   description: string;
   images: string[];
-  status: "available" | "reserved" | "sold";
+  status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
 };
 
@@ -186,6 +186,7 @@ export default function AdminCarsList() {
                           {car.status === "available" && "Disponibilă"}
                           {car.status === "reserved" && "Rezervată"}
                           {car.status === "sold" && "Vândută"}
+                          {car.status === "discount" && "Reducere"}
                         </span>
 
                         {car.featured && (

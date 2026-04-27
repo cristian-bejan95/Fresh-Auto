@@ -1,9 +1,35 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import { getCars } from "../../services/api";
 import "./Catalog.css";
 import { CiSearch } from "react-icons/ci";
+import { TbBrandMercedes } from "react-icons/tb";
+import { GrFavorite } from "react-icons/gr";
+import { GiGearStickPattern } from "react-icons/gi";
+import { MdSpeed } from "react-icons/md";
+import { TbEngine } from "react-icons/tb";
+import { BsFuelPumpFill } from "react-icons/bs";
+import {
+  SiBmw,
+  SiRenault,
+  SiToyota,
+  SiVolkswagen,
+  SiAudi,
+  SiFord,
+  SiSkoda,
+  SiNissan,
+  SiKia,
+  SiDacia,
+  SiHyundai,
+  SiVolvo,
+  SiTesla,
+  SiHonda,
+  SiMazda,
+  SiMitsubishi,
+  SiPeugeot,
+  SiPorsche,
+} from "react-icons/si";
 
 type Car = {
   _id: string;
@@ -12,6 +38,7 @@ type Car = {
   model: string;
   year: number;
   price: number;
+  oldPrice?: number;
   mileage: number;
   fuel: string;
   transmission: string;
@@ -20,14 +47,206 @@ type Car = {
   color: string;
   wheldrive?: string;
   images: string[];
-  status: "available" | "reserved" | "sold";
+  status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
 };
 
+type FilterSelectProps = {
+  label: string;
+  value: string;
+  placeholder: string;
+  options: string[];
+  onChange: (value: string) => void;
+  disabled?: boolean;
+};
+
+function FilterSelect({
+  label,
+  value,
+  placeholder,
+  options,
+  onChange,
+  disabled = false,
+}: FilterSelectProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="filter-field">
+      <label>{label}</label>
+
+      <div className="select-inner">
+        <select
+          value={value}
+          disabled={disabled}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
+          onChange={(e) => {
+            onChange(e.target.value);
+            setOpen(false);
+          }}
+        >
+          <option value="">{placeholder}</option>
+
+          {options.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+
+        <span className="select-plus">{open ? "−" : "+"}</span>
+      </div>
+    </div>
+  );
+}
+
+function CatalogCarCard({ car }: { car: Car }) {
+  const hasDiscount = car.oldPrice && car.oldPrice > car.price;
+  console.log(car.price, car.oldPrice);
+  const [activeImage, setActiveImage] = useState(0);
+  const [favorite, setFavorite] = useState(false);
+
+  const images = car.images || [];
+  const currentImage = images[activeImage];
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (images.length <= 1) return;
+
+    setActiveImage((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (images.length <= 1) return;
+
+    setActiveImage((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const toggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setFavorite((prev) => !prev);
+  };
+
+  return (
+    <article className="premium-car-card">
+      <Link to={`/cars/${car._id}`} className="premium-card-image">
+        {car.status === "discount" && (
+          <span className="badge-diagonal-green">Promoție</span>
+        )}
+
+        {currentImage ? (
+          <img src={currentImage} alt={car.title} />
+        ) : (
+          <div className="premium-no-image">Fără imagine</div>
+        )}
+
+        {car.oldPrice && car.oldPrice < car.price && (
+          <span className="premium-badge">Reducere</span>
+        )}
+
+        <button
+          type="button"
+          className={`premium-favorite ${favorite ? "active" : ""}`}
+          onClick={toggleFavorite}
+        >
+          <GrFavorite />
+        </button>
+
+        {images.length > 1 && (
+          <>
+            <button className="premium-slider-btn prev" onClick={prevImage}>
+              ‹
+            </button>
+
+            <button className="premium-slider-btn next" onClick={nextImage}>
+              ›
+            </button>
+          </>
+        )}
+      </Link>
+
+      <div className="premium-card-body">
+        <div className="premium-card-title-row">
+          <h3>{car.title}</h3>
+          <span>{car.year}</span>
+        </div>
+
+        <div className="car-specs-box">
+          <div className="spec-box-item">
+            <GiGearStickPattern />
+            <span>{car.transmission}</span>
+          </div>
+
+          <div className="spec-box-item">
+            <TbEngine />
+            <span>{car.engine}</span>
+          </div>
+
+          <div className="spec-box-item">
+            <MdSpeed />
+            <span>{car.mileage.toLocaleString("ro-RO")} km</span>
+          </div>
+
+          <div className="spec-box-item">
+            <BsFuelPumpFill />
+            <span>{car.fuel}</span>
+          </div>
+        </div>
+
+        <div className="premium-card-bottom">
+          <div className="price-sale-box">
+            <strong className="price-main">
+              {car.price.toLocaleString("ro-RO")}€
+            </strong>
+
+            {hasDiscount && (
+              <span className="price-old">
+                {car.oldPrice!.toLocaleString("ro-RO")}€
+              </span>
+            )}
+          </div>
+
+          <div className="price-month-box">
+            <span>Rată de la</span>
+            <strong>{Math.round(car.price / 60)}€</strong>
+            <small>/lună</small>
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function Catalog() {
+  const brandTabs = [
+    { name: "Mercedes-Benz", icon: <TbBrandMercedes /> },
+    { name: "BMW", icon: <SiBmw /> },
+    { name: "Skoda", icon: <SiSkoda /> },
+    { name: "Toyota", icon: <SiToyota /> },
+    { name: "Honda", icon: <SiHonda /> },
+    { name: "Audi", icon: <SiAudi /> },
+    { name: "Volkswagen", icon: <SiVolkswagen /> },
+    { name: "Dacia", icon: <SiDacia /> },
+    { name: "Ford", icon: <SiFord /> },
+    { name: "Nissan", icon: <SiNissan /> },
+    { name: "Kia", icon: <SiKia /> },
+    { name: "Volvo", icon: <SiVolvo /> },
+    { name: "Porsche", icon: <SiPorsche /> },
+    { name: "Mazda", icon: <SiMazda /> },
+    { name: "Renault", icon: <SiRenault /> },
+    { name: "Hyundai", icon: <SiHyundai /> },
+    { name: "Tesla", icon: <SiTesla /> },
+    { name: "Mitsubishi", icon: <SiMitsubishi /> },
+    { name: "Peugeot", icon: <SiPeugeot /> },
+  ];
   const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
-
   const [brand, setBrand] = useState("");
   const [model, setModel] = useState("");
   const [yearFrom, setYearFrom] = useState("");
@@ -40,8 +259,13 @@ function Catalog() {
   const [kmTo, setKmTo] = useState("");
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
-  const [sort, setSort] = useState("newest");
+  const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
+  const [openSort, setOpenSort] = useState(false);
+  const brandTabsRef = useRef<HTMLDivElement | null>(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
   const loadCars = async (searchText = "") => {
     try {
       setLoading(true);
@@ -79,8 +303,11 @@ function Catalog() {
     [cars],
   );
 
-  const tractions = useMemo(
-    () => [...new Set(cars.map((car) => car.wheldrive).filter(Boolean))],
+  const wheldrives = useMemo(
+    () =>
+      [
+        ...new Set(cars.map((car) => car.wheldrive).filter(Boolean)),
+      ] as string[],
     [cars],
   );
 
@@ -161,7 +388,7 @@ function Catalog() {
     setKmTo("");
     setPriceMin("");
     setPriceMax("");
-    setSort("newest");
+    setSort("");
     loadCars("");
     window.scrollTo(0, 0);
   };
@@ -173,10 +400,19 @@ function Catalog() {
       <main className="catalog-page-light">
         <div className="catalog-container">
           <div className="catalog-breadcrumb-row">
-            <p>
-              <Link to="/">Home</Link> » Catalog
-            </p>
-            <span>
+            <nav className="breadcrumb" aria-label="Breadcrumb">
+              <Link to="/" className="breadcrumb-link">
+                Home
+              </Link>
+
+              <span className="breadcrumb-separator" aria-hidden="true">
+                ›
+              </span>
+
+              <span className="breadcrumb-current">Catalog</span>
+            </nav>
+
+            <span className="catalog-results-count">
               Afișez {filteredCars.length} din {cars.length} rezultate
             </span>
           </div>
@@ -184,59 +420,43 @@ function Catalog() {
           <section className="catalog-filter-panel">
             <div className="filter-grid">
               <div className="filter-field">
-                <label>Marca</label>
-                <select
+                <FilterSelect
+                  label="Marca"
                   value={brand}
-                  onChange={(e) => {
-                    setBrand(e.target.value);
+                  placeholder="Selectează"
+                  options={brands}
+                  onChange={(value) => {
+                    setBrand(value);
                     setModel("");
                   }}
-                >
-                  <option value="">Selectează</option>
-                  {brands.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                />
               </div>
 
               <div className="filter-field">
-                <label>Model</label>
-                <select
+                <FilterSelect
+                  label="Model"
                   value={model}
-                  onChange={(e) => setModel(e.target.value)}
-                  disabled={!brand} // 🔥 cheia
-                >
-                  <option value="">
-                    {brand ? "Alege modelul" : "Selectează Marca"}
-                  </option>
-
-                  {models
-                    .filter((item) => {
-                      if (!brand) return false;
-                      return cars.find(
-                        (car) => car.model === item && car.brand === brand,
-                      );
-                    })
-                    .map((item) => (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    ))}
-                </select>
+                  placeholder={
+                    brand ? "Alege modelul" : "Selectează marca întâi"
+                  }
+                  options={models.filter((item) =>
+                    cars.some(
+                      (car) => car.brand === brand && car.model === item,
+                    ),
+                  )}
+                  onChange={setModel}
+                  disabled={!brand}
+                />
               </div>
 
               <div className="filter-field">
-                <label>Carburant</label>
-                <select value={fuel} onChange={(e) => setFuel(e.target.value)}>
-                  <option value="">Selectează</option>
-                  {fuels.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                <FilterSelect
+                  label="Carburant"
+                  value={fuel}
+                  placeholder="Selectează"
+                  options={fuels}
+                  onChange={setFuel}
+                />
               </div>
 
               <div className="filter-field small">
@@ -250,7 +470,7 @@ function Catalog() {
               </div>
 
               <div className="filter-field small">
-                <label>An până la</label>
+                <label>An pînă la</label>
                 <input
                   type="number"
                   value={yearTo}
@@ -260,67 +480,52 @@ function Catalog() {
               </div>
 
               <div className="filter-field">
-                <label>Transmisie</label>
-                <select
+                <FilterSelect
+                  label="Transmisie"
                   value={transmission}
-                  onChange={(e) => setTransmission(e.target.value)}
-                >
-                  <option value="">Selectează</option>
-                  {transmissions.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Selectează"
+                  options={transmissions}
+                  onChange={setTransmission}
+                />
               </div>
 
               <div className="filter-field">
-                <label>Tracțiune</label>
-                <select
+                <FilterSelect
+                  label="Tracțiune"
                   value={wheldrive}
-                  onChange={(e) => setwheldrive(e.target.value)}
-                >
-                  <option value="">Selectează</option>
-                  {tractions.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
+                  placeholder="Selectează"
+                  options={wheldrives}
+                  onChange={setwheldrive}
+                />
               </div>
 
               <div className="filter-field">
-                <label>Culoare</label>
-                <select
+                <FilterSelect
+                  label="Culoare"
                   value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                >
-                  <option value="">Selectează</option>
-                  {colors.map((item) => (
-                    <option key={item} value={item}>
-                      {item}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="filter-field small">
-                <label>KM de la</label>
-                <input
-                  type="number"
-                  value={kmFrom}
-                  onChange={(e) => setKmFrom(e.target.value)}
-                  placeholder="1"
+                  placeholder="Selectează"
+                  options={colors}
+                  onChange={setColor}
                 />
               </div>
 
               <div className="filter-field small">
-                <label>KM până la</label>
+                <label>Rulaja de la</label>
+                <input
+                  type="number"
+                  value={kmFrom}
+                  onChange={(e) => setKmFrom(e.target.value)}
+                  placeholder="1 Km"
+                />
+              </div>
+
+              <div className="filter-field small">
+                <label>Rulaj până la</label>
                 <input
                   type="number"
                   value={kmTo}
                   onChange={(e) => setKmTo(e.target.value)}
-                  placeholder="500.000"
+                  placeholder="500000 Km"
                 />
               </div>
 
@@ -355,7 +560,7 @@ function Catalog() {
                       setSearch(value);
                       loadCars(value);
                     }}
-                    placeholder="Caută mașină"
+                    placeholder="Caută marcă, model"
                   />
                   <CiSearch className="search-icon-loop" />
                 </div>
@@ -368,25 +573,84 @@ function Catalog() {
                 </button>
               </div>
             </div>
+            <div
+              className="brand-tabs"
+              ref={brandTabsRef}
+              onMouseDown={(e) => {
+                if (!brandTabsRef.current) return;
 
-            <div className="filter-bottom-row">
-              <p>
-                ⚠ În cazul în care nu apar rezultate, te rugăm să elimini din
-                filtre.
-              </p>
+                isDragging.current = true;
+                startX.current = e.pageX - brandTabsRef.current.offsetLeft;
+                scrollLeft.current = brandTabsRef.current.scrollLeft;
+              }}
+              onMouseMove={(e) => {
+                if (!isDragging.current || !brandTabsRef.current) return;
+
+                e.preventDefault();
+
+                const x = e.pageX - brandTabsRef.current.offsetLeft;
+                const walk = (x - startX.current) * 1.5;
+
+                brandTabsRef.current.scrollLeft = scrollLeft.current - walk;
+              }}
+              onMouseUp={() => {
+                isDragging.current = false;
+              }}
+              onMouseLeave={() => {
+                isDragging.current = false;
+              }}
+            >
+              {brandTabs.map((item) => (
+                <button
+                  key={item.name}
+                  type="button"
+                  className={`brand-tab ${brand === item.name ? "active" : ""}`}
+                  onClick={(e) => {
+                    if (isDragging.current) return;
+
+                    setBrand(item.name);
+                    setModel("");
+
+                    e.currentTarget.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "center",
+                      block: "nearest",
+                    });
+                  }}
+                  title={item.name}
+                >
+                  {item.icon}
+                </button>
+              ))}
             </div>
           </section>
 
           <section className="catalog-list-header">
-            <h1>Toate mașinile</h1>
+            <h1>Toate Automobilele</h1>
+            <div className="select-inner">
+              <select
+                value={sort}
+                onFocus={() => setOpenSort(true)}
+                onBlur={() => setOpenSort(false)}
+                onChange={(e) => {
+                  setSort(e.target.value);
+                  setOpenSort(false);
+                }}
+              >
+                <option value="" disabled>
+                  Sortează după
+                </option>
 
-            <select value={sort} onChange={(e) => setSort(e.target.value)}>
-              <option value="newest">Cele mai noi</option>
-              <option value="oldest">Cele mai vechi</option>
-              <option value="price-asc">Preț crescător</option>
-              <option value="price-desc">Preț descrescător</option>
-              <option value="km-asc">Kilometri puțini</option>
-            </select>
+                <option value="newest">Cele mai noi</option>
+                <option value="oldest">Cele mai vechi</option>
+                <option value="price-asc">Preț crescător</option>
+                <option value="price-desc">Preț descrescător</option>
+                <option value="km-asc">Kilometraj crescător</option>
+                <option value="km-desc">Kilometraj descrescător</option>
+              </select>
+
+              <span className="select-plus">{openSort ? "−" : "+"}</span>
+            </div>
           </section>
 
           {loading ? (
@@ -396,37 +660,7 @@ function Catalog() {
           ) : (
             <section className="catalog-grid-light">
               {filteredCars.map((car) => (
-                <article className="catalog-card-light" key={car._id}>
-                  <Link to={`/cars/${car._id}`} className="catalog-image-light">
-                    {car.images?.[0] ? (
-                      <img src={car.images[0]} alt={car.title} />
-                    ) : (
-                      <div className="catalog-no-image">Fără imagine</div>
-                    )}
-
-                    {car.featured && (
-                      <span className="featured-label">Important</span>
-                    )}
-                  </Link>
-
-                  <div className="catalog-card-light-body">
-                    <div className="catalog-title-line">
-                      <h3>{car.title}</h3>
-                      <span>{car.year}</span>
-                    </div>
-
-                    <p>
-                      {car.mileage.toLocaleString("ro-RO")} km, {car.engine},{" "}
-                      {car.fuel}, {car.transmission}
-                      {car.wheldrive ? `, ${car.wheldrive}` : ""}
-                    </p>
-
-                    <div className="catalog-card-bottom-line">
-                      <strong>{car.price.toLocaleString("ro-RO")}€</strong>
-                      <Link to={`/cars/${car._id}`}>Detalii</Link>
-                    </div>
-                  </div>
-                </article>
+                <CatalogCarCard car={car} key={car._id} />
               ))}
             </section>
           )}

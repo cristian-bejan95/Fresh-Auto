@@ -21,6 +21,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       images,
       status,
       featured,
+      oldPrice,
     } = req.body;
 
     if (
@@ -49,6 +50,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       model,
       year,
       price,
+      oldPrice,
       mileage,
       fuel,
       transmission,
@@ -180,6 +182,7 @@ export async function getCarStats(req: Request, res: Response) {
     const available = cars.filter((car) => car.status === "available").length;
     const reserved = cars.filter((car) => car.status === "reserved").length;
     const sold = cars.filter((car) => car.status === "sold").length;
+    const discount = cars.filter((car) => car.status === "discount").length;
 
     const recentCars = cars.slice(0, 5);
 
@@ -188,6 +191,7 @@ export async function getCarStats(req: Request, res: Response) {
       available,
       reserved,
       sold,
+      discount,
       recentCars,
     });
   } catch (error) {
