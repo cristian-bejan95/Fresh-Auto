@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import { getCars } from "../../services/api";
 import "./Catalog.css";
 import { CiSearch } from "react-icons/ci";
@@ -10,6 +11,7 @@ import { GiGearStickPattern } from "react-icons/gi";
 import { MdSpeed } from "react-icons/md";
 import { TbEngine } from "react-icons/tb";
 import { BsFuelPumpFill } from "react-icons/bs";
+import { FiRefreshCw } from "react-icons/fi";
 import {
   SiBmw,
   SiRenault,
@@ -273,15 +275,11 @@ function Catalog() {
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [openSort, setOpenSort] = useState(false);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const carsPerPage = 4;
-
   const brandTabsRef = useRef<HTMLDivElement | null>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
-
+  const [visibleCount, setVisibleCount] = useState(12);
   const loadCars = async (searchText = "") => {
     try {
       setLoading(true);
@@ -371,7 +369,6 @@ function Catalog() {
     if (sort === "price-asc") result.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") result.sort((a, b) => b.price - a.price);
     if (sort === "km-asc") result.sort((a, b) => a.mileage - b.mileage);
-    if (sort === "km-desc") result.sort((a, b) => b.mileage - a.mileage);
 
     return result;
   }, [
@@ -389,40 +386,7 @@ function Catalog() {
     priceMin,
     priceMax,
     sort,
-    search,
   ]);
-
-  const totalPages = Math.ceil(filteredCars.length / carsPerPage);
-
-  const paginatedCars = filteredCars.slice(
-    (currentPage - 1) * carsPerPage,
-    currentPage * carsPerPage,
-  );
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [
-    brand,
-    model,
-    yearFrom,
-    yearTo,
-    fuel,
-    transmission,
-    wheldrive,
-    color,
-    kmFrom,
-    kmTo,
-    priceMin,
-    priceMax,
-    sort,
-    search,
-  ]);
-
-  useEffect(() => {
-    if (currentPage > totalPages && totalPages > 0) {
-      setCurrentPage(1);
-    }
-  }, [currentPage, totalPages]);
 
   const resetFilters = () => {
     setSearch("");
@@ -439,7 +403,6 @@ function Catalog() {
     setPriceMin("");
     setPriceMax("");
     setSort("");
-    setCurrentPage(1);
     loadCars("");
     window.scrollTo(0, 0);
   };
@@ -609,7 +572,6 @@ function Catalog() {
                     onChange={(e) => {
                       const value = e.target.value;
                       setSearch(value);
-                      setCurrentPage(1);
                       loadCars(value);
                     }}
                     placeholder="Caută marcă, model"
@@ -625,7 +587,6 @@ function Catalog() {
                 </button>
               </div>
             </div>
-
             <div
               className="brand-tabs"
               ref={brandTabsRef}
@@ -663,7 +624,6 @@ function Catalog() {
 
                     setBrand(item.name);
                     setModel("");
-                    setCurrentPage(1);
 
                     e.currentTarget.scrollIntoView({
                       behavior: "smooth",
@@ -688,7 +648,6 @@ function Catalog() {
                 onBlur={() => setOpenSort(false)}
                 onChange={(e) => {
                   setSort(e.target.value);
-                  setCurrentPage(1);
                   setOpenSort(false);
                 }}
               >
@@ -713,56 +672,28 @@ function Catalog() {
           ) : filteredCars.length === 0 ? (
             <p className="catalog-empty">Nu am găsit mașini.</p>
           ) : (
-            <>
-              <section className="catalog-grid-light">
-                {paginatedCars.map((car) => (
-                  <CatalogCarCard car={car} key={car._id} />
-                ))}
-              </section>
+            <section className="catalog-grid-light">
+              {filteredCars.slice(0, visibleCount).map((car) => (
+                <CatalogCarCard car={car} key={car._id} />
+              ))}
+            </section>
+          )}
 
-              {totalPages > 1 && (
-                <div className="catalog-pagination">
-                  <button
-                    type="button"
-                    disabled={currentPage === 1}
-                    onClick={() => {
-                      setCurrentPage((prev) => prev - 1);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                  >
-                    ‹
-                  </button>
-
-                  {Array.from({ length: totalPages }, (_, index) => (
-                    <button
-                      key={index}
-                      type="button"
-                      className={currentPage === index + 1 ? "active" : ""}
-                      onClick={() => {
-                        setCurrentPage(index + 1);
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-
-                  <button
-                    type="button"
-                    disabled={currentPage === totalPages}
-                    onClick={() => {
-                      setCurrentPage((prev) => prev + 1);
-                      window.scrollTo({ top: 0, behavior: "smooth" });
-                    }}
-                  >
-                    ›
-                  </button>
-                </div>
-              )}
-            </>
+          {visibleCount < filteredCars.length && (
+            <div className="load-more-wrap">
+              <button
+                type="button"
+                className="load-more-btn-minimal"
+                onClick={() => setVisibleCount((prev) => prev + 8)}
+              >
+                <FiRefreshCw className="load-icon" />
+                Încarcă mai multe
+              </button>
+            </div>
           )}
         </div>
       </main>
+      <Footer />
     </>
   );
 }
