@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminCarsList from "./pages/AdminCarsList/AdminCarsList";
 import EditCar from "./pages/EditCar/EditCar";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
+import CarDetails from "./pages/CarDetails/CarDetails";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/leasing" element={<Leasing />} />
         <Route path="/contacts" element={<Contacts />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/cars/:id" element={<CarDetails />} />
         <Route
           path="/dashboard"
           element={
