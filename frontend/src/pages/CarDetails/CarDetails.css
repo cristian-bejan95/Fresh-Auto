@@ -79,8 +79,12 @@
 
 .details-left-column,
 .details-right-column {
+  position: sticky;
+  top: 20px;
+  align-self: start;
   display: flex;
   flex-direction: column;
+  margin-top: 0;
   gap: 24px;
 }
 
@@ -119,6 +123,12 @@
   font-weight: 950;
 }
 
+.offers-box h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .finance-row {
   display: flex;
   justify-content: space-between;
@@ -139,19 +149,18 @@
 .finance-btn {
   width: 100%;
   margin-top: 20px;
-  height: 52px;
-
-  border-radius: 14px;
+  border-radius: 10px;
   border: none;
-
-  background: #16a34a; /* verde */
+  padding: 18px 18px;
+  background: #05a526;
+  text-decoration: none;
   color: #fff;
-
   font-size: 16px;
   font-weight: 900;
-
   cursor: pointer;
   transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
 }
 
 .finance-btn:hover {
@@ -198,9 +207,9 @@
 .finance-stepper {
   width: 190px;
   height: 50px;
-  background: #f0f0f0;
+  background: #d8f4db;
   border-radius: 10px;
-  border: 1px solid #05a526;
+  border: 1px solid #dde1de;
   margin: 0 0 24px;
   display: flex;
   align-items: center;
@@ -480,8 +489,9 @@
 }
 
 .spec-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: #d8f4db;
   border-radius: 14px;
+  border: 1px solid #dde1de;
   padding: 16px;
   display: flex;
   align-items: center;
@@ -506,7 +516,7 @@
 
 .spec-card strong {
   color: #222;
-  font-size: 19px;
+  font-size: 16px;
   font-weight: 950;
 }
 
@@ -518,39 +528,48 @@
   font-size: 21px;
 }
 
-.finance-rate {
-  color: #ff1515;
-}
-
 .offer-item {
   display: grid;
   grid-template-columns: 78px 1fr auto;
   align-items: center;
   gap: 14px;
-  padding: 14px 0;
+  padding: 13px 0;
+  text-decoration: none;
+  color: #111;
 }
 
-.offer-image-placeholder {
-  width: 78px;
-  height: 58px;
+.offer-item img {
+  width: 80px;
+  height: 73px;
+  object-fit: cover;
   border-radius: 10px;
   background: #333;
 }
 
 .offer-item strong {
-  font-size: 17px;
+  font-size: 14px;
+  font-weight: 900;
+  color: #111;
+  text-transform: uppercase;
 }
 
 .offer-item p {
   margin: 5px 0 0;
-  color: #b8b8b8;
-  font-size: 14px;
+  color: #929292;
+  font-size: 12px;
+  line-height: 1.35;
 }
 
 .offer-item > span {
-  background: #ff1010;
+  background: #05a526;
   padding: 6px 10px;
   font-weight: 900;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.offer-item:hover strong {
+  color: #05a526;
 }
 
 .details-description p {

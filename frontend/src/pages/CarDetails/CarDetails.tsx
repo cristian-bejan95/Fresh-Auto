@@ -7,9 +7,9 @@ import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "swiper/css/bundle";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { getCarById } from "../../services/api";
+import { getCarById, getCars } from "../../services/api";
 import "./CarDetails.css";
-
+import { FiPhone } from "react-icons/fi";
 import { FaGasPump, FaCalendarAlt, FaRoad, FaPalette } from "react-icons/fa";
 import { GiGearStickPattern, GiCarWheel } from "react-icons/gi";
 import { TbEngine } from "react-icons/tb";
@@ -40,7 +40,7 @@ type Car = {
 
 export default function CarDetails() {
   const { id } = useParams();
-
+  const [offers, setOffers] = useState<Car[]>([]);
   const [car, setCar] = useState<Car | null>(null);
   const [loading, setLoading] = useState(true);
   const [advancePercent, setAdvancePercent] = useState(10);
@@ -91,6 +91,14 @@ export default function CarDetails() {
       try {
         const data = await getCarById(id);
         setCar(data);
+        const allCars = await getCars();
+
+        const randomOffers = allCars
+          .filter((item: Car) => item._id !== data._id)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 5);
+
+        setOffers(randomOffers);
         document.title = `${data.title} | Fresh-Auto`;
       } catch (error) {
         console.error("Eroare la încărcarea mașinii:", error);
@@ -161,73 +169,160 @@ export default function CarDetails() {
           </div>
 
           <div className="details-layout">
-            <section className="details-left">
-              <div className="details-main-slider">
-                <button className="custom-prev">
-                  <FiChevronLeft />
-                </button>
+            <div className="details-left-column">
+              <section className="details-left">
+                <div className="details-main-slider">
+                  <button className="custom-prev">
+                    <FiChevronLeft />
+                  </button>
 
-                <button className="custom-next">
-                  <FiChevronRight />
-                </button>
+                  <button className="custom-next">
+                    <FiChevronRight />
+                  </button>
 
-                {car.status === "discount" && (
-                  <span className="details-discount-ribbon">Promoție</span>
-                )}
+                  {car.status === "discount" && (
+                    <span className="details-discount-ribbon">Promoție</span>
+                  )}
 
-                {images.length > 0 ? (
+                  {images.length > 0 ? (
+                    <Swiper
+                      modules={[Navigation, Thumbs]}
+                      navigation={{
+                        prevEl: ".custom-prev",
+                        nextEl: ".custom-next",
+                      }}
+                      loop={true}
+                      thumbs={{ swiper: thumbsSwiper }}
+                      className="main-car-swiper"
+                    >
+                      {images.map((img, index) => (
+                        <SwiperSlide
+                          key={index}
+                          style={{ backgroundImage: `url(${img})` }}
+                        >
+                          <img
+                            src={img}
+                            alt={`${car.title} ${index + 1}`}
+                            onClick={() => openLightbox(index)}
+                            className="details-clickable-image"
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  ) : (
+                    <div className="details-no-image">Fără imagine</div>
+                  )}
+                </div>
+
+                {images.length > 1 && (
                   <Swiper
-                    modules={[Navigation, Thumbs]}
-                    navigation={{
-                      prevEl: ".custom-prev",
-                      nextEl: ".custom-next",
-                    }}
-                    loop={true}
-                    thumbs={{ swiper: thumbsSwiper }}
-                    className="main-car-swiper"
+                    modules={[FreeMode, Thumbs]}
+                    onSwiper={setThumbsSwiper}
+                    spaceBetween={12}
+                    slidesPerView="auto"
+                    freeMode
+                    watchSlidesProgress
+                    className="thumbs-car-swiper"
                   >
                     {images.map((img, index) => (
-                      <SwiperSlide
-                        key={index}
-                        style={{ backgroundImage: `url(${img})` }}
-                      >
+                      <SwiperSlide key={index}>
                         <img
                           src={img}
-                          alt={`${car.title} ${index + 1}`}
-                          onClick={() => openLightbox(index)}
-                          className="details-clickable-image"
+                          alt={`Thumbnail ${index + 1}`}
+                          onClick={(e) => e.stopPropagation()}
                         />
                       </SwiperSlide>
                     ))}
                   </Swiper>
-                ) : (
-                  <div className="details-no-image">Fără imagine</div>
                 )}
-              </div>
+              </section>
 
-              {images.length > 1 && (
-                <Swiper
-                  modules={[FreeMode, Thumbs]}
-                  onSwiper={setThumbsSwiper}
-                  spaceBetween={12}
-                  slidesPerView="auto"
-                  freeMode
-                  watchSlidesProgress
-                  className="thumbs-car-swiper"
-                >
-                  {images.map((img, index) => (
-                    <SwiperSlide key={index}>
-                      <img
-                        src={img}
-                        alt={`Thumbnail ${index + 1}`}
-                        onClick={(e) => e.stopPropagation()}
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              )}
-            </section>
+              <section className="details-characteristics">
+                <div className="details-characteristics-flex">
+                  <h2>Caracteristici {car.title}</h2>
+                  <div className="details-characteristics-price">
+                    <strong>{car.price.toLocaleString("ro-RO")}€</strong>
 
+                    {hasDiscount && (
+                      <span className="price-old">
+                        {car.oldPrice!.toLocaleString("ro-RO")}€
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="details-specs-grid">
+                  <div className="spec-card">
+                    <FaCalendarAlt />
+                    <div>
+                      <span>Anul fabricație</span>
+                      <strong>{car.year}</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <FaRoad />
+                    <div>
+                      <span>Parcurs</span>
+                      <strong>{car.mileage.toLocaleString("ro-RO")} Km</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <GiGearStickPattern />
+                    <div>
+                      <span>Cutie viteze</span>
+                      <strong>{car.transmission}</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <FaGasPump />
+                    <div>
+                      <span>Combustibil</span>
+                      <strong>{car.fuel}</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <TbEngine />
+                    <div>
+                      <span>Cilindree</span>
+                      <strong>{car.engine}</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <MdSpeed />
+                    <div>
+                      <span>Putere</span>
+                      <strong>{car.power}</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <FaPalette />
+                    <div>
+                      <span>Culoare exterior</span>
+                      <strong>{car.color}</strong>
+                    </div>
+                  </div>
+
+                  <div className="spec-card">
+                    <GiCarWheel />
+                    <div>
+                      <span>Tracțiune</span>
+                      <strong>{car.wheldrive || "Nespecificat"}</strong>
+                    </div>
+                  </div>
+                </div>
+                <h2>Descriere</h2>
+                <p>
+                  {car.description ||
+                    "Nu există descriere pentru acest automobil."}
+                </p>
+              </section>
+            </div>
             <aside className="details-right-column">
               <div className="finance-box">
                 <div className="finance-header">
@@ -267,8 +362,9 @@ export default function CarDetails() {
                     <strong className="finance-red">
                       {monthly.toLocaleString("ro-RO")}€
                     </strong>
-                    <a href="tel:+37360000000" className="finance-btn">
-                      Solicita ofertă
+                    <a href="tel:+37369609999" className="finance-btn">
+                      <FiPhone style={{ marginRight: 8 }} />
+                      Solicită ofertă
                     </a>
                   </div>
                 </div>
@@ -277,105 +373,30 @@ export default function CarDetails() {
               <div className="offers-box">
                 <h3>Oferte interesante</h3>
 
-                <div className="offer-item">
-                  <div className="offer-image-placeholder"></div>
-                  <div>
-                    <strong>{car.title}</strong>
-                    <p>
-                      {car.mileage.toLocaleString("ro-RO")} km, {car.fuel},{" "}
-                      {car.transmission}
-                    </p>
-                  </div>
-                  <span>{car.price.toLocaleString("ro-RO")}€</span>
-                </div>
+                {offers.map((offer) => (
+                  <Link
+                    to={`/cars/${offer._id}`}
+                    key={offer._id}
+                    className="offer-item"
+                  >
+                    <img
+                      src={offer.images?.[0] || "/placeholder-car.jpg"}
+                      alt={offer.title}
+                    />
+
+                    <div>
+                      <strong>{offer.title}</strong>
+                      <p>
+                        {offer.year}, {offer.mileage.toLocaleString("ro-RO")}{" "}
+                        km, {offer.fuel}, {offer.transmission}
+                      </p>
+                    </div>
+
+                    <span>{offer.price.toLocaleString("ro-RO")}€</span>
+                  </Link>
+                ))}
               </div>
             </aside>
-
-            <section className="details-characteristics">
-              <div className="details-characteristics-flex">
-                <h2>Caracteristici {car.title}</h2>
-                <div className="details-characteristics-price">
-                  <strong>{car.price.toLocaleString("ro-RO")}€</strong>
-
-                  {hasDiscount && (
-                    <span className="price-old">
-                      {car.oldPrice!.toLocaleString("ro-RO")}€
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              <div className="details-specs-grid">
-                <div className="spec-card">
-                  <FaCalendarAlt />
-                  <div>
-                    <span>Anul fabricație</span>
-                    <strong>{car.year}</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <FaRoad />
-                  <div>
-                    <span>Parcurs</span>
-                    <strong>{car.mileage.toLocaleString("ro-RO")} Km</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <GiGearStickPattern />
-                  <div>
-                    <span>Cutie viteze</span>
-                    <strong>{car.transmission}</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <FaGasPump />
-                  <div>
-                    <span>Combustibil</span>
-                    <strong>{car.fuel}</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <TbEngine />
-                  <div>
-                    <span>Cilindree</span>
-                    <strong>{car.engine}</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <MdSpeed />
-                  <div>
-                    <span>Putere</span>
-                    <strong>{car.power}</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <FaPalette />
-                  <div>
-                    <span>Culoare exterior</span>
-                    <strong>{car.color}</strong>
-                  </div>
-                </div>
-
-                <div className="spec-card">
-                  <GiCarWheel />
-                  <div>
-                    <span>Tracțiune</span>
-                    <strong>{car.wheldrive || "Nespecificat"}</strong>
-                  </div>
-                </div>
-              </div>
-              <h2>Descriere</h2>
-              <p>
-                {car.description ||
-                  "Nu există descriere pentru acest automobil."}
-              </p>
-            </section>
           </div>
         </div>
       </main>
