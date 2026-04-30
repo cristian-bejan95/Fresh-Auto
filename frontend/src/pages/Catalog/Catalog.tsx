@@ -140,7 +140,16 @@ function CatalogCarCard({ car }: { car: Car }) {
         }}
       >
         {car.status === "discount" && (
-          <span className="badge-diagonal-green">Promoție</span>
+          <span className="badge-diagonal-green">Preț redus</span>
+        )}
+        {car.status === "available" && (
+          <span className="badge-diagonal-available">În stoc</span>
+        )}
+        {car.status === "sold" && (
+          <span className="badge-diagonal-sold">Vîndută</span>
+        )}
+        {car.status === "reserved" && (
+          <span className="badge-diagonal-reserved">Rezervată</span>
         )}
 
         {currentImage ? (

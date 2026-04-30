@@ -18,6 +18,7 @@ export interface ICar {
   images: string[];
   status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
+  options: string[];
 }
 
 const carSchema = new Schema<ICar>(
@@ -93,6 +94,10 @@ const carSchema = new Schema<ICar>(
     featured: {
       type: Boolean,
       default: false,
+    },
+    options: {
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true },

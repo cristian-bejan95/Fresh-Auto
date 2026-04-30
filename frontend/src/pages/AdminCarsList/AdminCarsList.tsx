@@ -183,10 +183,10 @@ export default function AdminCarsList() {
                     <div className="admin-car-footer">
                       <div className="admin-car-badges">
                         <span className={`admin-car-status ${car.status}`}>
-                          {car.status === "available" && "Disponibilă"}
+                          {car.status === "available" && "În stoc"}
                           {car.status === "reserved" && "Rezervată"}
                           {car.status === "sold" && "Vândută"}
-                          {car.status === "discount" && "Reducere"}
+                          {car.status === "discount" && "Preț redus"}
                         </span>
 
                         {car.featured && (

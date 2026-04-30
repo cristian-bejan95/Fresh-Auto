@@ -18,7 +18,7 @@ type Car = {
   color: string;
   description: string;
   images: string[];
-  status: "available" | "reserved" | "sold";
+  status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
   createdAt?: string;
 };
@@ -28,6 +28,7 @@ type StatsResponse = {
   available: number;
   reserved: number;
   sold: number;
+  discount: number;
   recentCars: Car[];
 };
 
@@ -39,6 +40,7 @@ export default function AdminDashboard() {
     available: 0,
     reserved: 0,
     sold: 0,
+    discount: 0,
     recentCars: [],
   });
 
@@ -157,14 +159,14 @@ export default function AdminDashboard() {
 
               <div className="admin-panel-card">
                 <div className="admin-panel-card-header">
-                  <h3>Rezumat stoc</h3>
+                  <h3>Rezumat stoc Automobile</h3>
                   <p>Distribuția curentă a mașinilor</p>
                 </div>
 
                 <ul className="admin-activity-list">
                   <li>
                     <span className="dot available"></span>
-                    Disponibile: {stats.available}
+                    În stoc: {stats.available}
                   </li>
                   <li>
                     <span className="dot reserved"></span>
@@ -173,6 +175,10 @@ export default function AdminDashboard() {
                   <li>
                     <span className="dot sold"></span>
                     Vândute: {stats.sold}
+                  </li>
+                  <li>
+                    <span className="dot discount"></span>
+                    Preț redus: {stats.discount}
                   </li>
                 </ul>
               </div>
@@ -208,9 +214,10 @@ export default function AdminDashboard() {
                           <td>{car.year}</td>
                           <td>
                             <span className={`status-badge ${car.status}`}>
-                              {car.status === "available" && "Disponibilă"}
+                              {car.status === "available" && "În stoc"}
                               {car.status === "reserved" && "Rezervată"}
                               {car.status === "sold" && "Vândută"}
+                              {car.status === "discount" && "Preț redus"}
                             </span>
                           </td>
                           <td>

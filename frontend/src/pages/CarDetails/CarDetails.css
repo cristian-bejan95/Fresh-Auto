@@ -93,7 +93,7 @@
 .details-description {
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .details-left {
@@ -110,9 +110,8 @@
   color: #222;
   border-radius: 22px;
   padding: 28px;
-  border: 1px solid #05a526;
   border-radius: 10px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .details-characteristics h2,
@@ -139,11 +138,11 @@
 }
 
 .finance-box {
-  background: transparent;
+  background: #fff;
   color: #222;
   border-radius: 10px;
   padding: 26px;
-  border: 1px solid #05a526;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .finance-btn {
@@ -433,7 +432,7 @@
   color: #fff;
   border-radius: 10px;
   padding: 26px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .details-right-flex {
@@ -490,14 +489,14 @@
 
 .spec-card {
   background: #d8f4db;
-  border-radius: 14px;
+  border-radius: 10px;
   border: 1px solid #dde1de;
   padding: 16px;
   display: flex;
   align-items: center;
   gap: 14px;
   min-height: 78px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.09);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .spec-card svg {
@@ -511,13 +510,17 @@
   color: #222;
   font-size: 12px;
   margin-bottom: 4px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .spec-card strong {
   color: #222;
   font-size: 16px;
-  font-weight: 950;
+  font-weight: 800;
+}
+
+.details-options {
+  margin-top: 50px;
 }
 
 .finance-row:last-child {
@@ -536,6 +539,12 @@
   padding: 13px 0;
   text-decoration: none;
   color: #111;
+}
+
+.offer-line {
+  height: 1px;
+  border-top: 1px dashed rgba(75, 73, 73, 0.542);
+  margin: 18px 0 20px;
 }
 
 .offer-item img {
@@ -845,5 +854,77 @@
 
   .finance-stepper {
     width: 100%;
+  }
+}
+
+/* Options */
+
+.car-options-section {
+  margin-top: 24px;
+  background: #fff;
+  border-radius: 22px;
+  padding: 32px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
+}
+
+.car-options-section h2 {
+  margin: 0 0 28px;
+  font-size: 28px;
+  font-weight: 950;
+  color: #111;
+}
+
+.car-options-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.car-option-card {
+  min-height: 62px;
+  background: #d8f4db;
+  border: 1px solid #dde1de;
+  border-radius: 10px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  color: #111;
+  font-size: 15px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
+}
+
+.option-check {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #05a526;
+  border-radius: 50%;
+  color: #05a526;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1100px) {
+  .car-options-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 750px) {
+  .car-options-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .car-options-section h2 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 500px) {
+  .car-options-grid {
+    grid-template-columns: 1fr;
   }
 }

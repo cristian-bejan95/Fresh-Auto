@@ -518,3 +518,68 @@
   transition: 0.2s ease;
   font-size: 15px;
 }
+
+/* Optiuni-Dotari */
+
+.admin-options-groups {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.admin-options-group {
+  background: rgba(7, 28, 47, 0.75);
+  border: 1px solid #1e3a5f;
+  border-radius: 16px;
+  padding: 18px;
+}
+
+.admin-options-group h4 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.admin-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.admin-option-item {
+  min-height: 46px;
+  border: 1px solid rgba(132, 185, 255, 0.22);
+  border-radius: 12px;
+  padding: 0 14px;
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  align-items: center;
+  column-gap: 12px;
+  color: #dbeafe;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}
+
+.admin-option-item input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #27b891;
+  justify-self: center;
+}
+
+.admin-option-item span {
+  display: block;
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #dbeafe;
+}
+
+@media (max-width: 900px) {
+  .admin-options-groups {
+    grid-template-columns: 1fr;
+  }
+}

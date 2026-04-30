@@ -36,6 +36,7 @@ type Car = {
   featured: boolean;
   body?: string;
   seats?: string;
+  options?: string[];
 };
 
 export default function CarDetails() {
@@ -239,7 +240,7 @@ export default function CarDetails() {
 
               <section className="details-characteristics">
                 <div className="details-characteristics-flex">
-                  <h2>Caracteristici {car.title}</h2>
+                  <h2>Specificații {car.title}</h2>
                   <div className="details-characteristics-price">
                     <strong>{car.price.toLocaleString("ro-RO")}€</strong>
 
@@ -250,7 +251,6 @@ export default function CarDetails() {
                     )}
                   </div>
                 </div>
-
                 <div className="details-specs-grid">
                   <div className="spec-card">
                     <FaCalendarAlt />
@@ -287,7 +287,7 @@ export default function CarDetails() {
                   <div className="spec-card">
                     <TbEngine />
                     <div>
-                      <span>Cilindree</span>
+                      <span>Capacitatea</span>
                       <strong>{car.engine}</strong>
                     </div>
                   </div>
@@ -295,7 +295,7 @@ export default function CarDetails() {
                   <div className="spec-card">
                     <MdSpeed />
                     <div>
-                      <span>Putere</span>
+                      <span>Putere Motor</span>
                       <strong>{car.power}</strong>
                     </div>
                   </div>
@@ -316,12 +316,27 @@ export default function CarDetails() {
                     </div>
                   </div>
                 </div>
-                <h2>Descriere</h2>
+                <h2>Detalii</h2>
                 <p>
                   {car.description ||
                     "Nu există descriere pentru acest automobil."}
                 </p>
               </section>
+
+              {car.options && car.options.length > 0 && (
+                <section className="car-options-section">
+                  <h2>Opțiuni și dotări</h2>
+
+                  <div className="car-options-grid">
+                    {car.options.map((option) => (
+                      <div className="car-option-card" key={option}>
+                        <span>{option}</span>
+                        <span className="option-check">✓</span>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
             </div>
             <aside className="details-right-column">
               <div className="finance-box">
@@ -372,6 +387,8 @@ export default function CarDetails() {
 
               <div className="offers-box">
                 <h3>Oferte interesante</h3>
+
+                <div className="offer-line" />
 
                 {offers.map((offer) => (
                   <Link

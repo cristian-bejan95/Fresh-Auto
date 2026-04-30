@@ -22,11 +22,67 @@ type CarForm = {
   images: string[];
   status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
+  options: string[];
 };
 
 export default function EditCar() {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const carOptionsGroups = [
+    {
+      title: "Confort",
+      options: [
+        "Aer condiționat",
+        "Calculator de bord",
+        "Climă automată",
+        "Cruise-control",
+        "Geamuri electrice",
+        "Geamuri tonate",
+        "Lacăt centralizat",
+        "Oglinzi electrice",
+        "Servodirecție",
+      ],
+    },
+    {
+      title: "Interior / Multimedia",
+      options: [
+        "Sistem audio",
+        "Sistem de navigare / Sistem TV/DVD",
+        "Tapițerie din piele",
+        "Tapițerie textilă",
+        "Volan reglabil pe înălțime",
+        "Volan reglabil pe lungime",
+        "Volan multifuncțional",
+      ],
+    },
+    {
+      title: "Siguranță",
+      options: [
+        "Airbag pasager",
+        "Airbag șofer",
+        "Airbaguri laterale",
+        "Airbaguri perdea",
+        "Alarmă antifurt",
+        "Sistem antipatinare (TCS, ASR, TRC)",
+        "Sistem de antiblocare a frânelor (ABS)",
+        "Sistem de stabilizare (ESP, DSC, VDC, ESC)",
+        "Fixaj ISOFIX pentru scaune de copii",
+      ],
+    },
+    {
+      title: "Exterior / Asistență",
+      options: [
+        "Cameră spate",
+        "Faruri anticeață",
+        "Faruri LED",
+        "Jante aliaj ușor",
+        "Parctronic",
+        "Senzor de lumină",
+        "Senzor de ploaie",
+      ],
+    },
+  ];
 
   const [form, setForm] = useState<CarForm>({
     title: "",
@@ -46,6 +102,7 @@ export default function EditCar() {
     images: [],
     status: "available",
     featured: false,
+    options: [],
   });
 
   const [loading, setLoading] = useState(true);
@@ -96,6 +153,7 @@ export default function EditCar() {
           description: car.description || "",
           images: car.images || [],
           status: car.status || "available",
+          options: car.options || [],
           featured: !!car.featured,
         });
 
@@ -129,6 +187,15 @@ export default function EditCar() {
     setForm((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleOptionToggle = (option: string) => {
+    setForm((prev) => ({
+      ...prev,
+      options: prev.options.includes(option)
+        ? prev.options.filter((item) => item !== option)
+        : [...prev.options, option],
     }));
   };
 
@@ -174,6 +241,7 @@ export default function EditCar() {
         images: form.images,
         status: form.status,
         featured: form.featured,
+        options: form.options,
       };
 
       await updateCar(id, payload);
@@ -387,10 +455,10 @@ export default function EditCar() {
                         onFocus={() => setOpenSelect("status")}
                         onBlur={() => setOpenSelect(null)}
                       >
-                        <option value="available">Disponibilă</option>
+                        <option value="available">În stoc</option>
                         <option value="reserved">Rezervată</option>
-                        <option value="sold">Vândută</option>
-                        <option value="discount">Reducere</option>
+                        <option value="sold">Vîndută</option>
+                        <option value="discount">Preț redus</option>
                       </select>
 
                       {/*  <span className="select-plus">
@@ -465,6 +533,31 @@ export default function EditCar() {
                         Se încarcă imaginile...
                       </p>
                     )}
+                  </div>
+
+                  <div className="admin-addcar-field admin-addcar-field-full">
+                    <label>Opțiuni și dotări</label>
+
+                    <div className="admin-options-groups">
+                      {carOptionsGroups.map((group) => (
+                        <div className="admin-options-group" key={group.title}>
+                          <h4>{group.title}</h4>
+
+                          <div className="admin-options-grid">
+                            {group.options.map((option) => (
+                              <label key={option} className="admin-option-item">
+                                <input
+                                  type="checkbox"
+                                  checked={form.options.includes(option)}
+                                  onChange={() => handleOptionToggle(option)}
+                                />
+                                <span>{option}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                   <div className="admin-editcar-field admin-editcar-field-full">
@@ -581,10 +674,10 @@ export default function EditCar() {
 
                   <div className="admin-editcar-preview-status-row">
                     <span className={`admin-editcar-status ${form.status}`}>
-                      {form.status === "available" && "Disponibilă"}
+                      {form.status === "available" && "În stoc"}
                       {form.status === "reserved" && "Rezervată"}
                       {form.status === "sold" && "Vândută"}
-                      {form.status === "discount" && "Reducere"}
+                      {form.status === "discount" && "Preț redus"}
                     </span>
 
                     {form.featured && (

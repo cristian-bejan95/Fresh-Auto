@@ -260,7 +260,7 @@
 }
 
 .dot.available {
-  background: #2fe08d;
+  background: #fff;
 }
 
 .dot.reserved {
@@ -269,6 +269,10 @@
 
 .dot.sold {
   background: #ff6f6f;
+}
+
+.dot.discount {
+  background: #05a526;
 }
 
 .admin-table-wrap {
@@ -325,6 +329,16 @@
 .status-badge.sold {
   background: rgba(255, 111, 111, 0.15);
   color: #ff9f9f;
+}
+
+.status-badge.discount {
+  background: linear-gradient(
+    117deg,
+    rgba(42, 168, 126, 1) 0%,
+    rgba(41, 166, 122, 1) 58%,
+    rgba(62, 168, 136, 1) 100%
+  );
+  color: #ffffff;
 }
 
 @media (max-width: 1200px) {

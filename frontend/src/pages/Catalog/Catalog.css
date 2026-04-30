@@ -169,7 +169,52 @@
   left: -45px;
   width: 180px;
   text-align: center;
-  background: #3bd16f;
+  background: rgba(255, 48, 1, 0.753);
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  transform: rotate(-45deg);
+  padding: 6px 0;
+  z-index: 3;
+}
+
+.badge-diagonal-available {
+  position: absolute;
+  top: 18px;
+  left: -45px;
+  width: 180px;
+  text-align: center;
+  background: rgba(22, 163, 22, 0.745);
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  transform: rotate(-45deg);
+  padding: 6px 0;
+  z-index: 3;
+}
+
+.badge-diagonal-sold {
+  position: absolute;
+  top: 18px;
+  left: -45px;
+  width: 180px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.563);
+  color: #fff;
+  font-weight: 900;
+  font-size: 14px;
+  transform: rotate(-45deg);
+  padding: 6px 0;
+  z-index: 3;
+}
+
+.badge-diagonal-reserved {
+  position: absolute;
+  top: 18px;
+  left: -45px;
+  width: 180px;
+  text-align: center;
+  background: rgba(234, 177, 21, 0.841);
   color: #fff;
   font-weight: 900;
   font-size: 14px;
