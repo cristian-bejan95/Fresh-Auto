@@ -14,6 +14,12 @@ import { FaGasPump, FaCalendarAlt, FaRoad, FaPalette } from "react-icons/fa";
 import { GiGearStickPattern, GiCarWheel } from "react-icons/gi";
 import { TbEngine } from "react-icons/tb";
 import { MdSpeed } from "react-icons/md";
+import microinvest from "../../assets/logos/microinvest.svg";
+import easycredit from "../../assets/logos/ecredit.svg";
+import iutecredit from "../../assets/logos/iutecredit.svg";
+import mogo from "../../assets/logos/mogo.svg";
+import creditrapid from "../../assets/logos/creditrapid.svg";
+import maib from "../../assets/logos/maib.svg";
 
 type Car = {
   _id: string;
@@ -46,7 +52,7 @@ export default function CarDetails() {
   const [loading, setLoading] = useState(true);
   const [advancePercent, setAdvancePercent] = useState(10);
   const [months, setMonths] = useState(60);
-
+  const [phone, setPhone] = useState("");
   const advance = Math.round(((car?.price || 0) * advancePercent) / 100);
   const credit = (car?.price || 0) - advance;
   const monthly = Math.round(credit / months);
@@ -70,6 +76,7 @@ export default function CarDetails() {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [showOfferForm, setShowOfferForm] = useState(false);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -316,11 +323,13 @@ export default function CarDetails() {
                     </div>
                   </div>
                 </div>
-                <h2>Detalii</h2>
-                <p>
-                  {car.description ||
-                    "Nu există descriere pentru acest automobil."}
-                </p>
+                <div className="details-specs-descr">
+                  <h2>Detalii</h2>
+                  <p>
+                    {car.description ||
+                      "Nu există descriere pentru acest automobil."}
+                  </p>
+                </div>
               </section>
 
               {car.options && car.options.length > 0 && (
@@ -377,10 +386,73 @@ export default function CarDetails() {
                     <strong className="finance-red">
                       {monthly.toLocaleString("ro-RO")}€
                     </strong>
-                    <a href="tel:+37369609999" className="finance-btn">
+
+                    <button
+                      type="button"
+                      className="finance-btn"
+                      onClick={() => setShowOfferForm(true)}
+                    >
                       <FiPhone style={{ marginRight: 8 }} />
                       Solicită ofertă
-                    </a>
+                    </button>
+                  </div>
+                </div>
+
+                {showOfferForm && (
+                  <div className="finance-contact-box show">
+                    <h2>Vă sunăm pentru detalii</h2>
+                    <p>Completează datele și te contactăm în scurt timp.</p>
+
+                    <div className="finance-contact-row">
+                      <div className="finance-contact-field">
+                        <label>Nume</label>
+                        <input type="text" />
+                      </div>
+
+                      <div className="finance-contact-field">
+                        <label>Telefon</label>
+                        <input
+                          type="tel"
+                          value={phone}
+                          maxLength={11}
+                          onChange={(e) => {
+                            const onlyNumbers = e.target.value.replace(
+                              /\D/g,
+                              "",
+                            );
+                            setPhone(onlyNumbers);
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <button type="button" className="finance-contact-submit">
+                      Trimite
+                    </button>
+                  </div>
+                )}
+                <div className="partners-box">
+                  <h3>Parteneri</h3>
+
+                  <div className="partners-grid">
+                    <div className="partner-logo">
+                      <img src={creditrapid} alt="Creditrapid" />
+                    </div>
+                    <div className="partner-logo">
+                      <img src={maib} alt="Maib" />
+                    </div>
+                    <div className="partner-logo">
+                      <img src={microinvest} alt="Microinvest" />
+                    </div>
+                    <div className="partner-logo">
+                      <img src={iutecredit} alt="Iutecredit" />
+                    </div>
+                    <div className="partner-logo">
+                      <img src={easycredit} alt="eCredit" />
+                    </div>
+                    <div className="partner-logo">
+                      <img src={mogo} alt="Mogo" />
+                    </div>
                   </div>
                 </div>
               </div>

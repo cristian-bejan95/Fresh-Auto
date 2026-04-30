@@ -551,7 +551,7 @@
 .admin-options-groups {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: 14px;
 }
 
 .admin-options-group {
@@ -575,7 +575,7 @@
 }
 
 .admin-option-item {
-  min-height: 46px;
+  /* min-height: 46px;
   border: 1px solid rgba(132, 185, 255, 0.22);
   border-radius: 12px;
   padding: 0 14px;
@@ -585,12 +585,24 @@
   column-gap: 12px;
   color: #dbeafe;
   background: rgba(255, 255, 255, 0.04);
+  cursor: pointer; */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .admin-option-item input {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   margin: 0;
   accent-color: #27b891;
   justify-self: center;
@@ -603,6 +615,8 @@
   font-weight: 700;
   line-height: 1.3;
   color: #dbeafe;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 @media (max-width: 900px) {
