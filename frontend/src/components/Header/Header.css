@@ -57,7 +57,7 @@
 }
 
 .social-icons a:hover {
-  background: #05a526;
+  background: #22c55e;
   color: #fff;
 }
 
@@ -101,7 +101,7 @@
 }
 
 .lang-toggle button.active {
-  background: #05a526;
+  background: #22c55e;
   color: #fff;
 }
 
@@ -143,7 +143,7 @@
 }
 
 .favorit:hover {
-  color: #05a526;
+  color: #22c55e;
 }
 
 .phone-top {
@@ -156,7 +156,7 @@
 
 .phone-icon-top {
   font-size: 14px;
-  fill: #05a526;
+  fill: #22c55e;
 }
 
 .header-main {
@@ -183,7 +183,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: #05a526;
+  background: #22c55e;
   color: #07192b;
 }
 
@@ -202,7 +202,7 @@
 
 .nav-menu a:hover,
 .nav-menu a.active {
-  color: #05a526;
+  color: #22c55e;
 }
 
 .menu-grid-btn {
@@ -210,7 +210,7 @@
   height: 52px;
   border: none;
   border-radius: 14px;
-  background: #05a526;
+  background: #22c55e;
   color: #07192b;
   font-size: 24px;
   font-weight: 900;
@@ -250,7 +250,7 @@
 
 .call-btn.full {
   width: 100%;
-  background: #05a526;
+  background: #22c55e;
   color: #fff;
   text-decoration: none;
   padding: 10px 20px;

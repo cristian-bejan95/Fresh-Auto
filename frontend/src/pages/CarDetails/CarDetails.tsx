@@ -248,7 +248,7 @@ export default function CarDetails() {
 
               <section className="details-characteristics">
                 <div className="details-characteristics-flex">
-                  <h2>Specificații {car.title}</h2>
+                  <h2>{car.title}</h2>
                   <div className="details-characteristics-price">
                     <strong>{car.price.toLocaleString("ro-RO")}€</strong>
 

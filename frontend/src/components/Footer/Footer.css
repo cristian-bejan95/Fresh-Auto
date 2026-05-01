@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  background: #222;
+  background: #13141a;
   position: relative;
   z-index: 1;
   padding-top: 60px;
@@ -72,7 +72,7 @@
 }
 
 .footer-column a:hover {
-  color: #62ff7a;
+  color: #22c55e;
   transform: translateX(3px);
 }
 
@@ -112,7 +112,7 @@
 }
 
 .footer-social-icons a:hover {
-  background: #05a526;
+  background: #22c55e;
   color: #fff;
 }
 

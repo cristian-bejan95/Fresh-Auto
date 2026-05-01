@@ -165,7 +165,7 @@
   padding: 18px 18px;
   background: #22c55e;
   text-decoration: none;
-  color: #13141a;
+  color: #fff;
   font-size: 16px;
   font-weight: 900;
   cursor: pointer;
@@ -501,7 +501,7 @@
 }
 
 .spec-card {
-  background: #d8f4db;
+  background: #e1fde3;
   border-radius: 10px;
   border: 1px solid #dde1de;
   padding: 16px;
@@ -514,7 +514,6 @@
 
 .spec-card svg {
   font-size: 24px;
-  color: #22c55e;
   flex-shrink: 0;
 }
 
@@ -900,7 +899,7 @@
 
 .car-option-card {
   min-height: 62px;
-  background: #d8f4db;
+  background: #e1fde3;
   border: 1px solid #dde1de;
   border-radius: 10px;
   padding: 0 20px;
