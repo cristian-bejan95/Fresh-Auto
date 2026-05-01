@@ -532,7 +532,7 @@ export default function AddCar() {
                 </div>
 
                 <div className="admin-addcar-field admin-addcar-field-full">
-                  <label>Descriere Auto</label>
+                  <label>Detalii Auto</label>
                   <textarea
                     name="description"
                     placeholder="Descriere completă a mașinii..."

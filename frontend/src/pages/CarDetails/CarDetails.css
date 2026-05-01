@@ -28,7 +28,7 @@
 }
 
 .details-breadcrumb a:hover {
-  color: #05a526;
+  color: #22c55e;
 }
 
 .details-main-top {
@@ -107,7 +107,7 @@
 .details-description,
 .offers-box {
   background: #fff;
-  color: #222;
+  color: #13141a;
   border-radius: 22px;
   padding: 28px;
   border-radius: 10px;
@@ -138,9 +138,20 @@
 }
 
 .finance-box {
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(120, 200, 170, 0.45) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 65% 75%,
+      rgba(120, 160, 220, 0.45) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, #f5f5f5 0%, #e9ecef 100%);
   position: relative;
-  background: #fff;
-  color: #222;
+  color: #13141a;
   border-radius: 10px;
   padding: 26px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
@@ -152,19 +163,21 @@
   border-radius: 10px;
   border: none;
   padding: 18px 18px;
-  background: #05a526;
+  background: #22c55e;
   text-decoration: none;
-  color: #fff;
+  color: #13141a;
   font-size: 16px;
   font-weight: 900;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease-in-out;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .finance-btn:hover {
   background: #22c55e;
+  color: #fff;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
@@ -222,8 +235,8 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid #05a526;
-  color: #05a526;
+  border: 1px solid #22c55e;
+  color: #22c55e;
   font-size: 13px;
   cursor: pointer;
 }
@@ -240,7 +253,7 @@
 
 .finance-values strong {
   display: block;
-  color: #05a526;
+  color: #22c55e;
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -264,7 +277,7 @@
 
 .details-characteristics-price {
   padding: 14px 16px;
-  background: #05a526;
+  background: #22c55e;
   color: #fff;
   font-size: 24px;
   border-radius: 10px;
@@ -336,7 +349,7 @@
 
 .custom-next svg:hover,
 .custom-prev svg:hover {
-  color: #05a526;
+  color: #22c55e;
 }
 
 .custom-prev:hover,
@@ -376,7 +389,7 @@
 .custom-prev svg,
 .custom-next svg {
   font-size: 32px;
-  color: #777;
+  color: #13141a;
 }
 
 .thumbs-car-swiper {
@@ -396,7 +409,7 @@
 
 .thumbs-car-swiper .swiper-slide-thumb-active {
   opacity: 1;
-  border-color: #05a526;
+  border-color: #22c55e;
 }
 
 .thumbs-car-swiper img {
@@ -501,20 +514,20 @@
 
 .spec-card svg {
   font-size: 24px;
-  color: #05a526;
+  color: #22c55e;
   flex-shrink: 0;
 }
 
 .spec-card span {
   display: block;
-  color: #222;
+  color: #5e5e5e;
   font-size: 12px;
   margin-bottom: 4px;
   font-weight: 400;
 }
 
 .spec-card strong {
-  color: #222;
+  color: #13141a;
   font-size: 16px;
   font-weight: 800;
 }
@@ -574,7 +587,8 @@
 }
 
 .offer-item > span {
-  background: #05a526;
+  background: #22c55e;
+  border-radius: 10px;
   padding: 6px 10px;
   font-weight: 900;
   color: #fff;
@@ -582,7 +596,7 @@
 }
 
 .offer-item:hover strong {
-  color: #05a526;
+  color: #22c55e;
 }
 
 .details-description p {
@@ -639,7 +653,7 @@
 }
 
 .details-contact a:last-child {
-  background: #05a526;
+  background: #22c55e;
 }
 
 .details-contact a:hover {
@@ -902,9 +916,9 @@
 .option-check {
   width: 20px;
   height: 20px;
-  border: 1px solid #05a526;
+  border: 1px solid #22c55e;
   border-radius: 50%;
-  color: #05a526;
+  color: #22c55e;
   display: grid;
   place-items: center;
   font-size: 13px;
@@ -939,7 +953,7 @@
   width: 100%;
   margin-top: 35px;
   padding: 20px 20px;
-  border: 2px solid #05a526;
+  border: 2px solid #22c55e;
   border-radius: 10px;
   background: #f8f8f8;
   box-sizing: border-box;
@@ -1008,7 +1022,7 @@
   margin-top: 18px;
   border: 0;
   border-radius: 9px;
-  background: #05a526;
+  background: #22c55e;
   color: #fff;
   font-size: 16px;
   font-weight: 800;
@@ -1048,5 +1062,111 @@
 
   .finance-contact-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Raport Carvertical */
+
+.car-report-box {
+  background: #13141a;
+  color: #fff;
+  border-radius: 10px;
+  padding: 22px;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 18px;
+  align-items: center;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
+}
+
+.car-report-content h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.car-report-content p {
+  margin: 0 0 14px;
+  color: #fff;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.car-report-action {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 13px;
+}
+
+.car-report-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+
+.car-report-btn:hover {
+  color: #fff;
+  background: #22c55e;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
+}
+
+.car-report-preview {
+  display: flex;
+  justify-content: center;
+}
+
+.report-paper {
+  width: 100px;
+  height: 175px;
+  border-radius: 10px;
+  background: #fff;
+  color: #111;
+  overflow: hidden;
+}
+
+.report-paper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.report-paper strong {
+  display: block;
+  color: #2867d6;
+  font-size: 12px;
+}
+
+.report-paper span {
+  display: block;
+  font-size: 9px;
+  color: #555;
+  margin-top: 4px;
+}
+
+.report-chart {
+  height: 45px;
+  margin-top: 16px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #dbeafe, #fef3c7);
+}
+
+@media (max-width: 600px) {
+  .car-report-box {
+    grid-template-columns: 1fr;
+  }
+
+  .car-report-preview {
+    justify-content: flex-start;
   }
 }

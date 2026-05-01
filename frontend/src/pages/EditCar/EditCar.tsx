@@ -561,7 +561,7 @@ export default function EditCar() {
                   </div>
 
                   <div className="admin-editcar-field admin-editcar-field-full">
-                    <label>Descriere Auto*</label>
+                    <label>Detalii Auto*</label>
                     <textarea
                       name="description"
                       placeholder="Descriere completă a mașinii..."

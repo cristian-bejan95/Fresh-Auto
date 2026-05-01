@@ -20,6 +20,7 @@ import iutecredit from "../../assets/logos/iutecredit.svg";
 import mogo from "../../assets/logos/mogo.svg";
 import creditrapid from "../../assets/logos/creditrapid.svg";
 import maib from "../../assets/logos/maib.svg";
+import reportImg from "../../assets/report.jpg";
 
 type Car = {
   _id: string;
@@ -348,6 +349,31 @@ export default function CarDetails() {
               )}
             </div>
             <aside className="details-right-column">
+              <div className="car-report-box">
+                <div className="car-report-preview">
+                  <div className="report-paper">
+                    <img src={reportImg} alt="Raport auto" />
+                  </div>
+                </div>
+                <div className="car-report-content">
+                  <h3>Raport CarVertical</h3>
+                  <p>
+                    Obțineți un raport detaliat al vehiculului în doar câteva
+                    minute.
+                  </p>
+
+                  <div className="car-report-action">
+                    <a
+                      href="https://www.carvertical.com/md"
+                      target="_blank"
+                      className="car-report-btn"
+                    >
+                      Obține raport
+                    </a>
+                  </div>
+                </div>
+              </div>
+
               <div className="finance-box">
                 <div className="finance-header">
                   <h3>Calculator financiar</h3>
@@ -377,7 +403,7 @@ export default function CarDetails() {
                   <div className="finance-values">
                     <strong>{car.price.toLocaleString("ro-RO")}€</strong>
 
-                    <p>Avans (minim 10%)</p>
+                    <p>Avans</p>
                     <strong>{advance.toLocaleString("ro-RO")}€</strong>
 
                     <strong>{credit.toLocaleString("ro-RO")}€</strong>
