@@ -101,7 +101,7 @@ export default function AddCar() {
     images: [],
     status: "available",
     featured: false,
-    options: [] as string[],
+    options: [],
   });
 
   useEffect(() => {

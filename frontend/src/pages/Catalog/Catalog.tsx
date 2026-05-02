@@ -160,14 +160,6 @@ function CatalogCarCard({ car }: { car: Car }) {
 
         {hasDiscount && <span className="premium-badge">Reducere</span>}
 
-        <button
-          type="button"
-          className={`premium-favorite ${favorite ? "active" : ""}`}
-          onClick={toggleFavorite}
-        >
-          <GrFavorite />
-        </button>
-
         {images.length > 1 && (
           <div className="premium-slider-dots">
             {images.map((_, index) => (

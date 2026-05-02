@@ -272,12 +272,12 @@
   justify-content: space-between;
   align-items: center;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .details-characteristics-price {
   padding: 14px 16px;
-  background: #22c55e;
+  background: linear-gradient(90deg, #dcb771, #c64c45);
   color: #fff;
   font-size: 24px;
   border-radius: 10px;
@@ -409,7 +409,8 @@
 
 .thumbs-car-swiper .swiper-slide-thumb-active {
   opacity: 1;
-  border-color: #22c55e;
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, #dcb771, #c64c45);
 }
 
 .thumbs-car-swiper img {
@@ -586,7 +587,8 @@
 }
 
 .offer-item > span {
-  background: #22c55e;
+  background: linear-gradient(90deg, #dcb771, #c64c45);
+  /* background: #22c55e; */
   border-radius: 10px;
   padding: 6px 10px;
   font-weight: 900;
@@ -880,12 +882,12 @@
   margin-top: 24px;
   background: #fff;
   border-radius: 10px;
-  padding: 32px;
+  padding: 24px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .car-options-section h2 {
-  margin: 0 0 28px;
+  margin: 0 0 20px;
   font-size: 24px;
   font-weight: 950;
   color: #111;
@@ -946,6 +948,39 @@
   }
 }
 
+/* Car Location */
+
+.car-location-section {
+  margin-top: 24px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
+}
+
+.car-location-info p {
+  margin-bottom: 16px;
+  color: #6b7280;
+}
+
+.car-location-map iframe {
+  margin-top: 20px;
+  width: 100%;
+  height: 380px;
+  border: none;
+  border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+  .car-location-section {
+    grid-template-columns: 1fr;
+  }
+
+  .car-location-map iframe {
+    height: 260px;
+  }
+}
+
 /* Offer Modal Finance */
 
 .finance-contact-box {
@@ -962,7 +997,7 @@
 @keyframes financeFormDown {
   from {
     opacity: 0;
-    transform: translateY(-30px); /* 🔥 vine de sus */
+    transform: translateY(-30px);
   }
 
   to {

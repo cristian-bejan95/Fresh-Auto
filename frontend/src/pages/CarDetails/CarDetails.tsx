@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, FreeMode } from "swiper/modules";
@@ -57,6 +57,7 @@ export default function CarDetails() {
   const advance = Math.round(((car?.price || 0) * advancePercent) / 100);
   const credit = (car?.price || 0) - advance;
   const monthly = Math.round(credit / months);
+  const sliderRef = useRef<HTMLDivElement | null>(null);
 
   const increaseAdvance = () => {
     setAdvancePercent((prev) => Math.min(prev + 5, 90));
@@ -119,6 +120,15 @@ export default function CarDetails() {
     loadCar();
   }, [id]);
 
+  useEffect(() => {
+    if (!car) return;
+
+    sliderRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [car?._id]);
+
   if (loading) {
     return (
       <>
@@ -179,7 +189,7 @@ export default function CarDetails() {
 
           <div className="details-layout">
             <div className="details-left-column">
-              <section className="details-left">
+              <section className="details-left" ref={sliderRef}>
                 <div className="details-main-slider">
                   <button className="custom-prev">
                     <FiChevronLeft />
@@ -347,6 +357,16 @@ export default function CarDetails() {
                   </div>
                 </section>
               )}
+              <div className="car-location-section">
+                <h2>Locația Fresh Auto</h2>
+                <div className="car-location-map">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43494.7867983281!2d28.781258622362138!3d47.05152899006127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40cbd630210f6669%3A0xffd3ce64404fcb60!2zU3RyYWRhIFBpZXRyxINyaWVpIDMsIE1ELTIwMDUsIENoaciZaW7Eg3UsIE1vbGRvdmE!5e0!3m2!1sro!2s!4v1777747265218!5m2!1sro!2s"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+                </div>
+              </div>
             </div>
             <aside className="details-right-column">
               <div className="car-report-box">

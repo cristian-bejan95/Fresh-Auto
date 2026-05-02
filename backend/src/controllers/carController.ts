@@ -22,6 +22,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       status,
       featured,
       oldPrice,
+      options,
     } = req.body;
 
     if (
@@ -59,6 +60,7 @@ export async function createCar(req: AuthRequest, res: Response) {
       color,
       wheldrive,
       description,
+      options: options || [],
       images: images || [],
       status: status || "available",
       featured: featured || false,

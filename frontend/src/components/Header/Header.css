@@ -1,28 +1,22 @@
-.site-header {
+.header {
   position: sticky;
   top: 0;
   z-index: 2000;
   color: #fff;
-  background: rgba(12, 29, 45, 0.82);
+  background: rgba(19, 20, 26, 0.82);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.header-top {
-  height: 46px;
+.header-container {
+  width: min(1420px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.header-main {
+  height: 78px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0 32px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-top-left,
-.header-top-right,
-.social-icons {
-  display: flex;
-  align-items: center;
-  gap: 18px;
 }
 
 .logo-img {
@@ -31,26 +25,45 @@
   object-fit: contain;
 }
 
-.search-icon {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  font-size: 20px;
-  color: #9fb3c8;
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.nav-menu a {
+  color: #eef6ff;
+  text-decoration: none;
+  font-weight: 700;
   transition: 0.2s ease;
 }
 
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: #22c55e;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
 .social-icons a {
-  width: 26px;
-  height: 26px;
+  width: 35px;
+  height: 35px;
   display: grid;
   place-items: center;
   border-radius: 50%;
   text-decoration: none;
   color: #fff;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 800;
   background: rgba(255, 255, 255, 0.1);
   transition: 0.2s ease;
@@ -61,30 +74,11 @@
   color: #fff;
 }
 
-.header-top-left {
-  justify-content: flex-start;
-}
-
-.header-top-right {
-  justify-content: flex-end;
-}
-
-.header-top-right button,
-.header-top-right a {
-  color: #fff;
-  background: transparent;
-  border: none;
-  text-decoration: none;
-  font-weight: 600;
-  cursor: pointer;
-}
-
 .lang-toggle {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   background: #e6ebf0;
-  border: 1px solid #9db0c2;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 3px;
 }
 
@@ -92,10 +86,10 @@
   border: none;
   background: transparent;
   padding: 5px 9px;
-  border-radius: 4px;
-  font-size: 12px;
+  border-radius: 10px;
+  font-size: 14px;
   font-weight: 800;
-  color: #111827;
+  color: #13141a;
   cursor: pointer;
   transition: 0.2s ease;
 }
@@ -103,14 +97,6 @@
 .lang-toggle button.active {
   background: #22c55e;
   color: #fff;
-}
-
-.phone-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  text-decoration: none;
 }
 
 .theme-btn {
@@ -135,103 +121,7 @@
   color: #ffd447;
 }
 
-.favorit {
-  font-size: 22px;
-  color: #fff;
-  transition: 0.2s ease;
-  cursor: pointer;
-}
-
-.favorit:hover {
-  color: #22c55e;
-}
-
-.phone-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #fff;
-  text-decoration: none;
-}
-
-.phone-icon-top {
-  font-size: 14px;
-  fill: #22c55e;
-}
-
-.header-main {
-  height: 78px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 30px;
-  font-weight: 900;
-}
-
-.logo-icon {
-  width: 42px;
-  height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: #22c55e;
-  color: #07192b;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 34px;
-}
-
-.nav-menu a {
-  color: #eef6ff;
-  text-decoration: none;
-  font-weight: 700;
-  transition: 0.2s ease;
-}
-
-.nav-menu a:hover,
-.nav-menu a.active {
-  color: #22c55e;
-}
-
-.menu-grid-btn {
-  width: 52px;
-  height: 52px;
-  border: none;
-  border-radius: 14px;
-  background: #22c55e;
-  color: #07192b;
-  font-size: 24px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
 @media (max-width: 1050px) {
-  .header-top {
-    grid-template-columns: 1fr;
-    height: auto;
-    gap: 10px;
-    padding: 12px 20px;
-  }
-
-  .header-top-left,
-  .header-top-center,
-  .header-top-right {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
   .header-main {
     height: auto;
     padding: 18px 20px;
@@ -246,16 +136,4 @@
     flex-wrap: wrap;
     gap: 18px;
   }
-}
-
-.call-btn.full {
-  width: 100%;
-  background: #22c55e;
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
 }
