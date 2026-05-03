@@ -9,7 +9,8 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { getCarById, getCars } from "../../services/api";
 import "./CarDetails.css";
-import { FiPhone } from "react-icons/fi";
+import { FaPhone } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa";
 import { FaGasPump, FaCalendarAlt, FaRoad, FaPalette } from "react-icons/fa";
 import { GiGearStickPattern, GiCarWheel } from "react-icons/gi";
 import { TbEngine } from "react-icons/tb";
@@ -369,6 +370,24 @@ export default function CarDetails() {
               </div>
             </div>
             <aside className="details-right-column">
+              <div className="details-buttons-contacts">
+                <Link
+                  to="/trade-in"
+                  target="_blank"
+                  className="details-buttons-contacts-tradein"
+                >
+                  Solicită Trade-in
+                </Link>
+                <a
+                  href="tel:37360000000"
+                  target="_blank"
+                  className="details-buttons-contacts-phone"
+                >
+                  <FaPhone style={{ marginRight: 8 }} />
+                  +373
+                  <span> 60 000 000</span>
+                </a>
+              </div>
               <div className="car-report-box">
                 <div className="car-report-preview">
                   <div className="report-paper">
@@ -438,8 +457,8 @@ export default function CarDetails() {
                       className="finance-btn"
                       onClick={() => setShowOfferForm(true)}
                     >
-                      <FiPhone style={{ marginRight: 8 }} />
                       Solicită ofertă
+                      <FaArrowRight style={{ marginLeft: 8 }} />
                     </button>
                   </div>
                 </div>

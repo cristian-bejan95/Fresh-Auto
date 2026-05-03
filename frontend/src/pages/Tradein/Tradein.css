@@ -1,0 +1,370 @@
+.trade-page {
+  background: #f4f4f4;
+  color: #222;
+}
+
+.trade-hero {
+  background: #fff;
+  padding: 38px 52px 34px;
+}
+
+.trade-content {
+  position: relative;
+  max-width: 720px;
+  padding-top: 50px;
+  z-index: 2;
+}
+
+.trade-badge {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #dcb771, #c64c45);
+  color: #111;
+  font-weight: 700;
+  margin-bottom: 22px;
+}
+
+.trade-content h1 {
+  font-size: clamp(38px, 6vw, 52px);
+  line-height: 1.05;
+  margin: 0 0 24px;
+}
+
+.trade-content p {
+  font-size: 18px;
+  color: #5e5e5e;
+  max-width: 620px;
+  line-height: 1.7;
+}
+
+.trade-actions {
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.trade-btn {
+  height: 52px;
+  padding: 0 30px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.3s ease;
+}
+
+.trade-btn.primary {
+  background: linear-gradient(90deg, #dcb771, #c64c45);
+  color: #13141a;
+}
+
+.trade-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+  color: #fff;
+}
+
+.trade-steps,
+.trade-form-section {
+  padding: 110px 5%;
+  text-align: center;
+}
+
+.trade-benefits h2,
+.trade-form-section h2 {
+  text-align: center;
+  font-size: 42px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.steps-wrapper {
+  position: relative;
+  padding-top: 40px;
+}
+
+.steps-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 85px;
+  left: 10%;
+  width: 80%;
+  border-top: 2px dashed #c7ced8;
+  z-index: 0;
+}
+
+.trade-steps h2 {
+  color: #0f1115;
+  font-size: 42px;
+  margin-bottom: 50px;
+}
+
+.steps-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+.step-card {
+  transition: 0.35s ease;
+  text-align: center;
+}
+
+.step-icon {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 24px;
+  border-radius: 10px;
+  background: #e1fde3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  color: #22c55e;
+  transition: 0.35s ease;
+  z-index: 3;
+}
+
+.step-number {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-card span {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.step-card h3 {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.step-card p {
+  font-size: 14px;
+  color: #475569;
+  max-width: 260px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.trade-benefits {
+  padding-top: 50px;
+  background: #0f172a;
+}
+
+.benefit-trade {
+  border-radius: 28px;
+  padding: 70px 20%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.trade-benefits p {
+  text-align: center;
+  font-size: 14px;
+  color: #cfcfcf;
+}
+
+.trade-benefits ul {
+  padding: 0;
+  list-style: none;
+}
+
+.trade-benefits li {
+  margin-bottom: 14px;
+  color: #eee;
+}
+
+.trade-benefits li::before {
+  content: "✓";
+  color: #dcb771;
+  margin-right: 10px;
+  font-weight: 800;
+}
+
+.benefit-left,
+.benefit-right {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centrează conținut vertical */
+}
+
+.benefit-right {
+  background: linear-gradient(145deg, #1a1d26, #0f1115);
+  border: 1px solid rgba(220, 183, 113, 0.4);
+  border-radius: 28px;
+  padding: 30px;
+}
+
+.benefit-right h3 {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 14px;
+  color: #fff;
+}
+
+.benefit-right a {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #111;
+  background: linear-gradient(90deg, #dcb771, #c64c45);
+  padding: 14px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 800;
+  transition: 0.3s ease;
+}
+
+.benefit-right a:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+  color: #fff;
+}
+
+.trade-form-section {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.trade-form {
+  background: #171a21;
+  margin-top: 20px;
+  padding: 34px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formular-tradein {
+  background: #f4f4f4;
+  padding: 50px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-bottom: -30px;
+  z-index: 2;
+  position: relative;
+}
+
+.tradein-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 38px;
+  background: #f4f4f4;
+}
+
+.tradein-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 25px 29px 25px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.trade-form input,
+.trade-form textarea {
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #13141a;
+  border-radius: 10px;
+  padding: 16px;
+  outline: none;
+  font-size: 15px;
+}
+
+.trade-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.trade-form input:focus,
+.trade-form textarea:focus {
+  border-color: #dcb771;
+}
+
+.trade-form button {
+  height: 54px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #dcb771, #c64c45);
+  color: #111;
+  font-size: 16px;
+  font-weight: 800;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.trade-form button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+  color: #fff;
+}
+
+@media (max-width: 992px) {
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .trade-benefits {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .trade-hero {
+    min-height: 560px;
+    padding: 60px 22px;
+  }
+
+  .steps-grid,
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .trade-steps,
+  .trade-benefits,
+  .trade-form-section {
+    padding: 60px 22px;
+  }
+
+  .trade-actions {
+    flex-direction: column;
+  }
+
+  .trade-btn {
+    width: 100%;
+  }
+}

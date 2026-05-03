@@ -1,0 +1,5 @@
+.header-container,
+.main-container {
+  width: min(1420px, calc(100% - 48px));
+  margin: 0 auto;
+}

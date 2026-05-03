@@ -4,6 +4,7 @@ import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import { LuSunMedium } from "react-icons/lu";
 import "./Header.css";
+import "../../index.css";
 import logo from "../../assets/logo-header.svg";
 
 export default function Header() {

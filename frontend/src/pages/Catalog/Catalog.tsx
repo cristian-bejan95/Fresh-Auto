@@ -6,7 +6,6 @@ import { getCars } from "../../services/api";
 import "./Catalog.css";
 import { CiSearch } from "react-icons/ci";
 import { TbBrandMercedes } from "react-icons/tb";
-import { GrFavorite } from "react-icons/gr";
 import { GiGearStickPattern } from "react-icons/gi";
 import { MdSpeed } from "react-icons/md";
 import { TbEngine } from "react-icons/tb";
@@ -104,17 +103,10 @@ function FilterSelect({
 
 function CatalogCarCard({ car }: { car: Car }) {
   const hasDiscount = car.oldPrice && car.oldPrice > car.price;
-  const [favorite, setFavorite] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = (car.images || []).slice(0, 5);
   const currentImage = images[currentIndex];
-
-  const toggleFavorite = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setFavorite((prev) => !prev);
-  };
 
   return (
     <article className="premium-car-card">
