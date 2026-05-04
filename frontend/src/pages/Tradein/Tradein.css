@@ -1,11 +1,18 @@
 .trade-page {
-  background: #f4f4f4;
+  background: #f3f6f8;
   color: #222;
 }
 
 .trade-hero {
   background: #fff;
-  padding: 38px 52px 34px;
+  padding: 70px 52px 34px;
+}
+
+.tradein-hero-wrapper {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 80px;
+  align-items: center;
 }
 
 .trade-content {
@@ -13,6 +20,17 @@
   max-width: 720px;
   padding-top: 50px;
   z-index: 2;
+}
+
+.trade-hero-image {
+  display: flex;
+  justify-content: center;
+}
+
+.trade-hero-image img {
+  width: 100%;
+  max-width: 700px;
+  object-fit: contain;
 }
 
 .trade-badge {
@@ -68,7 +86,7 @@
 
 .trade-steps,
 .trade-form-section {
-  padding: 110px 5%;
+  padding: 15px 5%;
   text-align: center;
 }
 
@@ -98,7 +116,7 @@
 .trade-steps h2 {
   color: #0f1115;
   font-size: 42px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .steps-grid {
@@ -169,7 +187,7 @@
 
 .trade-benefits {
   padding-top: 50px;
-  background: #0f172a;
+  background: linear-gradient(145deg, #1a1d26, #0f1115);
 }
 
 .benefit-trade {
@@ -208,7 +226,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* centrează conținut vertical */
+  justify-content: center;
 }
 
 .benefit-right {
@@ -245,19 +263,55 @@
   color: #fff;
 }
 
+/* Trade-in FORM */
+
 .trade-form-section {
   max-width: 900px;
   margin: 0 auto;
 }
 
+.tradein-box {
+  background: #e1fde3;
+  border-radius: 10px;
+  padding: 50px 60px 25px;
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
+}
+
+.tradein-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 40px;
+  background: #f4f4f4;
+}
+
 .trade-form {
-  background: #171a21;
-  margin-top: 20px;
-  padding: 34px;
+  margin-top: 30px;
+  padding-top: 10px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
+}
+
+.trade-field input {
+  height: 42px;
+}
+
+.tradein-form-title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tradein-form-title h2 {
+  font-size: 24px;
+}
+
+.trade-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .formular-tradein {
@@ -270,20 +324,6 @@
   position: relative;
 }
 
-.tradein-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 38px;
-  background: #f4f4f4;
-}
-
-.tradein-box {
-  background: #fff;
-  border-radius: 10px;
-  padding: 25px 29px 25px;
-  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
-}
-
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -294,7 +334,7 @@
 .trade-form textarea {
   width: 100%;
   background: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #dde1de;
   color: #13141a;
   border-radius: 10px;
   padding: 16px;
@@ -303,7 +343,7 @@
 }
 
 .trade-form textarea {
-  min-height: 130px;
+  min-height: 96px;
   resize: vertical;
 }
 
@@ -315,10 +355,10 @@
 .trade-form button {
   height: 54px;
   border: none;
-  border-radius: 16px;
+  border-radius: 10px;
   cursor: pointer;
   background: linear-gradient(90deg, #dcb771, #c64c45);
-  color: #111;
+  color: #13141a;
   font-size: 16px;
   font-weight: 800;
   transition: 0.3s ease;
@@ -331,6 +371,34 @@
   transform: translateY(-2px);
   filter: brightness(1.1);
   color: #fff;
+}
+
+.file-upload-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.file-btn {
+  position: relative;
+  padding: 10px 16px;
+  border: 1px solid #c7ced8;
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.file-btn input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-name {
+  font-size: 14px;
+  color: #6b7280;
 }
 
 @media (max-width: 992px) {

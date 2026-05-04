@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import "./Tradein.css";
+import tradeImg from "../../assets/trade-in.png";
 import Footer from "../../components/Footer/Footer";
 import { IoCarSportSharp } from "react-icons/io5";
 import { FaUserCheck } from "react-icons/fa";
@@ -13,6 +14,7 @@ function Tradein() {
     document.title = "Trade-in | Fresh-Auto";
   }, []);
 
+  const [fileName, setFileName] = useState("");
   const [offers, setOffers] = useState<any[]>([]);
 
   useEffect(() => {
@@ -33,21 +35,26 @@ function Tradein() {
           <div className="main-container">
             <div className="trade-overlay"></div>
 
-            <div className="trade-content">
-              <h1>
-                Schimbă mașina ta prin programul Trade-In rapid și avantajos
-              </h1>
+            <div className="tradein-hero-wrapper">
+              <div className="trade-content">
+                <h1>
+                  Schimbă mașina ta prin programul Trade-In rapid și avantajos
+                </h1>
 
-              <p>
-                Adu automobilul tău actual, primește o evaluare corectă și alege
-                o mașină nouă din stocul Fresh Auto. Simplu, rapid și fără
-                stres.
-              </p>
+                <p>
+                  Adu automobilul tău actual, primește o evaluare corectă și
+                  alege o mașină nouă din stocul Fresh Auto. Simplu, rapid și
+                  fără stres.
+                </p>
 
-              <div className="trade-actions">
-                <a href="#trade-form" className="trade-btn primary">
-                  Cere evaluare
-                </a>
+                <div className="trade-actions">
+                  <a href="#trade-form" className="trade-btn primary">
+                    Cere evaluare
+                  </a>
+                </div>
+              </div>
+              <div className="trade-hero-image">
+                <img src={tradeImg} alt="Trade in auto" />
               </div>
             </div>
             <div className="trade-steps">
@@ -98,7 +105,7 @@ function Tradein() {
 
         <section className="trade-benefits">
           <div className="main-container">
-            <h2>De ce să alegi Trade-In?</h2>
+            <h2>De ce să alegi Trade-In la Fresh Auto</h2>
             <p>
               Nu mai pierzi timp cu anunțuri, apeluri și negocieri. Noi preluăm
               procesul și îți oferim o soluție comodă.
@@ -126,26 +133,78 @@ function Tradein() {
             </div>
           </div>
         </section>
+
         <section className="formular-tradein" id="trade-form">
           <div className="main-container">
             <div className="tradein-wrapper">
               <div className="tradein-box">
-                <h2>Formular Trade-In</h2>
+                <div className="tradein-form-title">
+                  <h2>Formular Trade-In</h2>
+                  <p>
+                    Introdu datele mașinii tale și atașează poze sau indică
+                    link-ul de pe 999.md sau alte platforme de vînzări.
+                  </p>
+                </div>
                 <form className="trade-form">
-                  <input type="text" placeholder="Nume și prenume" />
-                  <input type="tel" placeholder="Număr de telefon" />
+                  <div className="trade-form-grid">
+                    <div className="trade-field">
+                      <label>Link anunț vînzare (999.md, etc.)</label>
+                      <input type="text" />
+                    </div>
 
-                  <div className="form-row">
-                    <input type="text" placeholder="Marca mașinii" />
-                    <input type="text" placeholder="Model" />
+                    <div className="trade-field">
+                      <label>Imagine (max. 1Mb)</label>
+                      <div className="file-upload-box">
+                        <label className="file-btn">
+                          Alege fișierele
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              const file = e.target.files?.[0];
+                              if (file) setFileName(file.name);
+                            }}
+                          />
+                        </label>
+
+                        <span className="file-name">
+                          {fileName || "Nu ai ales niciun fișier"}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="trade-field">
+                      <label>Mașina dorită din parcul Fresh Auto (link)</label>
+                      <input type="text" />
+                    </div>
+
+                    <div className="trade-field">
+                      <label>Diferența de preț propusă</label>
+                      <input type="text" />
+                    </div>
                   </div>
 
-                  <div className="form-row">
-                    <input type="number" placeholder="An fabricație" />
-                    <input type="number" placeholder="Kilometraj" />
+                  <div className="trade-field trade-field-full">
+                    <label>
+                      Marcă, model, an, parcurs km, tip combustibil, tip cutie
+                      de viteze, preț dorit și alte detalii
+                    </label>
+                    <textarea placeholder="Introdu datele..." />
                   </div>
 
-                  <textarea placeholder="Descrie starea mașinii"></textarea>
+                  <h3>Date de contact</h3>
+
+                  <div className="trade-form-grid">
+                    <div className="trade-field">
+                      <label>Nume</label>
+                      <input type="text" />
+                    </div>
+
+                    <div className="trade-field">
+                      <label>Număr telefon de contact</label>
+                      <input type="tel" />
+                    </div>
+                  </div>
 
                   <button type="submit">
                     <LiaTelegramPlane style={{ marginRight: 8 }} />
@@ -191,26 +250,3 @@ function Tradein() {
 }
 
 export default Tradein;
-
-/* <section className="trade-form-section" id="trade-form">
-          <h2>Solicită evaluare Trade-In</h2>
-
-          <form className="trade-form">
-            <input type="text" placeholder="Nume și prenume" />
-            <input type="tel" placeholder="Număr de telefon" />
-
-            <div className="form-row">
-              <input type="text" placeholder="Marca mașinii" />
-              <input type="text" placeholder="Model" />
-            </div>
-
-            <div className="form-row">
-              <input type="number" placeholder="An fabricație" />
-              <input type="number" placeholder="Kilometraj" />
-            </div>
-
-            <textarea placeholder="Descrie starea mașinii"></textarea>
-
-            <button type="submit">Trimite cererea</button>
-          </form>
-        </section> */
