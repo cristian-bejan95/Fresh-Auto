@@ -45,7 +45,7 @@
 
 .trade-content h1 {
   font-size: clamp(38px, 6vw, 52px);
-  line-height: 1.05;
+  line-height: 1.3;
   margin: 0 0 24px;
 }
 

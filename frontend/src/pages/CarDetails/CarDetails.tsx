@@ -13,7 +13,7 @@ import { FaPhone } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaGasPump, FaCalendarAlt, FaRoad, FaPalette } from "react-icons/fa";
 import { GiGearStickPattern, GiCarWheel } from "react-icons/gi";
-import { TbEngine } from "react-icons/tb";
+import { TbEngineFilled } from "react-icons/tb";
 import { MdSpeed } from "react-icons/md";
 import microinvest from "../../assets/logos/microinvest.svg";
 import easycredit from "../../assets/logos/ecredit.svg";
@@ -22,6 +22,9 @@ import mogo from "../../assets/logos/mogo.svg";
 import creditrapid from "../../assets/logos/creditrapid.svg";
 import maib from "../../assets/logos/maib.svg";
 import reportImg from "../../assets/report.jpg";
+import { FaFileAlt, FaListAlt, FaCheckSquare } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { LiaTelegramPlane } from "react-icons/lia";
 
 type Car = {
   _id: string;
@@ -54,11 +57,16 @@ export default function CarDetails() {
   const [loading, setLoading] = useState(true);
   const [advancePercent, setAdvancePercent] = useState(10);
   const [months, setMonths] = useState(60);
-  const [phone, setPhone] = useState("");
   const advance = Math.round(((car?.price || 0) * advancePercent) / 100);
   const credit = (car?.price || 0) - advance;
   const monthly = Math.round(credit / months);
   const sliderRef = useRef<HTMLDivElement | null>(null);
+  const [phone, setPhone] = useState("+373 ");
+  const [phoneError, setPhoneError] = useState("");
+
+  const [activeTab, setActiveTab] = useState<
+    "descriere" | "general" | "dotari"
+  >("general");
 
   const increaseAdvance = () => {
     setAdvancePercent((prev) => Math.min(prev + 5, 90));
@@ -80,6 +88,88 @@ export default function CarDetails() {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [showOfferForm, setShowOfferForm] = useState(false);
+
+  const formatMDPhone = (value: string) => {
+    let digits = value.replace(/\D/g, "");
+
+    if (digits.startsWith("373")) {
+      digits = digits.slice(3);
+    }
+
+    digits = digits.slice(0, 8);
+
+    let formatted = "+373 ";
+
+    if (digits.length > 0) formatted += digits.slice(0, 2);
+    if (digits.length > 2) formatted += " " + digits.slice(2, 5);
+    if (digits.length > 5) formatted += " " + digits.slice(5, 8);
+
+    return formatted;
+  };
+
+  const validateMDPhone = (value: string) => {
+    const digits = value.replace(/\D/g, "");
+
+    if (digits.length === 3) return "Introduceți numărul de telefon";
+    if (digits.length !== 11) return "Numărul trebuie să conțină 8 cifre";
+
+    const mdNumber = digits.slice(3);
+
+    if (!/^[267]\d{7}$/.test(mdNumber)) {
+      return "Număr invalid";
+    }
+
+    return "";
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatMDPhone(e.target.value);
+    setPhone(formatted);
+    setPhoneError(validateMDPhone(formatted));
+  };
+
+  const handlePhoneBlur = () => {
+    setPhoneError(validateMDPhone(phone));
+  };
+
+  const optionCategories = [
+    {
+      title: "Confort",
+      keywords: ["climat", "scaune", "incalz", "volan", "cruise", "keyless"],
+    },
+    {
+      title: "Siguranță",
+      keywords: ["abs", "esp", "airbag", "isofix", "franare"],
+    },
+    {
+      title: "Multimedia",
+      keywords: ["navig", "bluetooth", "carplay", "android", "audio", "usb"],
+    },
+    {
+      title: "Exterior",
+      keywords: ["jante", "faruri", "led", "xenon", "panor", "trapa"],
+    },
+    {
+      title: "Interior",
+      keywords: ["piele", "alcantara", "ambient", "cotiera"],
+    },
+    {
+      title: "Asistență",
+      keywords: ["camera", "senzori", "parcare", "lane", "blind", "pilot"],
+    },
+  ];
+
+  const getOptionsByCategory = (keywords: string[]) => {
+    if (!car?.options) return [];
+
+    return car.options.filter((option: string) =>
+      keywords.some((k) => option.toLowerCase().includes(k.toLowerCase())),
+    );
+  };
+
+  useEffect(() => {
+    setActiveTab("general");
+  }, [car]);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -110,7 +200,6 @@ export default function CarDetails() {
           .slice(0, 5);
 
         setOffers(randomOffers);
-        document.title = `${data.title} | Fresh-Auto`;
       } catch (error) {
         console.error("Eroare la încărcarea mașinii:", error);
       } finally {
@@ -120,6 +209,12 @@ export default function CarDetails() {
 
     loadCar();
   }, [id]);
+
+  useEffect(() => {
+    if (!car) return;
+
+    document.title = `${car.title} ${car.year} | Fresh-Auto`;
+  }, [car]);
 
   useEffect(() => {
     if (!car) return;
@@ -270,94 +365,158 @@ export default function CarDetails() {
                     )}
                   </div>
                 </div>
-                <div className="details-specs-grid">
-                  <div className="spec-card">
-                    <FaCalendarAlt />
-                    <div>
-                      <span>Anul fabricație</span>
-                      <strong>{car.year}</strong>
-                    </div>
-                  </div>
 
-                  <div className="spec-card">
-                    <FaRoad />
-                    <div>
-                      <span>Parcurs</span>
-                      <strong>{car.mileage.toLocaleString("ro-RO")} Km</strong>
-                    </div>
-                  </div>
-
-                  <div className="spec-card">
-                    <GiGearStickPattern />
-                    <div>
-                      <span>Cutie viteze</span>
-                      <strong>{car.transmission}</strong>
-                    </div>
-                  </div>
-
-                  <div className="spec-card">
-                    <FaGasPump />
-                    <div>
-                      <span>Combustibil</span>
-                      <strong>{car.fuel}</strong>
-                    </div>
-                  </div>
-
-                  <div className="spec-card">
-                    <TbEngine />
-                    <div>
-                      <span>Capacitatea</span>
-                      <strong>{car.engine}</strong>
-                    </div>
-                  </div>
-
-                  <div className="spec-card">
-                    <MdSpeed />
-                    <div>
-                      <span>Putere Motor</span>
-                      <strong>{car.power}</strong>
-                    </div>
-                  </div>
-
-                  <div className="spec-card">
-                    <FaPalette />
-                    <div>
-                      <span>Culoare exterior</span>
-                      <strong>{car.color}</strong>
-                    </div>
-                  </div>
-
-                  <div className="spec-card">
-                    <GiCarWheel />
-                    <div>
-                      <span>Tracțiune</span>
-                      <strong>{car.wheldrive || "Nespecificat"}</strong>
-                    </div>
-                  </div>
+                <div className="car-detail-tabs">
+                  <button
+                    className={`car-tab-btn ${activeTab === "descriere" ? "active" : ""}`}
+                    onClick={() => setActiveTab("descriere")}
+                  >
+                    <FaFileAlt />
+                    Descriere
+                  </button>
+                  <button
+                    className={`car-tab-btn ${activeTab === "general" ? "active" : ""}`}
+                    onClick={() => setActiveTab("general")}
+                  >
+                    <FaListAlt />
+                    Prezentare generală
+                  </button>
+                  <button
+                    className={`car-tab-btn ${activeTab === "dotari" ? "active" : ""}`}
+                    onClick={() => setActiveTab("dotari")}
+                  >
+                    <FaCheckSquare />
+                    Dotări
+                  </button>
                 </div>
-                <div className="details-specs-descr">
-                  <h2>Detalii</h2>
-                  <p>
-                    {car.description ||
-                      "Nu există descriere pentru acest automobil."}
-                  </p>
-                </div>
+
+                {activeTab === "general" && (
+                  <div className="details-specs-grid">
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <FaCalendarAlt />
+                      </div>
+
+                      <div className="spec-content">
+                        <span>Anul fabricație:</span>
+                        <strong>{car.year}</strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <FaRoad />
+                      </div>
+                      <div className="spec-content">
+                        <span>Parcurs:</span>
+                        <strong>
+                          {car.mileage.toLocaleString("ro-RO")} Km
+                        </strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <GiGearStickPattern />
+                      </div>
+                      <div className="spec-content">
+                        <span>Cutie viteze:</span>
+                        <strong>{car.transmission}</strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <FaGasPump />
+                      </div>
+                      <div className="spec-content">
+                        <span>Combustibil:</span>
+                        <strong>{car.fuel}</strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <TbEngineFilled />
+                      </div>
+                      <div className="spec-content">
+                        <span>Capacitatea:</span>
+                        <strong>{car.engine}</strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <MdSpeed />
+                      </div>
+                      <div className="spec-content">
+                        <span>Putere Motor:</span>
+                        <strong>{car.power}</strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <FaPalette />
+                      </div>
+                      <div className="spec-content">
+                        <span>Culoare exterior:</span>
+                        <strong>{car.color}</strong>
+                      </div>
+                    </div>
+
+                    <div className="spec-card">
+                      <div className="spec-icon">
+                        <GiCarWheel />
+                      </div>
+                      <div className="spec-content">
+                        <span>Tracțiune:</span>
+                        <strong>{car.wheldrive || "Nespecificat"}</strong>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === "descriere" && (
+                  <div className="details-specs-descr">
+                    <h2>Descriere</h2>
+                    <p>
+                      {car.description ||
+                        "Nu există descriere pentru acest automobil."}
+                    </p>
+                  </div>
+                )}
+
+                {/* Optiuni si dotari */}
+
+                {activeTab === "dotari" && (
+                  <div className="car-options-section">
+                    {optionCategories.map((cat) => {
+                      const items = getOptionsByCategory(cat.keywords);
+
+                      if (!items || items.length === 0) return null;
+
+                      return (
+                        <div className="option-category" key={cat.title}>
+                          <h3>{cat.title}</h3>
+
+                          <div className="car-options-grid">
+                            {items.map((option: string) => (
+                              <div className="car-option-card" key={option}>
+                                <span>{option}</span>
+                                <div className="option-check">
+                                  <FaCheck />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </section>
 
-              {car.options && car.options.length > 0 && (
-                <section className="car-options-section">
-                  <h2>Opțiuni și dotări</h2>
-
-                  <div className="car-options-grid">
-                    {car.options.map((option) => (
-                      <div className="car-option-card" key={option}>
-                        <span>{option}</span>
-                        <span className="option-check">✓</span>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
               <div className="car-location-section">
                 <h2>Locația Fresh Auto</h2>
                 <div className="car-location-map">
@@ -479,19 +638,16 @@ export default function CarDetails() {
                         <input
                           type="tel"
                           value={phone}
-                          maxLength={11}
-                          onChange={(e) => {
-                            const onlyNumbers = e.target.value.replace(
-                              /\D/g,
-                              "",
-                            );
-                            setPhone(onlyNumbers);
-                          }}
+                          onChange={handlePhoneChange}
+                          onBlur={handlePhoneBlur}
+                          inputMode="numeric"
+                          placeholder="+373 69 123 456"
                         />
                       </div>
                     </div>
 
                     <button type="button" className="finance-contact-submit">
+                      <LiaTelegramPlane style={{ marginRight: 8 }} />
                       Trimite
                     </button>
                   </div>

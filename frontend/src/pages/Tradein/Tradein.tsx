@@ -9,20 +9,70 @@ import { FaUserCheck } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { LiaTelegramPlane } from "react-icons/lia";
-function Tradein() {
+
+export default function Tradein() {
   useEffect(() => {
     document.title = "Trade-in | Fresh-Auto";
   }, []);
 
-  const [fileName, setFileName] = useState("");
+  const [imagesCount, setImagesCount] = useState(0);
   const [offers, setOffers] = useState<any[]>([]);
+  const [phone, setPhone] = useState("+373 ");
+  const [phoneError, setPhoneError] = useState("");
+
+  const formatMDPhone = (value: string) => {
+    let digits = value.replace(/\D/g, "");
+
+    if (digits.startsWith("373")) {
+      digits = digits.slice(3);
+    }
+
+    digits = digits.slice(0, 8);
+
+    let formatted = "+373 ";
+
+    if (digits.length > 0) formatted += digits.slice(0, 2);
+    if (digits.length > 2) formatted += " " + digits.slice(2, 5);
+    if (digits.length > 5) formatted += " " + digits.slice(5, 8);
+
+    return formatted;
+  };
+
+  const validateMDPhone = (value: string) => {
+    const digits = value.replace(/\D/g, "");
+
+    if (digits.length === 3) return "";
+    if (digits.length !== 11) return "";
+
+    const mdNumber = digits.slice(3);
+
+    if (!/^[267]\d{7}$/.test(mdNumber)) {
+      return "Număr invalid (trebuie să înceapă cu 6 sau 7)";
+    }
+
+    return "";
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatMDPhone(e.target.value);
+    setPhone(formatted);
+    setPhoneError(validateMDPhone(formatted));
+  };
+
+  const handlePhoneBlur = () => {
+    setPhoneError(validateMDPhone(phone));
+  };
+
+  const handlePhoneFocus = () => {
+    if (!phone.trim()) setPhone("+373 ");
+  };
 
   useEffect(() => {
     fetch("http://localhost:5000/api/cars")
       .then((res) => res.json())
       .then((data) => {
         const cars = Array.isArray(data) ? data : data.cars || [];
-        setOffers(cars.slice(0, 5));
+        setOffers(cars.slice(0, 6));
       })
       .catch((err) => console.error("Eroare la oferte:", err));
   }, []);
@@ -153,22 +203,26 @@ function Tradein() {
                     </div>
 
                     <div className="trade-field">
-                      <label>Imagine (max. 1Mb)</label>
+                      <label>Imagine</label>
+
                       <div className="file-upload-box">
                         <label className="file-btn">
                           Alege fișierele
                           <input
                             type="file"
                             accept="image/*"
+                            multiple
                             onChange={(e) => {
-                              const file = e.target.files?.[0];
-                              if (file) setFileName(file.name);
+                              const files = e.target.files;
+                              setImagesCount(files ? files.length : 0);
                             }}
                           />
                         </label>
 
                         <span className="file-name">
-                          {fileName || "Nu ai ales niciun fișier"}
+                          {imagesCount > 0
+                            ? `${imagesCount} ${imagesCount === 1 ? "imagine selectată" : "imagini selectate"}`
+                            : "Nu ai ales niciun fișier"}
                         </span>
                       </div>
                     </div>
@@ -202,7 +256,20 @@ function Tradein() {
 
                     <div className="trade-field">
                       <label>Număr telefon de contact</label>
-                      <input type="tel" />
+                      <input
+                        type="tel"
+                        value={phone}
+                        onChange={handlePhoneChange}
+                        onBlur={handlePhoneBlur}
+                        onFocus={handlePhoneFocus}
+                        inputMode="numeric"
+                        placeholder="+373 69 123 456"
+                        className={phoneError ? "input-error" : ""}
+                      />
+
+                      {phoneError && (
+                        <span className="trade-error">{phoneError}</span>
+                      )}
                     </div>
                   </div>
 
@@ -248,5 +315,3 @@ function Tradein() {
     </>
   );
 }
-
-export default Tradein;

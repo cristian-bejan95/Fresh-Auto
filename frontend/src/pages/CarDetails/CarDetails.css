@@ -1,7 +1,7 @@
 .car-details-page {
   min-height: 100vh;
   background: #f3f6f8;
-  color: #111;
+  color: #13141a;
   padding: 34px 0 70px;
   position: relative;
   border-bottom-left-radius: 20px;
@@ -13,6 +13,47 @@
 .car-details-container {
   width: min(1420px, calc(100% - 48px));
   margin: 0 auto;
+}
+
+.car-detail-tabs {
+  margin: 40px 0 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.car-tab-btn {
+  height: 54px;
+  border-radius: 12px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: #fff;
+  color: #16a34a;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.car-tab-btn svg {
+  font-size: 17px;
+}
+
+.car-tab-btn:hover {
+  transform: translateY(-2px);
+  border-color: #22c55e;
+  background: linear-gradient(180deg, #ecfdf3, #bbf7d0);
+}
+
+.car-tab-btn.active {
+  border: none;
+  color: #fff;
+  background: #22c55e;
+  box-shadow: 0 14px 30px rgba(129, 249, 159, 0.28);
 }
 
 .details-breadcrumb {
@@ -114,7 +155,10 @@
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
-.details-characteristics h2,
+.details-characteristics h2 {
+  font-size: 28px;
+}
+
 .details-description h2,
 .offers-box h3 {
   margin: 0 0 15px;
@@ -344,9 +388,9 @@
 
 .details-specs-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  margin-bottom: 20px;
+  margin: 50px 0 0 0;
 }
 
 .details-main-slider {
@@ -385,7 +429,7 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -401,16 +445,6 @@
 
 .custom-next {
   right: 16px;
-}
-
-.custom-next svg:hover,
-.custom-prev svg:hover {
-  color: #22c55e;
-}
-
-.custom-prev:hover,
-.custom-next:hover {
-  background: rgba(255, 255, 255, 0.9);
 }
 
 .custom-prev,
@@ -445,7 +479,7 @@
 .custom-prev svg,
 .custom-next svg {
   font-size: 32px;
-  color: #13141a;
+  color: #fff;
 }
 
 .thumbs-car-swiper {
@@ -569,7 +603,27 @@
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
+.spec-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.06);
+  font-size: 22px;
+}
+
+.spec-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+}
+
 .spec-card svg {
+  fill: #22c55e;
   font-size: 24px;
   flex-shrink: 0;
 }
@@ -577,18 +631,19 @@
 .spec-card span {
   display: block;
   color: #5e5e5e;
-  font-size: 12px;
+  font-size: 13.5px;
   margin-bottom: 4px;
   font-weight: 400;
 }
 
 .spec-card strong {
-  color: #13141a;
+  color: #696665;
   font-size: 16px;
   font-weight: 800;
 }
 
 .details-specs-descr h2 {
+  margin: 50px 0 0 0;
   font-size: 24px;
 }
 
@@ -893,6 +948,13 @@
   }
 }
 
+@media (max-width: 768px) {
+  .car-detail-tabs {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
 @media (max-width: 1100px) {
   .details-layout {
     grid-template-columns: 1fr;
@@ -935,24 +997,20 @@
 /* Options */
 
 .car-options-section {
-  margin-top: 24px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 24px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
+  margin: 50px 0 0 0;
 }
 
 .car-options-section h2 {
   margin: 0 0 20px;
   font-size: 24px;
-  font-weight: 950;
+  font-weight: 700;
   color: #111;
 }
 
 .car-options-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
 .car-option-card {
@@ -965,20 +1023,32 @@
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  color: #111;
-  font-size: 13px;
+  color: #696665;
+  font-size: 15px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
+.option-category {
+  margin-top: 30px;
+}
+
+.option-category h3 {
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: #111827;
+}
+
 .option-check {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #22c55e;
-  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
   color: #22c55e;
-  display: grid;
-  place-items: center;
-  font-size: 13px;
+  background: rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
   flex-shrink: 0;
 }
 
@@ -1108,6 +1178,9 @@
 }
 
 .finance-contact-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   padding: 14px;
   margin-top: 18px;

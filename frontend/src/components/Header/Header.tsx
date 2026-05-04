@@ -55,13 +55,6 @@ export default function Header() {
                 RU
               </button>
             </div>
-            <button
-              type="button"
-              className={`theme-btn ${themeActive ? "active" : ""}`}
-              onClick={() => setThemeActive((prev) => !prev)}
-            >
-              <LuSunMedium />
-            </button>
           </div>
         </div>
       </div>
