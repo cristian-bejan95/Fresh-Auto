@@ -1,16 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import { getCars } from "../../services/api";
 import "./Catalog.css";
 import { CiSearch } from "react-icons/ci";
 import { TbBrandMercedes } from "react-icons/tb";
-import { GiGearStickPattern } from "react-icons/gi";
-import { MdSpeed } from "react-icons/md";
-import { TbEngine } from "react-icons/tb";
-import { BsFuelPumpFill } from "react-icons/bs";
 import { FiRefreshCw } from "react-icons/fi";
+import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
+import type { Car } from "../../types/car";
+
 import {
   SiBmw,
   SiRenault,
@@ -31,26 +28,6 @@ import {
   SiPeugeot,
   SiPorsche,
 } from "react-icons/si";
-
-type Car = {
-  _id: string;
-  title: string;
-  brand: string;
-  model: string;
-  year: number;
-  price: number;
-  oldPrice?: number;
-  mileage: number;
-  fuel: string;
-  transmission: string;
-  engine: string;
-  power: string;
-  color: string;
-  wheldrive?: string;
-  images: string[];
-  status: "available" | "reserved" | "sold" | "discount";
-  featured: boolean;
-};
 
 type FilterSelectProps = {
   label: string;
@@ -101,134 +78,7 @@ function FilterSelect({
   );
 }
 
-function CatalogCarCard({ car }: { car: Car }) {
-  const hasDiscount = car.oldPrice && car.oldPrice > car.price;
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const images = (car.images || []).slice(0, 5);
-  const currentImage = images[currentIndex];
-
-  return (
-    <article className="premium-car-card">
-      <Link
-        to={`/cars/${car._id}`}
-        className="premium-card-image"
-        onMouseMove={(e) => {
-          if (images.length <= 1) return;
-
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const percent = x / rect.width;
-
-          const newIndex = Math.floor(percent * images.length);
-          const safeIndex = Math.min(images.length - 1, Math.max(0, newIndex));
-
-          if (safeIndex !== currentIndex) {
-            setCurrentIndex(safeIndex);
-          }
-        }}
-        onMouseLeave={() => {
-          setCurrentIndex(0);
-        }}
-      >
-        {car.status === "discount" && (
-          <span className="badge-diagonal-green">Preț redus</span>
-        )}
-        {car.status === "available" && (
-          <span className="badge-diagonal-available">În stoc</span>
-        )}
-        {car.status === "sold" && (
-          <span className="badge-diagonal-sold">Vîndută</span>
-        )}
-        {car.status === "reserved" && (
-          <span className="badge-diagonal-reserved">Rezervată</span>
-        )}
-
-        {currentImage ? (
-          <img src={currentImage} alt={car.title} />
-        ) : (
-          <div className="premium-no-image">Fără imagine</div>
-        )}
-
-        {hasDiscount && <span className="premium-badge">Reducere</span>}
-
-        {images.length > 1 && (
-          <div className="premium-slider-dots">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                className={`premium-slider-dot ${
-                  index === currentIndex ? "active" : ""
-                }`}
-                onMouseEnter={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setCurrentIndex(index);
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-              />
-            ))}
-          </div>
-        )}
-      </Link>
-
-      <div className="premium-card-body">
-        <div className="premium-card-title-row">
-          <h3>{car.title}</h3>
-          <span>{car.year}</span>
-        </div>
-
-        <div className="car-specs-box">
-          <div className="spec-box-item">
-            <GiGearStickPattern />
-            <span>{car.transmission}</span>
-          </div>
-
-          <div className="spec-box-item">
-            <TbEngine />
-            <span>{car.engine}</span>
-          </div>
-
-          <div className="spec-box-item">
-            <MdSpeed />
-            <span>{car.mileage.toLocaleString("ro-RO")} km</span>
-          </div>
-
-          <div className="spec-box-item">
-            <BsFuelPumpFill />
-            <span>{car.fuel}</span>
-          </div>
-        </div>
-
-        <div className="premium-card-bottom">
-          <div className="price-sale-box">
-            <strong className="price-main">
-              {car.price.toLocaleString("ro-RO")}€
-            </strong>
-
-            {hasDiscount && (
-              <span className="price-old">
-                {car.oldPrice!.toLocaleString("ro-RO")}€
-              </span>
-            )}
-          </div>
-
-          <div className="price-month-box">
-            <span>Rată de la</span>
-            <strong>{Math.round(car.price / 60)}€</strong>
-            <small>/lună</small>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
-function Catalog() {
+export default function Catalog() {
   const brandTabs = [
     { name: "Mercedes-Benz", icon: <TbBrandMercedes /> },
     { name: "BMW", icon: <SiBmw /> },
@@ -402,10 +252,8 @@ function Catalog() {
 
   return (
     <>
-      <Header />
-
-      <main className="catalog-page-light">
-        <div className="catalog-container">
+      <div className="catalog-page-light">
+        <div className="main-container">
           <div className="catalog-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link to="/" className="breadcrumb-link">
@@ -667,7 +515,7 @@ function Catalog() {
           ) : (
             <section className="catalog-grid-light">
               {filteredCars.slice(0, visibleCount).map((car) => (
-                <CatalogCarCard car={car} key={car._id} />
+                <PremiumCarCard car={car} key={car._id} />
               ))}
             </section>
           )}
@@ -685,10 +533,7 @@ function Catalog() {
             </div>
           )}
         </div>
-      </main>
-      <Footer />
+      </div>
     </>
   );
 }
-
-export default Catalog;

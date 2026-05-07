@@ -25,30 +25,7 @@ import reportImg from "../../assets/report.jpg";
 import { FaFileAlt, FaListAlt, FaCheckSquare } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa";
 import { LiaTelegramPlane } from "react-icons/lia";
-
-type Car = {
-  _id: string;
-  title: string;
-  brand: string;
-  model: string;
-  year: number;
-  price: number;
-  oldPrice?: number;
-  mileage: number;
-  fuel: string;
-  transmission: string;
-  engine: string;
-  power: string;
-  color: string;
-  wheldrive?: string;
-  description: string;
-  images: string[];
-  status: "available" | "reserved" | "sold" | "discount";
-  featured: boolean;
-  body?: string;
-  seats?: string;
-  options?: string[];
-};
+import type { Car } from "../../types/car";
 
 export default function CarDetails() {
   const { id } = useParams();
@@ -267,10 +244,8 @@ export default function CarDetails() {
 
   return (
     <>
-      <Header />
-
       <main className="car-details-page">
-        <div className="car-details-container">
+        <div className="main-container">
           <div className="details-breadcrumb">
             <Link to="/">Home</Link>
             <span className="breadcrumb-separator" aria-hidden="true">
@@ -296,7 +271,19 @@ export default function CarDetails() {
                   </button>
 
                   {car.status === "discount" && (
-                    <span className="details-discount-ribbon">Promoție</span>
+                    <span className="details-discount-ribbon">Preț redus</span>
+                  )}
+
+                  {car.status === "available" && (
+                    <span className="badge-diagonal-available">În stoc</span>
+                  )}
+
+                  {car.status === "sold" && (
+                    <span className="badge-diagonal-sold">Vîndută</span>
+                  )}
+
+                  {car.status === "reserved" && (
+                    <span className="badge-diagonal-reserved">Rezervată</span>
                   )}
 
                   {images.length > 0 ? (
@@ -749,8 +736,6 @@ export default function CarDetails() {
           </button>
         </div>
       )}
-
-      <Footer />
     </>
   );
 }

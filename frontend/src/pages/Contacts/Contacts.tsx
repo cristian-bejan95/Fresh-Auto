@@ -1,16 +1,9 @@
 import { useEffect } from "react";
-import Header from "../../components/Header/Header";
 
-function Contact() {
+export default function Contact() {
   useEffect(() => {
     document.title = "Contacte | Fresh-Auto";
   }, []);
 
-  return (
-    <>
-      <Header />
-    </>
-  );
+  return <></>;
 }
-
-export default Contact;

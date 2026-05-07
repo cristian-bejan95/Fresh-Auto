@@ -1,18 +1,23 @@
 export type Car = {
-  _id?: string;
+  _id: string;
   title: string;
   brand: string;
   model: string;
   year: number;
   price: number;
+  oldPrice?: number;
   mileage: number;
   fuel: string;
   transmission: string;
   engine: string;
   power: string;
   color: string;
+  wheldrive?: string;
   description: string;
   images: string[];
-  status: "available" | "reserved" | "sold";
+  status: "available" | "reserved" | "sold" | "discount";
   featured: boolean;
+  body?: string;
+  seats?: string;
+  options?: string[];
 };

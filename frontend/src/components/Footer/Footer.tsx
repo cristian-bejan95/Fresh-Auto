@@ -39,15 +39,17 @@ export default function Footer() {
               </a>
             </p>
           </div>
+          <div className="footer-nav-links">
+            <div className="footer-column">
+              <Link to="/catalog">Catalog Auto</Link>
+              <Link to="/promotii">Promoții</Link>
+              <Link to="/trade-in">Schimb Trade-in</Link>
+            </div>
 
-          <div className="footer-column">
-            <Link to="/catalog">Catalog Auto</Link>
-            <Link to="/trade-in">Schimb Trade-in</Link>
-          </div>
-
-          <div className="footer-column">
-            <Link to="/leasing">Credit Auto</Link>
-            <Link to="/contacts">Contacte</Link>
+            <div className="footer-column">
+              <Link to="/leasing">Credit Auto</Link>
+              <Link to="/contacts">Contacte</Link>
+            </div>
           </div>
         </div>
 

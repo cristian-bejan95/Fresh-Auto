@@ -1,5 +1,4 @@
 .trade-page {
-  background: #f3f6f8;
   color: #222;
 }
 
@@ -315,13 +314,7 @@
 }
 
 .formular-tradein {
-  background: #f4f4f4;
   padding: 50px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  margin-bottom: -30px;
-  z-index: 2;
-  position: relative;
 }
 
 .form-row {

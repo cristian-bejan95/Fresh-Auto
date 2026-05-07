@@ -9,6 +9,14 @@ export default function AdminLogin() {
     document.title = "Log-in | Fresh-Auto Admin";
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");

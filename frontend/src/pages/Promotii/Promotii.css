@@ -1,0 +1,18 @@
+.promotii-page {
+  background: var(--main-color);
+  margin: 80px 0 90px 0;
+}
+
+.promotii-header {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.promotii-header h2 {
+  font-size: 30px;
+  color: var(--text-color);
+}
+
+.promotii-header p {
+  color: var(--subtitle-color);
+}

@@ -2,14 +2,13 @@ import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
-import { LuSunMedium } from "react-icons/lu";
+import { GrFavorite } from "react-icons/gr";
 import "./Header.css";
 import "../../index.css";
 import logo from "../../assets/logo-header.svg";
 
 export default function Header() {
   const [lang, setLang] = useState<"ro" | "ru">("ro");
-  const [themeActive, setThemeActive] = useState(false);
 
   return (
     <header className="header">
@@ -21,6 +20,7 @@ export default function Header() {
 
           <nav className="nav-menu">
             <NavLink to="/catalog">Catalog</NavLink>
+            <NavLink to="/promotii">Promoții</NavLink>
             <NavLink to="/trade-in">Schimb trade-in</NavLink>
             <NavLink to="/leasing">Credit Auto</NavLink>
             <NavLink to="/contacts">Contacte</NavLink>
@@ -38,6 +38,9 @@ export default function Header() {
                 <FaTiktok />
               </a>
             </div>
+            <Link to="/favorite" className="header-favorite-btn">
+              <GrFavorite className="header-favorite-img" />
+            </Link>
             <div className="lang-toggle">
               <button
                 type="button"

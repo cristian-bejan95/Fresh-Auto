@@ -3,18 +3,16 @@
   background: #13141a;
   position: relative;
   z-index: 1;
-  padding-top: 30px;
-}
-
-.footer-container {
-  width: min(1225px, calc(100% - 48px));
-  margin: 0 auto;
 }
 
 .footer-top-line,
 .footer-bottom-line {
   height: 1px;
   background: rgba(255, 255, 255, 0.16);
+}
+
+.footer-top-line {
+  margin-top: 80px;
 }
 
 .footer-grid {
@@ -56,6 +54,12 @@
   color: #fff;
 }
 
+.footer-nav-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
 .footer-column {
   display: flex;
   flex-direction: column;
@@ -68,7 +72,7 @@
   color: #fff;
   text-decoration: none;
   line-height: 1.4;
-  transition: 0.2s ease;
+  transition: 0.3s ease-in-out;
 }
 
 .footer-column a:hover {
