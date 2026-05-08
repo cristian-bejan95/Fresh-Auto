@@ -5,8 +5,8 @@ import AddCar from "./pages/AddCar/AddCar";
 import Home from "./pages/Home/Home";
 import Tradein from "./pages/Tradein/Tradein";
 import Catalog from "./pages/Catalog/Catalog";
-import Leasing from "./pages/Credit/Credit";
 import Promotii from "./pages/Promotii/Promotii";
+import Leasing from "./pages/Credit/Credit";
 import Contacts from "./pages/Contacts/Contacts";
 import Favorite from "./pages/Favorite/Favorite";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -36,7 +36,7 @@ function AppContent() {
           <Route path="/trade-in" element={<Tradein />} />
           <Route path="/leasing" element={<Leasing />} />
           <Route path="/promotii" element={<Promotii />} />
-          <Route path="/contacts" element={<Contacts />} />
+          <Route path="/contact" element={<Contacts />} />
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/cars/:id" element={<CarDetails />} />
 

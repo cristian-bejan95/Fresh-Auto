@@ -23,7 +23,7 @@ export default function Header() {
             <NavLink to="/promotii">Promoții</NavLink>
             <NavLink to="/trade-in">Schimb trade-in</NavLink>
             <NavLink to="/leasing">Credit Auto</NavLink>
-            <NavLink to="/contacts">Contacte</NavLink>
+            <NavLink to="/contact">Contacte</NavLink>
           </nav>
 
           <div className="search-box">

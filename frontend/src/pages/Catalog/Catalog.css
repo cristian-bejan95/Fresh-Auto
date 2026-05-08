@@ -1,12 +1,7 @@
 .catalog-page-light {
   min-height: 100vh;
-  color: #1d1d1d;
-  padding: 28px 0 70px;
-  position: relative;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  margin-bottom: -30px;
-  z-index: 2;
+  color: var(--text-color);
+  margin: 28px 0 90px 0;
 }
 
 .catalog-breadcrumb-row {

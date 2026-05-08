@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCars } from "../../services/api";
+import { Link } from "react-router-dom";
 import "./Promotii.css";
 import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import type { Car } from "../../types/car";
@@ -36,38 +37,54 @@ export default function Promotii() {
   }, []);
 
   return (
-    <section className="promotii-page">
-      <div className="main-container">
-        <div className="promotii-header">
-          <h2>Promoții și oferte speciale</h2>
-          <p>Descoperă cele mai avantajoase oferte Fresh Auto.</p>
-        </div>
+    <>
+      <section className="promotii-page">
+        <div className="main-container">
+          <div className="promotii-breadcrumb-row">
+            <nav className="breadcrumb" aria-label="Breadcrumb">
+              <Link to="/" className="breadcrumb-link">
+                Home
+              </Link>
 
-        {loading ? (
-          <p>Se încarcă promoțiile...</p>
-        ) : cars.length === 0 ? (
-          <p>Momentan nu sunt automobile la promoție.</p>
-        ) : (
-          <section className="catalog-grid-light">
-            {cars.slice(0, visibleCount).map((car) => (
-              <PremiumCarCard key={car._id} car={car} />
-            ))}
-          </section>
-        )}
+              <span className="breadcrumb-separator" aria-hidden="true">
+                ›
+              </span>
 
-        {visibleCount < cars.length && (
-          <div className="load-more-wrap">
-            <button
-              type="button"
-              className="load-more-btn-minimal"
-              onClick={() => setVisibleCount((prev) => prev + 4)}
-            >
-              <FiRefreshCw className="load-icon" />
-              Încarcă mai multe
-            </button>
+              <span className="breadcrumb-current">Promoții</span>
+            </nav>
           </div>
-        )}
-      </div>
-    </section>
+
+          <div className="promotii-header">
+            <h2>Promoții și oferte speciale</h2>
+            <p>Descoperă cele mai avantajoase oferte Fresh Auto.</p>
+          </div>
+
+          {loading ? (
+            <p>Se încarcă promoțiile...</p>
+          ) : cars.length === 0 ? (
+            <p>Momentan nu sunt automobile la promoție.</p>
+          ) : (
+            <section className="catalog-grid-light">
+              {cars.slice(0, visibleCount).map((car) => (
+                <PremiumCarCard key={car._id} car={car} />
+              ))}
+            </section>
+          )}
+
+          {visibleCount < cars.length && (
+            <div className="load-more-wrap">
+              <button
+                type="button"
+                className="load-more-btn-minimal"
+                onClick={() => setVisibleCount((prev) => prev + 4)}
+              >
+                <FiRefreshCw className="load-icon" />
+                Încarcă mai multe
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }

@@ -77,8 +77,21 @@ export default function Tradein() {
 
   return (
     <>
-      <section className="trade-hero">
+      <section className="trade-page">
         <div className="main-container">
+          <div className="tradein-breadcrumb-row">
+            <nav className="breadcrumb" aria-label="Breadcrumb">
+              <Link to="/" className="breadcrumb-link">
+                Home
+              </Link>
+
+              <span className="breadcrumb-separator" aria-hidden="true">
+                ›
+              </span>
+
+              <span className="breadcrumb-current">Trade-in</span>
+            </nav>
+          </div>
           <div className="trade-overlay"></div>
 
           <div className="tradein-hero-wrapper">
@@ -99,7 +112,7 @@ export default function Tradein() {
                 </a>
               </div>
             </div>
-            <div className="trade-hero-image">
+            <div className="trade-page-image">
               <img src={tradeImg} alt="Trade in auto" />
             </div>
           </div>

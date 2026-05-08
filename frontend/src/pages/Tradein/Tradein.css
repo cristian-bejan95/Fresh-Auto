@@ -1,10 +1,9 @@
 .trade-page {
-  color: #222;
+  margin: 28px 0 90px 0;
 }
 
-.trade-hero {
-  background: #fff;
-  padding: 70px 52px 34px;
+.tradein-breadcrumb-row {
+  position: relative;
 }
 
 .tradein-hero-wrapper {
@@ -21,12 +20,13 @@
   z-index: 2;
 }
 
-.trade-hero-image {
+.trade-page-image {
   display: flex;
   justify-content: center;
+  background: var(--main-color);
 }
 
-.trade-hero-image img {
+.trade-page-image img {
   width: 100%;
   max-width: 700px;
   object-fit: contain;
@@ -37,7 +37,7 @@
   padding: 10px 18px;
   border-radius: 999px;
   background: linear-gradient(90deg, #dcb771, #c64c45);
-  color: #111;
+  color: var(--text-color);
   font-weight: 700;
   margin-bottom: 22px;
 }
@@ -50,7 +50,7 @@
 
 .trade-content p {
   font-size: 18px;
-  color: #5e5e5e;
+  color: var(--subtitle-color);
   max-width: 620px;
   line-height: 1.7;
 }
@@ -63,7 +63,7 @@
 .trade-btn {
   height: 52px;
   padding: 0 30px;
-  border-radius: 14px;
+  border-radius: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -73,14 +73,14 @@
 }
 
 .trade-btn.primary {
-  background: linear-gradient(90deg, #dcb771, #c64c45);
-  color: #13141a;
+  background: var(--accent-color);
+  color: var(--light-color);
 }
 
 .trade-btn:hover {
   transform: translateY(-3px);
   filter: brightness(1.1);
-  color: #fff;
+  color: var(--light-color);
 }
 
 .trade-steps,
@@ -94,7 +94,7 @@
   text-align: center;
   font-size: 42px;
   margin-bottom: 10px;
-  color: #fff;
+  color: var(--light-color);
 }
 
 .steps-wrapper {
@@ -142,7 +142,7 @@
   align-items: center;
   justify-content: center;
   font-size: 34px;
-  color: #22c55e;
+  color: var(--accent-color);
   transition: 0.35s ease;
   z-index: 3;
 }
@@ -154,8 +154,8 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #22c55e;
-  color: #fff;
+  background: var(--accent-color);
+  color: var(--light-color);
   font-size: 16px;
   font-weight: 800;
   display: flex;
@@ -164,7 +164,7 @@
 }
 
 .step-card span {
-  color: #fff;
+  color: var(--light-color);
   font-size: 16px;
   font-weight: 800;
 }
@@ -239,7 +239,7 @@
   font-size: 24px;
   text-align: center;
   margin-bottom: 14px;
-  color: #fff;
+  color: var(--light-color);
 }
 
 .benefit-right a {
@@ -247,8 +247,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #111;
-  background: linear-gradient(90deg, #dcb771, #c64c45);
+  color: var(--light-color);
+  background: var(--accent-color);
   padding: 14px 22px;
   border-radius: 10px;
   text-decoration: none;
@@ -259,7 +259,7 @@
 .benefit-right a:hover {
   transform: translateY(-3px);
   filter: brightness(1.1);
-  color: #fff;
+  color: var(--light-color);
 }
 
 /* Trade-in FORM */
@@ -314,7 +314,7 @@
 }
 
 .formular-tradein {
-  padding: 50px;
+  padding: 80px 0 90px 0;
 }
 
 .form-row {
@@ -326,7 +326,7 @@
 .trade-form input,
 .trade-form textarea {
   width: 100%;
-  background: #fff;
+  background: var(--light-color);
   border: 1px solid #dde1de;
   color: #13141a;
   border-radius: 10px;
@@ -350,8 +350,8 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  background: linear-gradient(90deg, #dcb771, #c64c45);
-  color: #13141a;
+  background: var(--accent-color);
+  color: var(--light-color);
   font-size: 16px;
   font-weight: 800;
   transition: 0.3s ease;
@@ -363,7 +363,7 @@
 .trade-form button:hover {
   transform: translateY(-2px);
   filter: brightness(1.1);
-  color: #fff;
+  color: var(--light-color);
 }
 
 .file-upload-box {
@@ -377,7 +377,7 @@
   padding: 10px 16px;
   border: 1px solid #c7ced8;
   border-radius: 10px;
-  background: #fff;
+  background: var(--light-color);
   cursor: pointer;
   font-size: 14px;
 }

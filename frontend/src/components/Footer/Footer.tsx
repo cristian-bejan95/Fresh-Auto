@@ -48,7 +48,7 @@ export default function Footer() {
 
             <div className="footer-column">
               <Link to="/leasing">Credit Auto</Link>
-              <Link to="/contacts">Contacte</Link>
+              <Link to="/contact">Contacte</Link>
             </div>
           </div>
         </div>
