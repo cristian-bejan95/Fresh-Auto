@@ -247,7 +247,7 @@ export default function CarDetails() {
       <main className="car-details-page">
         <div className="main-container">
           <div className="details-breadcrumb">
-            <Link to="/">Home</Link>
+            <Link to="/">Acasă</Link>
             <span className="breadcrumb-separator" aria-hidden="true">
               ›
             </span>

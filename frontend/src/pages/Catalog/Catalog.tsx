@@ -257,7 +257,7 @@ export default function Catalog() {
           <div className="catalog-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link to="/" className="breadcrumb-link">
-                Home
+                Pagina principală
               </Link>
 
               <span className="breadcrumb-separator" aria-hidden="true">

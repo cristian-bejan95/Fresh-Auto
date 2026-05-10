@@ -46,6 +46,19 @@ export default function Favorite() {
   return (
     <section className="favorite-page">
       <div className="main-container">
+        <div className="favorite-breadcrumb-row">
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <Link to="/" className="breadcrumb-link">
+              Pagina principală
+            </Link>
+
+            <span className="breadcrumb-separator" aria-hidden="true">
+              ›
+            </span>
+
+            <span className="breadcrumb-current">Favorite</span>
+          </nav>
+        </div>
         <div className="favorite-header">
           <h2>Automobile favorite</h2>
         </div>

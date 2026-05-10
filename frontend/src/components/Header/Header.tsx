@@ -1,5 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
@@ -9,6 +9,25 @@ import logo from "../../assets/logo-header.svg";
 
 export default function Header() {
   const [lang, setLang] = useState<"ro" | "ru">("ro");
+  const [favoritesCount, setFavoritesCount] = useState(0);
+
+  useEffect(() => {
+    const loadFavoritesCount = () => {
+      const favoriteIds: string[] = JSON.parse(
+        localStorage.getItem("favorites") || "[]",
+      );
+
+      setFavoritesCount(favoriteIds.length);
+    };
+
+    loadFavoritesCount();
+
+    window.addEventListener("favoritesUpdated", loadFavoritesCount);
+
+    return () => {
+      window.removeEventListener("favoritesUpdated", loadFavoritesCount);
+    };
+  }, []);
 
   return (
     <header className="header">
@@ -40,6 +59,9 @@ export default function Header() {
             </div>
             <Link to="/favorite" className="header-favorite-btn">
               <GrFavorite className="header-favorite-img" />
+              {favoritesCount > 0 && (
+                <span className="favorite-count">{favoritesCount}</span>
+              )}
             </Link>
             <div className="lang-toggle">
               <button

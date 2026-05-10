@@ -82,7 +82,7 @@ export default function Tradein() {
           <div className="tradein-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link to="/" className="breadcrumb-link">
-                Home
+                Pagina principală
               </Link>
 
               <span className="breadcrumb-separator" aria-hidden="true">
