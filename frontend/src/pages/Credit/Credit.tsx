@@ -6,6 +6,7 @@ import Microinvest from "../../assets/partners/microinvest.svg";
 import RapidCredit from "../../assets/partners/rapidcredit.svg";
 import Express from "../../assets/partners/express.svg";
 import Iute from "../../assets/partners/iute.svg";
+import Mogo from "../../assets/partners/mogo.svg";
 import "./Credit.css";
 
 export default function Leasing() {
@@ -29,7 +30,7 @@ export default function Leasing() {
 
   return (
     <>
-      <section className="credit-page">
+      <section className="credit-page" data-aos="fade-down">
         <div className="main-container">
           <div className="leasing-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -177,7 +178,7 @@ export default function Leasing() {
           </div>
         </div>
       </section>
-      <section className="partners">
+      <section className="partners" data-aos="fade-up">
         <div className="main-container">
           <section className="leasing-partners">
             <div className="main-container">
@@ -241,6 +242,18 @@ export default function Leasing() {
                   <div className="partners-info">
                     <a href="https://www.iute.md" target="_black">
                       Iute.md
+                    </a>
+                  </div>
+                </div>
+
+                <div className="partner-card">
+                  <div className="partners-cards">
+                    <img src={Mogo} alt="Express Leasing" />
+                  </div>
+
+                  <div className="partners-info">
+                    <a href="https://www.mogo.md" target="_black">
+                      Mogo.md
                     </a>
                   </div>
                 </div>

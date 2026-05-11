@@ -61,7 +61,7 @@ export default function PremiumCarCard({ car }: Props) {
 
   return (
     <>
-      <article className="premium-car-card">
+      <article className="premium-car-card" data-aos="fade-up">
         <Link
           to={`/cars/${car._id}`}
           className="premium-card-image"

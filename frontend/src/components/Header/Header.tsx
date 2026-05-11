@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import { GrFavorite } from "react-icons/gr";
+import { useLocation } from "react-router-dom";
 import "./Header.css";
 import "../../index.css";
 import logo from "../../assets/logo-header.svg";
@@ -10,6 +11,9 @@ import logo from "../../assets/logo-header.svg";
 export default function Header() {
   const [lang, setLang] = useState<"ro" | "ru">("ro");
   const [favoritesCount, setFavoritesCount] = useState(0);
+  const [showHeader, setShowHeader] = useState(false);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     const loadFavoritesCount = () => {
@@ -29,8 +33,32 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isHomePage) {
+      setShowHeader(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.45;
+      setShowHeader(window.scrollY > heroHeight);
+    };
+
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isHomePage]);
+
   return (
-    <header className="header">
+    <header
+      className={`header ${
+        isHomePage ? (showHeader ? "show" : "") : "default-header"
+      }`}
+    >
       <div className="header-container">
         <div className="header-main">
           <Link to="/" className="logo">
@@ -38,7 +66,7 @@ export default function Header() {
           </Link>
 
           <nav className="nav-menu">
-            <NavLink to="/catalog">Catalog</NavLink>
+            <NavLink to="/catalog">Catalog Auto</NavLink>
             <NavLink to="/promotii">Promoții</NavLink>
             <NavLink to="/trade-in">Schimb trade-in</NavLink>
             <NavLink to="/leasing">Credit Auto</NavLink>

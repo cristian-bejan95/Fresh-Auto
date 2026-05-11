@@ -53,7 +53,7 @@
 }
 
 .premium-slider-dot.active {
-  background: linear-gradient(90deg, #dcb771, #c64c45);
+  background: var(--accent-color);
 }
 
 .premium-card-image img {
@@ -132,7 +132,7 @@
 .premium-card-title-row span {
   padding: 0 11px;
   font-size: 14px;
-  background: linear-gradient(90deg, #dcb771, #c64c45);
+  background: var(--accent-color);
   border-radius: 4px;
   font-weight: 900;
   color: #fff;
@@ -160,7 +160,7 @@
 
 .spec-box-item svg {
   font-size: 20px;
-  color: #13141a;
+  color: var(--text-color);
   flex-shrink: 0;
 }
 
@@ -271,18 +271,15 @@
 }
 
 .price-sale-box {
-  background: linear-gradient(90deg, #dcb771, #c64c45);
   padding: 10px 15px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  color: #fff;
 }
 
 .price-main {
   font-size: 20px;
   font-weight: 900;
-  color: #fff;
+  color: var(--text-color);
 }
 
 .premium-favorite-btn {

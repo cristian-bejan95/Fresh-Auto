@@ -1,7 +1,7 @@
 .catalog-page-light {
   min-height: 100vh;
   color: var(--text-color);
-  margin: 28px 0 90px 0;
+  margin: 140px 0 90px 0;
 }
 
 .catalog-breadcrumb-row {
@@ -62,7 +62,7 @@
 
 .filter-field select:focus,
 .filter-field input:focus {
-  border-color: #22c55e;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(39, 184, 145, 0.12);
 }
 
@@ -85,7 +85,7 @@
 }
 
 .filter-bottom-row button:hover {
-  background: #22c55e;
+  background: var(--accent-color);
   color: #fff;
 }
 
@@ -109,7 +109,7 @@
 .catalog-list-header select {
   width: 170px;
   height: 42px;
-  border: 1px solid #22c55e;
+  border: 1px solid var(--accent-color);
   border-radius: 4px;
   background: #fff;
   color: #777;
@@ -167,7 +167,7 @@
   position: absolute;
   left: 14px;
   top: 14px;
-  background: #22c55e;
+  background: var(--accent-color);
   color: #fff;
   padding: 7px 11px;
   border-radius: 4px;
@@ -218,7 +218,7 @@
 }
 
 .catalog-card-bottom-line a {
-  color: #22c55e;
+  color: var(--accent-color);
   text-decoration: none;
   font-weight: 900;
 }
@@ -295,7 +295,7 @@
 }
 
 .catalog-filter-search:focus-within {
-  border-color: #22c55e;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(39, 184, 145, 0.12);
 }
 
@@ -338,7 +338,7 @@
 }
 
 .select-inner select:focus {
-  border-color: #22c55e;
+  border-color: var(--accent-color);
   box-shadow: 0 0 0 3px rgba(39, 184, 145, 0.12);
 }
 
@@ -361,7 +361,7 @@
 }
 
 .select-inner:hover .select-plus {
-  color: #22c55e;
+  color: var(--accent-color);
 }
 
 .filter-reset-box {
@@ -371,17 +371,17 @@
 .filter-reset-box button {
   width: 100%;
   height: 42px;
-  border: 2px solid #22c55e;
+  border: 2px solid var(--accent-color);
   border-radius: 5px;
   background: transparent;
-  color: #22c55e;
+  color: var(--accent-color);
   font-weight: 900;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 .filter-reset-box button:hover {
-  background: #22c55e;
+  background: var(--accent-color);
   color: #fff;
 }
 
@@ -414,13 +414,13 @@
 }
 
 .breadcrumb-link {
-  color: #111;
+  color: var(--text-color);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .breadcrumb-link:hover {
-  color: #22c55e;
+  color: var(--accent-color);
 }
 
 .breadcrumb-separator {
@@ -493,7 +493,7 @@
 }
 
 .brand-tab:hover {
-  background: linear-gradient(90deg, #dcb771, #c64c45);
+  background: var(--accent-color);
   box-shadow: 0 10px 24px rgba(39, 184, 145, 0.2);
 }
 
@@ -503,12 +503,12 @@
 }
 
 .brand-tab.active {
-  border-color: #22c55e;
+  border-color: var(--accent-color);
   background: rgba(39, 184, 145, 0.08);
 }
 
 .brand-tab.active svg {
-  color: #22c55e;
+  color: var(--accent-color);
 }
 
 .load-more-wrap {
@@ -534,7 +534,7 @@
 }
 
 .load-more-btn-minimal:hover {
-  color: #22c55e;
+  color: var(--accent-color);
 }
 
 .load-icon {

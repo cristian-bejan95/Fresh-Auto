@@ -4,17 +4,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, FreeMode } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-import "swiper/css/bundle";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import { getCarById, getCars } from "../../services/api";
-import "./CarDetails.css";
 import { FaPhone } from "react-icons/fa6";
 import { FaArrowRight } from "react-icons/fa";
 import { FaGasPump, FaCalendarAlt, FaRoad, FaPalette } from "react-icons/fa";
 import { GiGearStickPattern, GiCarWheel } from "react-icons/gi";
 import { TbEngineFilled } from "react-icons/tb";
 import { MdSpeed } from "react-icons/md";
+import { FaFileAlt, FaListAlt, FaCheckSquare } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { LiaTelegramPlane } from "react-icons/lia";
+import { GrFavorite } from "react-icons/gr";
+import type { Car } from "../../types/car";
 import microinvest from "../../assets/logos/microinvest.svg";
 import easycredit from "../../assets/logos/ecredit.svg";
 import iutecredit from "../../assets/logos/iutecredit.svg";
@@ -22,10 +23,10 @@ import mogo from "../../assets/logos/mogo.svg";
 import creditrapid from "../../assets/logos/creditrapid.svg";
 import maib from "../../assets/logos/maib.svg";
 import reportImg from "../../assets/report.jpg";
-import { FaFileAlt, FaListAlt, FaCheckSquare } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
-import { LiaTelegramPlane } from "react-icons/lia";
-import type { Car } from "../../types/car";
+import PageLoader from "../../components/PageLoader/PageLoader";
+import "swiper/css/bundle";
+import "./CarDetails.css";
+import PriceBox from "../../components/PriceBox/PriceBox";
 
 export default function CarDetails() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ export default function CarDetails() {
   const monthly = Math.round(credit / months);
   const sliderRef = useRef<HTMLDivElement | null>(null);
   const [phone, setPhone] = useState("+373 ");
-  const [phoneError, setPhoneError] = useState("");
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const [activeTab, setActiveTab] = useState<
     "descriere" | "general" | "dotari"
@@ -84,30 +85,12 @@ export default function CarDetails() {
     return formatted;
   };
 
-  const validateMDPhone = (value: string) => {
-    const digits = value.replace(/\D/g, "");
-
-    if (digits.length === 3) return "Introduceți numărul de telefon";
-    if (digits.length !== 11) return "Numărul trebuie să conțină 8 cifre";
-
-    const mdNumber = digits.slice(3);
-
-    if (!/^[267]\d{7}$/.test(mdNumber)) {
-      return "Număr invalid";
-    }
-
-    return "";
-  };
-
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formatted = formatMDPhone(e.target.value);
     setPhone(formatted);
-    setPhoneError(validateMDPhone(formatted));
   };
 
-  const handlePhoneBlur = () => {
-    setPhoneError(validateMDPhone(phone));
-  };
+  const handlePhoneBlur = () => {};
 
   const optionCategories = [
     {
@@ -202,12 +185,20 @@ export default function CarDetails() {
     });
   }, [car?._id]);
 
+  useEffect(() => {
+    if (!car) return;
+
+    const favorites: string[] = JSON.parse(
+      localStorage.getItem("favorites") || "[]",
+    );
+
+    setIsFavorite(favorites.includes(car._id));
+  }, [car]);
+
   if (loading) {
     return (
       <>
-        <Header />
-        <div className="details-loading">Se încarcă...</div>
-        <Footer />
+        <PageLoader />
       </>
     );
   }
@@ -215,15 +206,12 @@ export default function CarDetails() {
   if (!car) {
     return (
       <>
-        <Header />
         <div className="details-loading">Mașina nu a fost găsită.</div>
-        <Footer />
       </>
     );
   }
 
   const images = car.images || [];
-  const hasDiscount = Number(car.oldPrice) > Number(car.price);
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -244,7 +232,7 @@ export default function CarDetails() {
 
   return (
     <>
-      <main className="car-details-page">
+      <section className="car-details-page">
         <div className="main-container">
           <div className="details-breadcrumb">
             <Link to="/">Acasă</Link>
@@ -261,13 +249,44 @@ export default function CarDetails() {
           <div className="details-layout">
             <div className="details-left-column">
               <section className="details-left" ref={sliderRef}>
-                <div className="details-main-slider">
+                <div className="details-main-slider" data-aos="zoom-in">
                   <button className="custom-prev">
                     <FiChevronLeft />
                   </button>
 
                   <button className="custom-next">
                     <FiChevronRight />
+                  </button>
+
+                  <button
+                    className={`details-favorite-btn ${isFavorite ? "active" : ""}`}
+                    onClick={() => {
+                      if (!car) return;
+
+                      const favorites: string[] = JSON.parse(
+                        localStorage.getItem("favorites") || "[]",
+                      );
+
+                      let updatedFavorites;
+
+                      if (favorites.includes(car._id)) {
+                        updatedFavorites = favorites.filter(
+                          (id) => id !== car._id,
+                        );
+                        setIsFavorite(false);
+                      } else {
+                        updatedFavorites = [...favorites, car._id];
+                        setIsFavorite(true);
+                      }
+
+                      localStorage.setItem(
+                        "favorites",
+                        JSON.stringify(updatedFavorites),
+                      );
+                      window.dispatchEvent(new Event("favoritesUpdated"));
+                    }}
+                  >
+                    <GrFavorite />
                   </button>
 
                   {car.status === "discount" && (
@@ -342,15 +361,7 @@ export default function CarDetails() {
               <section className="details-characteristics">
                 <div className="details-characteristics-flex">
                   <h2>{car.title}</h2>
-                  <div className="details-characteristics-price">
-                    <strong>{car.price.toLocaleString("ro-RO")}€</strong>
-
-                    {hasDiscount && (
-                      <span className="price-old">
-                        {car.oldPrice!.toLocaleString("ro-RO")}€
-                      </span>
-                    )}
-                  </div>
+                  <PriceBox price={car.price} oldPrice={car.oldPrice} />
                 </div>
 
                 <div className="car-detail-tabs">
@@ -543,7 +554,7 @@ export default function CarDetails() {
                 <div className="car-report-content">
                   <h3>Raport CarVertical</h3>
                   <p>
-                    Obțineți un raport detaliat al vehiculului în doar câteva
+                    Obțineți un raport detaliat al vehiculului în doar cîteva
                     minute.
                   </p>
 
@@ -665,7 +676,7 @@ export default function CarDetails() {
                 </div>
               </div>
 
-              <div className="offers-box">
+              <div className="offers-box" data-aos="fade-left">
                 <h3>Oferte interesante</h3>
 
                 <div className="offer-line" />
@@ -696,7 +707,7 @@ export default function CarDetails() {
             </aside>
           </div>
         </div>
-      </main>
+      </section>
 
       {lightboxOpen && (
         <div className="car-lightbox" onClick={closeLightbox}>

@@ -20,7 +20,7 @@
   height: 54px;
   border-radius: 12px;
   border: 1px solid rgba(34, 197, 94, 0.35);
-  background: #fff;
+  background: var(--light-color);
   color: #16a34a;
   font-size: 16px;
   font-weight: 800;
@@ -39,14 +39,14 @@
 
 .car-tab-btn:hover {
   transform: translateY(-2px);
-  border-color: #22c55e;
+  border-color: var(--accent-color);
   background: linear-gradient(180deg, #ecfdf3, #bbf7d0);
 }
 
 .car-tab-btn.active {
   border: none;
-  color: #fff;
-  background: #22c55e;
+  color: var(--light-color);
+  background: var(--accent-color);
   box-shadow: 0 14px 30px rgba(129, 249, 159, 0.28);
 }
 
@@ -63,7 +63,7 @@
 }
 
 .details-breadcrumb a:hover {
-  color: #22c55e;
+  color: var(--accent-color);
 }
 
 .details-main-top {
@@ -126,7 +126,7 @@
 .details-left,
 .details-right,
 .details-description {
-  background: #fff;
+  background: var(--light-color);
   border-radius: 10px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
@@ -141,7 +141,7 @@
 .details-characteristics,
 .details-description,
 .offers-box {
-  background: #fff;
+  background: var(--light-color);
   color: #13141a;
   border-radius: 22px;
   padding: 28px;
@@ -181,8 +181,8 @@
 }
 
 .details-buttons-contacts-tradein {
-  background: #22c55e;
-  color: #fff;
+  background: var(--accent-color);
+  color: var(--light-color);
   font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 1;
@@ -190,27 +190,27 @@
 }
 
 .details-buttons-contacts-tradein:hover {
-  color: #fff;
-  background: #22c55e;
+  color: var(--light-color);
+  background: var(--accent-color);
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
 
 .details-buttons-contacts-phone {
   background: #e00201;
-  color: #fff;
+  color: var(--light-color);
   font-size: 15px;
 }
 
 .details-buttons-contacts-phone span {
   background: #e00201;
-  color: #fff;
+  color: var(--light-color);
   font-size: 18px;
   margin-left: 5px;
 }
 
 .details-buttons-contacts-phone:hover {
-  color: #fff;
+  color: var(--light-color);
   background: #e00201;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(255, 58, 58, 0.3);
@@ -257,9 +257,9 @@
   border-radius: 10px;
   border: none;
   padding: 18px 18px;
-  background: #22c55e;
+  background: var(--accent-color);
   text-decoration: none;
-  color: #fff;
+  color: var(--light-color);
   font-size: 16px;
   font-weight: 900;
   cursor: pointer;
@@ -270,8 +270,8 @@
 }
 
 .finance-btn:hover {
-  background: #22c55e;
-  color: #fff;
+  background: var(--accent-color);
+  color: var(--light-color);
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
@@ -307,7 +307,7 @@
 
 .finance-grid p {
   margin: 0 0 14px;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 800;
 }
 
@@ -329,8 +329,8 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid #22c55e;
-  color: #22c55e;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
   font-size: 13px;
   cursor: pointer;
 }
@@ -347,7 +347,7 @@
 
 .finance-values strong {
   display: block;
-  color: #22c55e;
+  color: var(--accent-color);
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 10px;
@@ -367,17 +367,6 @@
   align-items: center;
   text-align: center;
   margin-bottom: 24px;
-}
-
-.details-characteristics-price {
-  padding: 14px 16px;
-  background: linear-gradient(90deg, #dcb771, #c64c45);
-  color: #fff;
-  font-size: 24px;
-  border-radius: 10px;
-  font-weight: 900;
-  display: flex;
-  flex-direction: column;
 }
 
 .details-specs-grid {
@@ -473,7 +462,7 @@
 .custom-prev svg,
 .custom-next svg {
   font-size: 32px;
-  color: #fff;
+  color: var(--light-color);
 }
 
 .thumbs-car-swiper {
@@ -494,7 +483,7 @@
 .thumbs-car-swiper .swiper-slide-thumb-active {
   opacity: 1;
   border: 2px solid transparent;
-  background: linear-gradient(90deg, #dcb771, #c64c45);
+  background: var(--accent-color);
 }
 
 .thumbs-car-swiper img {
@@ -510,7 +499,7 @@
   width: 190px;
   text-align: center;
   background: rgba(255, 48, 1, 0.753);
-  color: #fff;
+  color: var(--light-color);
   font-weight: 900;
   font-size: 14px;
   transform: rotate(-45deg);
@@ -522,12 +511,12 @@
   height: 520px;
   display: grid;
   place-items: center;
-  color: #777;
+  color: var(--subtitle-color);
 }
 
 .details-right {
-  background: #191919;
-  color: #fff;
+  background: var(--text-color);
+  color: var(--light-color);
   border-radius: 10px;
   padding: 26px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
@@ -576,7 +565,7 @@
 
 .details-featured {
   background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  color: var(--light-color);
 }
 
 .details-right h2 {
@@ -617,7 +606,7 @@
 }
 
 .spec-card svg {
-  fill: #22c55e;
+  fill: var(--accent-color);
   font-size: 24px;
   flex-shrink: 0;
 }
@@ -660,7 +649,7 @@
   gap: 14px;
   padding: 13px 0;
   text-decoration: none;
-  color: #111;
+  color: var(--text-color);
 }
 
 .offer-line {
@@ -680,7 +669,7 @@
 .offer-item strong {
   font-size: 14px;
   font-weight: 900;
-  color: #111;
+  color: var(--text-color);
   text-transform: uppercase;
 }
 
@@ -692,17 +681,16 @@
 }
 
 .offer-item > span {
-  background: linear-gradient(90deg, #dcb771, #c64c45);
-  /* background: #22c55e; */
+  background: var(--accent-color);
   border-radius: 10px;
   padding: 6px 10px;
   font-weight: 900;
-  color: #fff;
+  color: var(--light-color);
   white-space: nowrap;
 }
 
 .offer-item:hover strong {
-  color: #22c55e;
+  color: var(--accent-color);
 }
 
 .details-description p {
@@ -717,7 +705,7 @@
   padding: 18px;
   border-radius: 16px;
   background: #27b891;
-  color: #fff;
+  color: var(--light-color);
   display: inline-flex;
   flex-direction: column;
 }
@@ -749,7 +737,7 @@
   display: grid;
   place-items: center;
   text-decoration: none;
-  color: #fff;
+  color: var(--light-color);
   font-weight: 900;
   transition: 0.2s ease;
 }
@@ -759,7 +747,7 @@
 }
 
 .details-contact a:last-child {
-  background: #22c55e;
+  background: var(--accent-color);
 }
 
 .details-contact a:hover {
@@ -775,7 +763,7 @@
 }
 
 .details-description h2 {
-  color: #fff;
+  color: var(--light-color);
   margin: 0 0 12px;
 }
 
@@ -812,7 +800,7 @@
   border: none;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.067);
-  color: #fff;
+  color: var(--light-color);
   font-size: 22px;
   cursor: pointer;
   z-index: 3;
@@ -835,7 +823,7 @@
   cursor: pointer;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   font-size: 32px;
-  color: #fff;
+  color: var(--light-color);
 }
 
 .lightbox-arrow.left {
@@ -998,7 +986,7 @@
   margin: 0 0 20px;
   font-size: 24px;
   font-weight: 700;
-  color: #111;
+  color: var(--text-color);
 }
 
 .car-options-grid {
@@ -1030,14 +1018,14 @@
   font-size: 22px;
   font-weight: 900;
   margin-bottom: 16px;
-  color: #111827;
+  color: var(--text-color) 827;
 }
 
 .option-check {
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  color: #22c55e;
+  color: var(--accent-color);
   background: rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
@@ -1072,7 +1060,7 @@
 
 .car-location-section {
   margin-top: 24px;
-  background: #fff;
+  background: var(--light-color);
   border-radius: 10px;
   padding: 24px;
   border: 1px solid #ededed;
@@ -1108,7 +1096,7 @@
   width: 100%;
   margin-top: 35px;
   padding: 20px 20px;
-  border: 2px solid #22c55e;
+  border: 2px solid var(--accent-color);
   border-radius: 10px;
   background: #f8f8f8;
   box-sizing: border-box;
@@ -1156,7 +1144,7 @@
   margin-bottom: 12px;
   font-size: 15px;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-color) 827;
 }
 
 .finance-contact-field input {
@@ -1164,7 +1152,7 @@
   height: 35px;
   border: 1px solid #cfd4dc;
   border-radius: 9px;
-  background: #fff;
+  background: var(--light-color);
   padding: 0 14px;
   font-size: 16px;
   box-sizing: border-box;
@@ -1180,8 +1168,8 @@
   margin-top: 18px;
   border: 0;
   border-radius: 9px;
-  background: #22c55e;
-  color: #fff;
+  background: var(--accent-color);
+  color: var(--light-color);
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
@@ -1189,7 +1177,7 @@
 }
 
 .finance-contact-submit:hover {
-  background: #22c55e;
+  background: var(--accent-color);
   box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
 
@@ -1227,7 +1215,7 @@
 
 .car-report-box {
   background: #13141a;
-  color: #fff;
+  color: var(--light-color);
   border-radius: 10px;
   padding: 22px;
   display: grid;
@@ -1245,7 +1233,7 @@
 
 .car-report-content p {
   margin: 0 0 14px;
-  color: #fff;
+  color: var(--light-color);
   line-height: 1.4;
   font-size: 14px;
 }
@@ -1264,8 +1252,8 @@
   height: 42px;
   border: none;
   border-radius: 10px;
-  background: #22c55e;
-  color: #fff;
+  background: var(--accent-color);
+  color: var(--light-color);
   font-weight: 900;
   cursor: pointer;
   text-decoration: none;
@@ -1273,8 +1261,8 @@
 }
 
 .car-report-btn:hover {
-  color: #fff;
-  background: #22c55e;
+  color: var(--light-color);
+  background: var(--accent-color);
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(34, 197, 94, 0.3);
 }
@@ -1288,8 +1276,8 @@
   width: 100px;
   height: 175px;
   border-radius: 10px;
-  background: #fff;
-  color: #111;
+  background: var(--light-color);
+  color: var(--text-color);
   overflow: hidden;
 }
 
@@ -1328,3 +1316,40 @@
     justify-content: flex-start;
   }
 }
+
+.details-favorite-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--light-color);
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.details-main-slider:hover .details-favorite-btn {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.details-favorite-btn.active {
+  background: var(--accent-color);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Loader */

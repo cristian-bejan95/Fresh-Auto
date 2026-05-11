@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { getCars } from "../../services/api";
 import { Link } from "react-router-dom";
-import "./Promotii.css";
-import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import type { Car } from "../../types/car";
 import { FiRefreshCw } from "react-icons/fi";
+import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
+import PageLoader from "../../components/PageLoader/PageLoader";
+import "./Promotii.css";
 
 export default function Promotii() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -38,7 +39,7 @@ export default function Promotii() {
 
   return (
     <>
-      <section className="promotii-page">
+      <section className="promotii-page" data-aos="fade-down">
         <div className="main-container">
           <div className="promotii-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -60,7 +61,7 @@ export default function Promotii() {
           </div>
 
           {loading ? (
-            <p>Se încarcă promoțiile...</p>
+            <PageLoader />
           ) : cars.length === 0 ? (
             <p>Momentan nu sunt automobile la promoție.</p>
           ) : (

@@ -1,11 +1,32 @@
 .header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   padding: 12px 0 12px 0;
-  z-index: 2000;
+  z-index: 1000;
   color: #fff;
-  background: rgba(19, 20, 26);
+  background: rgba(15, 23, 42, 0.21);
   backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.header.show {
+  top: 0;
+  opacity: 1;
+  background: var(--text-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.default-header {
+  background: var(--text-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .header-main {

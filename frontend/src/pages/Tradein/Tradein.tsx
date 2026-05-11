@@ -77,7 +77,7 @@ export default function Tradein() {
 
   return (
     <>
-      <section className="trade-page">
+      <section className="trade-page" data-aos="fade-down">
         <div className="main-container">
           <div className="tradein-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -162,7 +162,7 @@ export default function Tradein() {
         </div>
       </section>
 
-      <section className="trade-benefits">
+      <section className="trade-benefits" data-aos="fade-down">
         <div className="main-container">
           <h2>De ce să alegi Trade-In la Fresh Auto</h2>
           <p>
@@ -193,7 +193,7 @@ export default function Tradein() {
         </div>
       </section>
 
-      <section className="formular-tradein" id="trade-form">
+      <section className="formular-tradein" id="trade-form" data-aos="fade-up">
         <div className="main-container">
           <div className="tradein-wrapper">
             <div className="tradein-box">
@@ -288,7 +288,7 @@ export default function Tradein() {
                 </button>
               </form>
             </div>
-            <div className="offers-box">
+            <div className="offers-box" data-aos="fade-left">
               <h3>Oferte interesante</h3>
 
               <div className="offer-line" />

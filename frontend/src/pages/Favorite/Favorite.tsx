@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { getCars } from "../../services/api";
-import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import type { Car } from "../../types/car";
-import "./Favorite.css";
 import { Link } from "react-router-dom";
 import { IoCarSport } from "react-icons/io5";
+import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import FavoriteImg from "../../assets/favorite.svg";
+import PageLoader from "../../components/PageLoader/PageLoader";
+import "./Favorite.css";
 
 export default function Favorite() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -44,7 +45,7 @@ export default function Favorite() {
   }, []);
 
   return (
-    <section className="favorite-page">
+    <section className="favorite-page" data-aos="fade-down">
       <div className="main-container">
         <div className="favorite-breadcrumb-row">
           <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -64,7 +65,7 @@ export default function Favorite() {
         </div>
 
         {loading ? (
-          <p>Se încarcă...</p>
+          <PageLoader />
         ) : cars.length === 0 ? (
           <div className="favorite-empty">
             <span className="favorite-empty-img">

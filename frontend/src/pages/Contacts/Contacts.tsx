@@ -9,8 +9,8 @@ import {
   FaInstagram,
   FaTiktok,
 } from "react-icons/fa";
-import "./Contacts.css";
 import { LiaTelegramPlane } from "react-icons/lia";
+import "./Contacts.css";
 
 export default function Contacts() {
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Contacts() {
 
   return (
     <>
-      <section className="contacts-page">
+      <section className="contacts-page" data-aos="fade-down">
         <div className="main-container">
           <div className="contacts-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
@@ -120,7 +120,7 @@ export default function Contacts() {
               </form>
             </div>
           </div>
-          <div className="contacts-map-section">
+          <div className="contacts-map-section" data-aos="fade-up">
             <div className="contacts-container">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43494.7867983281!2d28.781258622362138!3d47.05152899006127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40cbd630210f6669%3A0xffd3ce64404fcb60!2zU3RyYWRhIFBpZXRyxINyaWVpIDMsIE1ELTIwMDUsIENoaciZaW7Eg3UsIE1vbGRvdmE!5e0!3m2!1sro!2s!4v1777747265218!5m2!1sro!2s"

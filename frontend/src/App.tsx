@@ -14,7 +14,6 @@ import AdminCarsList from "./pages/AdminCarsList/AdminCarsList";
 import EditCar from "./pages/EditCar/EditCar";
 import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import CarDetails from "./pages/CarDetails/CarDetails";
-
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 

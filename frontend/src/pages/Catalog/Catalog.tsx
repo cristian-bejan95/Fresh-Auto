@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { getCars } from "../../services/api";
-import "./Catalog.css";
 import { CiSearch } from "react-icons/ci";
 import { TbBrandMercedes } from "react-icons/tb";
 import { FiRefreshCw } from "react-icons/fi";
-import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import type { Car } from "../../types/car";
+import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
+import PageLoader from "../../components/PageLoader/PageLoader";
+
+import "./Catalog.css";
 
 import {
   SiBmw,
@@ -253,7 +255,7 @@ export default function Catalog() {
   return (
     <>
       <div className="catalog-page-light">
-        <div className="main-container">
+        <div className="main-container" data-aos="fade-down">
           <div className="catalog-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link to="/" className="breadcrumb-link">
@@ -509,7 +511,7 @@ export default function Catalog() {
           </section>
 
           {loading ? (
-            <p className="catalog-loading">Se încarcă mașinile...</p>
+            <PageLoader />
           ) : filteredCars.length === 0 ? (
             <p className="catalog-empty">Nu am găsit mașini.</p>
           ) : (
