@@ -146,6 +146,22 @@ export default function CarDetails() {
   }, [lightboxOpen]);
 
   useEffect(() => {
+    const header =
+      document.querySelector(".header") ||
+      document.querySelector(".default-header");
+
+    if (lightboxOpen) {
+      header?.classList.add("header-hidden");
+    } else {
+      header?.classList.remove("header-hidden");
+    }
+
+    return () => {
+      header?.classList.remove("header-hidden");
+    };
+  }, [lightboxOpen]);
+
+  useEffect(() => {
     async function loadCar() {
       if (!id) return;
 

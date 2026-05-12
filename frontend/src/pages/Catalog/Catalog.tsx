@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { getCars } from "../../services/api";
 import { CiSearch } from "react-icons/ci";
 import { TbBrandMercedes } from "react-icons/tb";
@@ -175,8 +175,21 @@ export default function Catalog() {
     [cars],
   );
 
+  const [searchParams] = useSearchParams();
+
+  const brandParam = searchParams.get("brand") || "";
+  const modelParam = searchParams.get("model") || "";
+  const fuelParam = searchParams.get("fuel") || "";
+  const transmissionParam = searchParams.get("transmission") || "";
+  const carsSectionRef = useRef<HTMLDivElement | null>(null);
+
   const filteredCars = useMemo(() => {
     let result = [...cars];
+
+    const activeBrand = brand || brandParam;
+    const activeModel = model || modelParam;
+    const activeFuel = fuel || fuelParam;
+    const activeTransmission = transmission || transmissionParam;
 
     const term = search.toLowerCase().trim();
 
@@ -190,11 +203,12 @@ export default function Catalog() {
       );
     }
 
-    if (brand) result = result.filter((car) => car.brand === brand);
-    if (model) result = result.filter((car) => car.model === model);
-    if (fuel) result = result.filter((car) => car.fuel === fuel);
-    if (transmission)
-      result = result.filter((car) => car.transmission === transmission);
+    if (activeBrand) result = result.filter((car) => car.brand === activeBrand);
+    if (activeModel) result = result.filter((car) => car.model === activeModel);
+    if (activeFuel) result = result.filter((car) => car.fuel === activeFuel);
+    if (activeTransmission)
+      result = result.filter((car) => car.transmission === activeTransmission);
+
     if (wheldrive) result = result.filter((car) => car.wheldrive === wheldrive);
     if (color) result = result.filter((car) => car.color === color);
 
@@ -218,6 +232,7 @@ export default function Catalog() {
     return result;
   }, [
     cars,
+    search,
     brand,
     model,
     yearFrom,
@@ -231,7 +246,25 @@ export default function Catalog() {
     priceMin,
     priceMax,
     sort,
+    brandParam,
+    modelParam,
+    fuelParam,
+    transmissionParam,
   ]);
+
+  useEffect(() => {
+    const hasFilters =
+      brandParam || modelParam || fuelParam || transmissionParam;
+
+    if (hasFilters) {
+      setTimeout(() => {
+        carsSectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 150);
+    }
+  }, [brandParam, modelParam, fuelParam, transmissionParam]);
 
   const resetFilters = () => {
     setSearch("");
@@ -308,7 +341,7 @@ export default function Catalog() {
 
               <div className="filter-field">
                 <FilterSelect
-                  label="Carburant"
+                  label="Combustibil"
                   value={fuel}
                   placeholder="Selectează"
                   options={fuels}
@@ -515,7 +548,7 @@ export default function Catalog() {
           ) : filteredCars.length === 0 ? (
             <p className="catalog-empty">Nu am găsit mașini.</p>
           ) : (
-            <section className="catalog-grid-light">
+            <section className="catalog-grid-light" ref={carsSectionRef}>
               {filteredCars.slice(0, visibleCount).map((car) => (
                 <PremiumCarCard car={car} key={car._id} />
               ))}

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import HomeHero from "../../components/HomeHero/HomeHero";
+import TopCarsSlider from "../../components/TopCarsSlider/TopCarsSlider";
 
 export default function Home() {
   useEffect(() => {
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <>
       <HomeHero />
+      <TopCarsSlider />
     </>
   );
 }

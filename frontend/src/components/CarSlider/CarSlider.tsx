@@ -1,7 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-import { Link } from "react-router-dom";
+/* import { Link } from "react-router-dom"; */
 import { FaCheck } from "react-icons/fa";
+import FilterCars from "../../components/FilterCars/FilterCars";
 import "./CarSlider.css";
 
 import hero1 from "../../assets/Home/home-hero.png";
@@ -66,6 +67,7 @@ export default function HeroSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
+      <FilterCars />
     </section>
   );
 }
