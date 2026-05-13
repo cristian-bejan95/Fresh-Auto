@@ -4,9 +4,9 @@ import { getCars } from "../../services/api";
 import type { Car } from "../../types/car";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import PremiumCarCard from "../PremiumCarCard/PremiumCarCard";
-import "./TopCarsSlider.css";
+import "./TopPromotions.css";
 
-export default function TopCarsSlider() {
+export default function TopPromotions() {
   const [cars, setCars] = useState<Car[]>([]);
 
   useEffect(() => {
@@ -15,37 +15,35 @@ export default function TopCarsSlider() {
         const data = await getCars();
         setCars(data);
       } catch (error) {
-        console.error("Eroare la încărcarea mașinilor:", error);
+        console.error("Eroare promoții:", error);
       }
     }
 
     loadCars();
   }, []);
 
-  const topCars = useMemo(() => {
-    return cars
-      .filter((car) => car.status !== "discount" && car.status !== "sold")
-      .slice(0, 3);
+  const promoCars = useMemo(() => {
+    return cars.filter((car) => car.status === "discount").slice(0, 3);
   }, [cars]);
 
-  if (topCars.length === 0) return null;
+  if (promoCars.length === 0) return null;
 
   return (
-    <section className="top-cars-section">
+    <section className="top-promotions-section">
       <div className="main-container">
-        <div className="top-cars-header">
-          <h2>Recent adăugate</h2>
+        <div className="top-promotions-header">
+          <h2>Oferte fierbinți</h2>
 
-          <Link to="/catalog" className="top-cars-link">
-            Vezi toate
+          <Link to="/promotii" className="top-promotions-link">
+            Toate ofertele
             <FaLongArrowAltRight style={{ marginLeft: 8 }} />
           </Link>
         </div>
 
-        <div className="top-cars-grid">
-          {topCars.map((car) => (
-            <div className="top-car-item" key={car._id}>
-              <div className="top-car-custom">
+        <div className="top-promotions-grid">
+          {promoCars.map((car) => (
+            <div className="top-promo-item" key={car._id}>
+              <div className="top-promo-custom">
                 <PremiumCarCard car={car} />
               </div>
             </div>

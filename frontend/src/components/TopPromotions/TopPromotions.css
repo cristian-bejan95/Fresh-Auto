@@ -1,8 +1,8 @@
-.top-cars-section {
-  margin: 120px 0 90px;
+.top-promotions-section {
+  margin: 10px 0 90px;
 }
 
-.top-cars-header {
+.top-promotions-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -10,13 +10,13 @@
   gap: 20px;
 }
 
-.top-cars-header h2 {
+.top-promotions-header h2 {
   font-size: 28px;
   font-weight: 800;
   color: var(--text-color);
 }
 
-.top-cars-link {
+.top-promotions-link {
   padding: 12px 22px;
   border-radius: 10px;
   border: 1px solid #e5e7eb;
@@ -31,63 +31,46 @@
   transition: 0.3s ease-in-out;
 }
 
-.top-cars-link:hover {
+.top-promotions-link:hover {
   background: var(--accent-color);
   color: var(--light-color);
 }
 
-.top-cars-grid {
+.top-promotions-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
-.top-car-item {
-  min-width: 0;
-}
-
-.top-car-item .premium-card {
+.top-promo-custom .premium-card {
   height: 100%;
 }
 
-.top-car-item .premium-card-image {
-  height: 320px;
-}
-
-.top-car-custom .premium-card {
-  border-radius: 24px;
-}
-
-.top-car-custom .premium-card-image {
+.top-promo-custom .premium-card-image {
   height: 290px;
-  overflow: hidden;
 }
 
 @media (max-width: 1200px) {
-  .top-cars-grid {
+  .top-promotions-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
-  .top-cars-section {
-    padding: 100px 0 40px;
-  }
-
-  .top-cars-header {
+  .top-promotions-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .top-cars-header h2 {
+  .top-promotions-header h2 {
     font-size: 34px;
   }
 
-  .top-cars-grid {
+  .top-promotions-grid {
     grid-template-columns: 1fr;
   }
 
-  .top-car-item .premium-card-image {
+  .top-promo-custom .premium-card-image {
     height: 260px;
   }
 }
