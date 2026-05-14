@@ -34,7 +34,7 @@ export default function TopCarsSlider() {
     <section className="top-cars-section">
       <div className="main-container">
         <div className="top-cars-header">
-          <h2>Recent adăugate</h2>
+          <h2>Adăugate recent</h2>
 
           <Link to="/catalog" className="top-cars-link">
             Vezi toate
