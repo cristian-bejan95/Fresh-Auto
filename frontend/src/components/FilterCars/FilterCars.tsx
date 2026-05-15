@@ -61,7 +61,22 @@ export default function FilterCars() {
     if (fuel) params.set("fuel", fuel);
     if (transmission) params.set("transmission", transmission);
 
-    navigate(`/catalog?${params.toString()}`);
+    navigate(`/catalog?${params.toString()}#cars-list`);
+
+    setTimeout(() => {
+      const section = document.getElementById("cars-list");
+
+      if (section) {
+        const offset = 120;
+
+        const y = section.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({
+          top: y,
+          behavior: "smooth",
+        });
+      }
+    }, 150);
   };
 
   return (

@@ -1,0 +1,129 @@
+.popular-brands-section {
+  padding: 160px 0 90px;
+  overflow: hidden;
+}
+
+.popular-brands-header {
+  text-align: center;
+}
+
+.popular-brands-header h2 {
+  color: var(--text-color);
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.popular-brands-slider-wrap {
+  overflow: hidden;
+  padding: 18px 0 0;
+}
+
+.popular-brands-swiper {
+  overflow: hidden !important;
+  padding: 18px 0 80px !important;
+}
+
+.brand-card {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.06),
+    0 2px 10px rgba(15, 23, 42, 0.04);
+
+  transition: 0.35s ease;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.88)
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  padding: 18px 14px;
+  transition: 0.35s ease-in-out;
+}
+
+.brand-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 197, 94, 0.35);
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.12),
+    0 8px 18px rgba(34, 197, 94, 0.08);
+}
+
+.brand-card img {
+  width: 210px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.brand-card:hover img {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.brand-card h3 {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.brand-card p {
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.popular-brands-swiper .swiper-pagination {
+  position: relative !important;
+  margin-top: 40px;
+  bottom: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.popular-brands-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  margin: 0 !important;
+  border-radius: 50%;
+  background: #9ca3af;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.popular-brands-swiper .swiper-pagination-bullet-active {
+  background: transparent;
+  border: 3px solid var(--accent-color);
+  width: 16px;
+  height: 16px;
+}
+
+.popular-brands-swiper .swiper-wrapper {
+  align-items: stretch;
+}
+
+.popular-brands-swiper .swiper-slide {
+  height: auto;
+}
+
+.swiper-slide {
+  width: 191px;
+}
+
+@media (max-width: 768px) {
+  .brand-swiper-arrow {
+    display: none;
+  }
+
+  .popular-brands-header h2 {
+    font-size: 32px;
+  }
+}

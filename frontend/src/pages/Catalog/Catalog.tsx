@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useSearchParams,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import { getCars } from "../../services/api";
 import { CiSearch } from "react-icons/ci";
 import { TbBrandMercedes } from "react-icons/tb";
@@ -176,8 +181,10 @@ export default function Catalog() {
   );
 
   const [searchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   const brandParam = searchParams.get("brand") || "";
+  const activeBrandTitle = brand || brandParam;
+  const selectedBrand = searchParams.get("brand");
   const modelParam = searchParams.get("model") || "";
   const fuelParam = searchParams.get("fuel") || "";
   const transmissionParam = searchParams.get("transmission") || "";
@@ -282,8 +289,31 @@ export default function Catalog() {
     setPriceMax("");
     setSort("");
     loadCars("");
+    navigate("/catalog");
     window.scrollTo(0, 0);
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#cars-list") {
+      setTimeout(() => {
+        const section = document.getElementById("cars-list");
+
+        if (section) {
+          const offset = 120;
+
+          const y =
+            section.getBoundingClientRect().top + window.scrollY - offset;
+
+          window.scrollTo({
+            top: y,
+            behavior: "smooth",
+          });
+        }
+      }, 200);
+    }
+  }, [location]);
 
   return (
     <>
@@ -494,18 +524,50 @@ export default function Catalog() {
                 <button
                   key={item.name}
                   type="button"
-                  className={`brand-tab ${brand === item.name ? "active" : ""}`}
+                  className={`brand-tab ${
+                    (brand || brandParam) === item.name ? "active" : ""
+                  }`}
                   onClick={(e) => {
                     if (isDragging.current) return;
 
-                    setBrand(item.name);
+                    const selected =
+                      (brand || brandParam) === item.name ? "" : item.name;
+
+                    setBrand(selected);
                     setModel("");
+                    setVisibleCount(12);
+
+                    if (selected) {
+                      navigate(
+                        `/catalog?brand=${encodeURIComponent(selected)}#cars-list`,
+                      );
+                    } else {
+                      navigate("/catalog#cars-list");
+                    }
 
                     e.currentTarget.scrollIntoView({
                       behavior: "smooth",
                       inline: "center",
                       block: "nearest",
                     });
+
+                    setTimeout(() => {
+                      const section = document.getElementById("cars-list");
+
+                      if (section) {
+                        const offset = 120;
+
+                        const y =
+                          section.getBoundingClientRect().top +
+                          window.scrollY -
+                          offset;
+
+                        window.scrollTo({
+                          top: y,
+                          behavior: "smooth",
+                        });
+                      }
+                    }, 150);
                   }}
                   title={item.name}
                 >
@@ -515,8 +577,10 @@ export default function Catalog() {
             </div>
           </section>
 
-          <section className="catalog-list-header">
-            <h1>Toate Automobilele</h1>
+          <section className="catalog-list-header" id="cars-list">
+            <h1>
+              {activeBrandTitle ? `${activeBrandTitle}` : "Toate Automobilele"}
+            </h1>
             <div className="select-inner">
               <select
                 value={sort}

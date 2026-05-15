@@ -3,6 +3,7 @@ import HomeHero from "../../components/HomeHero/HomeHero";
 import TopCarsSlider from "../../components/TopCarsSlider/TopCarsSlider";
 import TopPromotions from "../../components/TopPromotions/TopPromotions";
 import ServicesSection from "../../components/ServicesSection/ServicesSection";
+import PopularBrands from "../../components/PopularBrands/PopularBrands";
 
 export default function Home() {
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function Home() {
       <TopCarsSlider />
       <TopPromotions />
       <ServicesSection />
+      <PopularBrands />
     </>
   );
 }

@@ -36,7 +36,7 @@ export default function TopCarsSlider() {
         <div className="top-cars-header">
           <h2>Adăugate recent</h2>
 
-          <Link to="/catalog" className="top-cars-link">
+          <Link to="/catalog#cars-list" className="top-cars-link">
             Vezi toate
             <FaLongArrowAltRight style={{ marginLeft: 8 }} />
           </Link>

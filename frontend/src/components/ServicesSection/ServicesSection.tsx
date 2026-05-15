@@ -35,6 +35,25 @@ const services = [
   },
 ];
 
+const stats = [
+  {
+    number: "7+",
+    label: "Ani pe Piață",
+  },
+  {
+    number: "300+",
+    label: "Mașini Vîndute",
+  },
+  {
+    number: "100+",
+    label: "Mașini Disponibile",
+  },
+  {
+    number: "100+",
+    label: "Mașini Schimbate",
+  },
+];
+
 export default function ServicesSection() {
   return (
     <section className="services-section" data-aos="fade-down">
@@ -52,6 +71,18 @@ export default function ServicesSection() {
 
               <p>{service.text}</p>
             </Link>
+          ))}
+        </div>
+        <div className="stats-box">
+          {stats.map((item, index) => (
+            <>
+              <div className="stat-item" key={index}>
+                <h3>{item.number}</h3>
+                <p>{item.label}</p>
+              </div>
+
+              {index !== stats.length - 1 && <div className="stat-divider" />}
+            </>
           ))}
         </div>
       </div>
