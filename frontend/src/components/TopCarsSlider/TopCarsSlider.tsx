@@ -25,7 +25,7 @@ export default function TopCarsSlider() {
   const topCars = useMemo(() => {
     return cars
       .filter((car) => car.status !== "discount" && car.status !== "sold")
-      .slice(0, 3);
+      .slice(0, 6);
   }, [cars]);
 
   if (topCars.length === 0) return null;

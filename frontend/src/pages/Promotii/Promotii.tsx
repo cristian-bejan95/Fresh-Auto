@@ -3,6 +3,7 @@ import { getCars } from "../../services/api";
 import { Link } from "react-router-dom";
 import type { Car } from "../../types/car";
 import { FiRefreshCw } from "react-icons/fi";
+
 import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import PageLoader from "../../components/PageLoader/PageLoader";
 import "./Promotii.css";

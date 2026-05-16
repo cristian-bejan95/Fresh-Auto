@@ -7,9 +7,14 @@ import { useLocation } from "react-router-dom";
 import "./Header.css";
 import "../../index.css";
 import logo from "../../assets/logo-header.svg";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
-  const [lang, setLang] = useState<"ro" | "ru">("ro");
+  const { t, i18n } = useTranslation();
+
+  const [lang, setLang] = useState<"ro" | "ru">(
+    (localStorage.getItem("lang") as "ro" | "ru") || "ro",
+  );
   const [favoritesCount, setFavoritesCount] = useState(0);
   const [showHeader, setShowHeader] = useState(false);
   const location = useLocation();
@@ -53,6 +58,12 @@ export default function Header() {
     };
   }, [isHomePage]);
 
+  const changeLang = (value: "ro" | "ru") => {
+    setLang(value);
+    i18n.changeLanguage(value);
+    localStorage.setItem("lang", value);
+  };
+
   return (
     <header
       className={`header ${
@@ -66,13 +77,12 @@ export default function Header() {
           </Link>
 
           <nav className="nav-menu">
-            <NavLink to="/catalog">Catalog Auto</NavLink>
-            <NavLink to="/promotii">Promoții</NavLink>
-            <NavLink to="/trade-in">Schimb trade-in</NavLink>
-            <NavLink to="/leasing">Credit Auto</NavLink>
-            <NavLink to="/contact">Contacte</NavLink>
+            <NavLink to="/catalog">{t("nav.catalog")}</NavLink>
+            <NavLink to="/promotii">{t("nav.promotions")}</NavLink>
+            <NavLink to="/trade-in">{t("nav.tradeIn")}</NavLink>
+            <NavLink to="/leasing">{t("nav.credit")}</NavLink>
+            <NavLink to="/contact">{t("nav.contacts")}</NavLink>
           </nav>
-
           <div className="search-box">
             <div className="social-icons">
               <a href="https://facebook.com" target="_blank" rel="noreferrer">
@@ -95,7 +105,7 @@ export default function Header() {
               <button
                 type="button"
                 className={lang === "ro" ? "active" : ""}
-                onClick={() => setLang("ro")}
+                onClick={() => changeLang("ro")}
               >
                 RO
               </button>
@@ -103,7 +113,7 @@ export default function Header() {
               <button
                 type="button"
                 className={lang === "ru" ? "active" : ""}
-                onClick={() => setLang("ru")}
+                onClick={() => changeLang("ru")}
               >
                 RU
               </button>
