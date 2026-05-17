@@ -5,5 +5,192 @@
     "tradeIn": "Schimb trade-in",
     "credit": "Credit Auto",
     "contacts": "Contacte"
+  },
+  "breadcrumb": {
+    "home": "Pagina principală"
+  },
+  "favorite": {
+    "title": "Automobile favorite",
+    "empty": "Nu ai adăugat încă mașini la favorite.",
+    "goCatalog": "Mergi la catalog"
+  },
+  "footer": {
+    "address": "Mun. Chișinău, str. Pietrariei, 3",
+    "hours": "Ore: 8:00 - 17:00, Lun - Dum",
+    "rights": "© 2026 Fresh-Auto. Toate drepturile rezervate."
+  },
+  "contacts": {
+    "breadcrumb": "Contact",
+    "title": "Contacte",
+    "subtitle": "Lăsați-ne un mesaj și revenim în cel mai scurt timp",
+    "infoTitle": "Datele noastre",
+    "addressLabel": "Adresă",
+    "address": "Mun. Chișinău, str. Pietrăriei 3",
+    "phoneLabel": "Telefon",
+    "emailLabel": "Email",
+    "scheduleLabel": "Program",
+    "schedule": "Lun - Dum: 08:00 - 17:00",
+    "socials": "Rețele sociale",
+    "formTitle": "Trimite un mesaj",
+    "namePlaceholder": "Numele dvs.",
+    "messagePlaceholder": "Mesajul tău...",
+    "sendButton": "Trimite mesajul"
+  },
+  "credit": {
+    "breadcrumb": "Leasing",
+    "title": "Credit Auto",
+    "subtitle": "Aprobare rapidă în mai puțin de 24h doar cu buletinul de identitate",
+    "calculator": "Calculator Credit Auto",
+    "carPrice": "Preț Automobil",
+    "advance": "Avans",
+    "period": "Termenul creditului",
+    "interest": "Rata dobânzii",
+    "monthlyRate": "Rata lunară",
+    "from": "de la",
+    "to": "până la",
+    "months": "luni",
+    "annual": "anual",
+    "partnersTitle": "Partenerii noștri financiari",
+    "partnersSubtitle": "Colaborăm cu instituții financiare de încredere pentru a vă oferi cele mai avantajoase soluții de credit și leasing auto.",
+    "disclaimer": "Calculatorul financiar are caracter informativ și oferă estimări aproximative ale ratelor lunare. Valoarea finală a creditului poate varia în funcție de suma finanțată, avans, perioada aleasă, rata dobânzii și condițiile partenerilor financiari."
+  },
+  "tradein": {
+    "breadcrumb": "Trade-in",
+    "title": "Trade-in",
+    "heroTitle": "Schimbă mașina ta prin programul Trade-In rapid și avantajos",
+    "heroText": "Adu automobilul tău actual, primește o evaluare corectă și alege o mașină nouă din stocul Fresh Auto. Simplu, rapid și fără stres.",
+    "requestEvaluation": "Cere evaluare",
+    "steps": "Pașii",
+    "step1Title": "Vino cu mașina ta",
+    "step1Text": "Aduci mașina ta pentru o evaluare rapidă.",
+    "step2Title": "Primești oferta",
+    "step2Text": "Noi analizăm mașina și îți oferim o evaluare corectă.",
+    "step3Title": "Alegi mașina nouă",
+    "step3Text": "Selectezi automobilul dorit din stocul Fresh Auto.",
+    "step4Title": "Facem schimbul",
+    "step4Text": "Achită doar diferența și pleci cu noua mașină.",
+    "benefitsTitle": "De ce să alegi Trade-In la Fresh Auto",
+    "benefitsText": "Nu mai pierzi timp cu anunțuri, apeluri și negocieri. Noi preluăm procesul și îți oferim o soluție comodă.",
+    "benefit1": "Evaluare rapidă și transparentă",
+    "benefit2": "Posibilitate de finanțare",
+    "benefit3": "Schimb în aceeași zi",
+    "benefit4": "Fără stres și fără pierdere de timp",
+    "fastOffer": "Primește ofertă rapidă",
+    "fastOfferText": "Lasă datele mașinii tale și echipa noastră te contactează pentru evaluare.",
+    "completeForm": "Completează formularul",
+    "formTitle": "Formular Trade-In",
+    "formSubtitle": "Introdu datele mașinii tale și atașează poze sau indică link-ul de pe 999.md sau alte platforme de vînzări.",
+    "saleLink": "Link anunț vînzare (999.md, etc.)",
+    "images": "Imagine",
+    "chooseFiles": "Alege fișierele",
+    "selectedImage": "imagine selectată",
+    "selectedImages": "imagini selectate",
+    "noFiles": "Nu ai ales niciun fișier",
+    "desiredCar": "Mașina dorită din parcul Fresh Auto (link)",
+    "priceDifference": "Diferența de preț propusă",
+    "carDetails": "Marcă, model, an, parcurs km, tip combustibil, tip cutie de viteze, preț dorit și alte detalii",
+    "enterDetails": "Introdu datele...",
+    "contactData": "Date de contact",
+    "name": "Nume",
+    "phone": "Număr telefon de contact",
+    "sendRequest": "Trimite cererea",
+    "interestingOffers": "Oferte interesante",
+    "invalidPhone": "Număr invalid (trebuie să înceapă cu 6 sau 7)"
+  },
+  "promotions": {
+    "breadcrumb": "Promoții",
+    "pageTitle": "Promoții și oferte speciale",
+    "title": "Promoții și oferte speciale",
+    "subtitle": "Descoperă cele mai avantajoase oferte Fresh Auto.",
+    "empty": "Momentan nu sunt automobile la promoție."
+  },
+  "common": {
+    "loadMore": "Încarcă mai multe"
+  },
+  "catalog": {
+    "pageTitle": "Catalog auto",
+    "breadcrumb": "Catalog",
+    "showing": "Afișez",
+    "of": "din",
+    "results": "rezultate",
+    "brand": "Marca",
+    "model": "Model",
+    "fuel": "Combustibil",
+    "transmission": "Transmisie",
+    "drive": "Tracțiune",
+    "color": "Culoare",
+    "select": "Selectează",
+    "chooseModel": "Alege modelul",
+    "selectBrandFirst": "Selectează marca întâi",
+    "yearFrom": "An de la",
+    "yearTo": "An până la",
+    "kmFrom": "Rulaj de la",
+    "kmTo": "Rulaj până la",
+    "priceMin": "Preț minim (€)",
+    "priceMax": "Preț maxim (€)",
+    "searchAuto": "Căutare auto",
+    "searchPlaceholder": "Caută marcă, model",
+    "reset": "Resetare Filtru",
+    "allCars": "Toate Automobilele",
+    "sort": "Sortează după",
+    "newest": "Cele mai noi",
+    "oldest": "Cele mai vechi",
+    "priceAsc": "Preț crescător",
+    "priceDesc": "Preț descrescător",
+    "kmAsc": "Kilometraj crescător",
+    "kmDesc": "Kilometraj descrescător",
+    "noCars": "Nu am găsit mașini."
+  },
+  "home": {
+    "topCars": {
+      "title": "Adăugate recent",
+      "viewAll": "Vezi toate"
+    },
+    "promotions": {
+      "title": "Oferte fierbinți",
+      "viewAll": "Toate ofertele"
+    },
+    "services": {
+      "title": "Serviciile noastre",
+
+      "sellTitle": "Vînzarea mașinii",
+      "sellText": "Selectați marca și modelul mașinii care vi se potrivește",
+
+      "evaluateTitle": "Evaluarea auto",
+      "evaluateText": "Primește o evaluare transparentă a mașinii tale",
+
+      "tradeTitle": "Schimb auto",
+      "tradeText": "Utilizați mașina dvs. veche ca avans pentru a cumpăra o mașină nouă",
+
+      "financeTitle": "Finanțare rapidă",
+      "financeText": "Aprobare rapidă și condiții flexibile de la partenerii noștri"
+    },
+    "stats": {
+      "years": "Ani pe Piață",
+      "soldCars": "Mașini Vîndute",
+      "availableCars": "Mașini Disponibile",
+      "tradeCars": "Mașini Schimbate"
+    },
+    "hero": {
+      "slide1Title": "Găsește automobilul perfect pentru tine la Fresh Auto",
+      "slide1Text": "Peste 100 de automobile disponibile în stoc",
+      "slide2Title": "Descoperă cele mai avantajoase oferte la Fresh Auto",
+      "slide2Text": "Economisește inteligent la următoarea mașină",
+      "verified": "Automobile verificate",
+      "fastCredit": "Credit rapid",
+      "fullSupport": "Suport complet"
+    },
+    "popularBrands": {
+      "title": "Mărci populare",
+      "carSingular": "autoturism",
+      "carPlural": "autoturisme"
+    }
+  },
+  "filter": {
+    "allBrands": "Toate Mărcile",
+    "model": "Model",
+    "fuel": "Combustibil",
+    "transmission": "Transmisie",
+    "search": "Caută"
   }
 }

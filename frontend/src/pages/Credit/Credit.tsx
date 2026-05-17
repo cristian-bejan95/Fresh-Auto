@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { BsFillExclamationSquareFill } from "react-icons/bs";
+
 import Maib from "../../assets/partners/maib.svg";
 import Microinvest from "../../assets/partners/microinvest.svg";
 import RapidCredit from "../../assets/partners/rapidcredit.svg";
 import Express from "../../assets/partners/express.svg";
 import Iute from "../../assets/partners/iute.svg";
 import Mogo from "../../assets/partners/mogo.svg";
+
 import "./Credit.css";
 
 export default function Leasing() {
+  const { t, i18n } = useTranslation();
+
   const [creditAmount, setCreditAmount] = useState(8000);
   const [months, setMonths] = useState(30);
   const [advancePercent, setAdvancePercent] = useState(10);
@@ -25,8 +30,10 @@ export default function Leasing() {
   );
 
   useEffect(() => {
-    document.title = "Leasing | Fresh-Auto";
-  }, []);
+    document.title = `${t("credit.title")} | Fresh-Auto`;
+  }, [t]);
+
+  const currentLocale = i18n.language === "ru" ? "ru-RU" : "ro-RO";
 
   return (
     <>
@@ -35,29 +42,30 @@ export default function Leasing() {
           <div className="leasing-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link to="/" className="breadcrumb-link">
-                Pagina principală
+                {t("breadcrumb.home")}
               </Link>
+
               <span className="breadcrumb-separator">›</span>
-              <span className="breadcrumb-current">Leasing</span>
+
+              <span className="breadcrumb-current">
+                {t("credit.breadcrumb")}
+              </span>
             </nav>
           </div>
 
           <div className="leasing-header">
-            <h1>Credit Auto</h1>
-            <p>
-              Aprobare rapidă în mai puțin de 24h doar cu buletinul de
-              identitate
-            </p>
+            <h1>{t("credit.title")}</h1>
+            <p>{t("credit.subtitle")}</p>
           </div>
 
           <div className="credit-calculator-card">
-            <h2>Calculator Credit Auto</h2>
+            <h2>{t("credit.calculator")}</h2>
 
             <div className="credit-grid-layout">
               <div className="credit-left-side">
                 <div className="credit-block">
                   <div className="credit-calc-row input-row">
-                    <span>Preț Automobil</span>
+                    <span>{t("credit.carPrice")}</span>
 
                     <div className="credit-input-wrap">
                       <input
@@ -83,17 +91,18 @@ export default function Leasing() {
                   />
 
                   <div className="credit-range-labels">
-                    <span>de la 2 000 €</span>
-                    <span>până la 100 000 €</span>
+                    <span>{t("credit.from")} 2 000 €</span>
+                    <span>{t("credit.to")} 100 000 €</span>
                   </div>
                 </div>
 
                 <div className="credit-block">
                   <div className="credit-calc-row second">
-                    <span>Avans</span>
+                    <span>{t("credit.advance")}</span>
+
                     <strong>
                       {advancePercent}% /{" "}
-                      {advanceAmount.toLocaleString("ro-RO")} €
+                      {advanceAmount.toLocaleString(currentLocale)} €
                     </strong>
                   </div>
 
@@ -107,8 +116,8 @@ export default function Leasing() {
                   />
 
                   <div className="credit-range-labels">
-                    <span>de la 0%</span>
-                    <span>până la 90%</span>
+                    <span>{t("credit.from")} 0%</span>
+                    <span>{t("credit.to")} 90%</span>
                   </div>
                 </div>
               </div>
@@ -116,8 +125,11 @@ export default function Leasing() {
               <div className="credit-right-side">
                 <div className="credit-block">
                   <div className="credit-calc-row second">
-                    <span>Termenul creditului</span>
-                    <strong>{months} luni</strong>
+                    <span>{t("credit.period")}</span>
+
+                    <strong>
+                      {months} {t("credit.months")}
+                    </strong>
                   </div>
 
                   <input
@@ -130,15 +142,23 @@ export default function Leasing() {
                   />
 
                   <div className="credit-range-labels">
-                    <span>de la 6 luni</span>
-                    <span>până la 60 luni</span>
+                    <span>
+                      {t("credit.from")} 6 {t("credit.months")}
+                    </span>
+
+                    <span>
+                      {t("credit.to")} 60 {t("credit.months")}
+                    </span>
                   </div>
                 </div>
 
                 <div className="credit-block">
                   <div className="credit-calc-row second">
-                    <span>Rata dobânzii</span>
-                    <strong>{interestRate}% anual</strong>
+                    <span>{t("credit.interest")}</span>
+
+                    <strong>
+                      {interestRate}% {t("credit.annual")}
+                    </strong>
                   </div>
 
                   <input
@@ -151,43 +171,35 @@ export default function Leasing() {
                   />
 
                   <div className="credit-range-labels">
-                    <span>de la 5%</span>
-                    <span>până la 25%</span>
+                    <span>{t("credit.from")} 5%</span>
+                    <span>{t("credit.to")} 25%</span>
                   </div>
                 </div>
               </div>
 
               <div className="credit-bottom-full">
                 <div className="credit-result">
-                  Rata lunară{" "}
-                  <span>{monthlyRate.toLocaleString("ro-RO")} €</span>
+                  {t("credit.monthlyRate")}{" "}
+                  <span>{monthlyRate.toLocaleString(currentLocale)} €</span>
                 </div>
 
                 <div className="triger">
                   <BsFillExclamationSquareFill className="triger-icon" />
-                  <p>
-                    Calculatorul financiar are caracter informativ și oferă
-                    estimări aproximative ale ratelor lunare. Valoarea finală a
-                    creditului poate varia în funcție de suma finanțată, avans,
-                    perioada aleasă, rata dobânzii și condițiile partenerilor
-                    financiari.
-                  </p>
+                  <p>{t("credit.disclaimer")}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
       <section className="partners" data-aos="fade-up">
         <div className="main-container">
           <section className="leasing-partners">
             <div className="main-container">
               <div className="partners-header">
-                <h2>Partenerii noștri financiari</h2>
-                <p>
-                  Colaborăm cu instituții financiare de încredere pentru a vă
-                  oferi cele mai avantajoase soluții de credit și leasing auto.
-                </p>
+                <h2>{t("credit.partnersTitle")}</h2>
+                <p>{t("credit.partnersSubtitle")}</p>
               </div>
 
               <div className="partners-flex">
@@ -215,7 +227,7 @@ export default function Leasing() {
 
                 <div className="partner-card">
                   <div className="partners-cards">
-                    <img src={RapidCredit} alt="Iute Credit" />
+                    <img src={RapidCredit} alt="Credit Rapid" />
                   </div>
                   <div className="partners-info">
                     <a href="https://creditrapid.md" target="_black">
@@ -228,13 +240,13 @@ export default function Leasing() {
                   <div className="partners-cards">
                     <img src={Express} alt="Express Leasing" />
                   </div>
-
                   <div className="partners-info">
                     <a href="https://www.expressleasing.md" target="_black">
                       Expressleasing.md
                     </a>
                   </div>
                 </div>
+
                 <div className="partner-card">
                   <div className="partners-cards">
                     <img src={Iute} alt="IuteCredit" />
@@ -248,9 +260,8 @@ export default function Leasing() {
 
                 <div className="partner-card">
                   <div className="partners-cards">
-                    <img src={Mogo} alt="Express Leasing" />
+                    <img src={Mogo} alt="Mogo" />
                   </div>
-
                   <div className="partners-info">
                     <a href="https://www.mogo.md" target="_black">
                       Mogo.md

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getCars } from "../../services/api";
 import type { Car } from "../../types/car";
 import "./FilterCars.css";
 
 export default function FilterCars() {
+  const { t } = useTranslation();
+
   const [openSelect, setOpenSelect] = useState("");
   const [cars, setCars] = useState<Car[]>([]);
 
@@ -96,7 +99,7 @@ export default function FilterCars() {
                 closeSelect();
               }}
             >
-              <option value="">Toate Mărcile</option>
+              <option value="">{t("filter.allBrands")}</option>
 
               {brands.map((item) => (
                 <option key={item} value={item}>
@@ -119,7 +122,7 @@ export default function FilterCars() {
                 closeSelect();
               }}
             >
-              <option value="">Model</option>
+              <option value="">{t("filter.model")}</option>
 
               {models.map((item) => (
                 <option key={item} value={item}>
@@ -141,7 +144,7 @@ export default function FilterCars() {
                 closeSelect();
               }}
             >
-              <option value="">Combustibil</option>
+              <option value="">{t("filter.fuel")}</option>
 
               {fuels.map((item) => (
                 <option key={item} value={item}>
@@ -165,7 +168,7 @@ export default function FilterCars() {
                 closeSelect();
               }}
             >
-              <option value="">Transmisie</option>
+              <option value="">{t("filter.transmission")}</option>
 
               {transmissions.map((item) => (
                 <option key={item} value={item}>
@@ -191,7 +194,7 @@ export default function FilterCars() {
           </button>
 
           <button className="search-btn" onClick={handleSearch}>
-            Caută
+            {t("filter.search")}
           </button>
         </div>
       </div>

@@ -1,28 +1,29 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade } from "swiper/modules";
-/* import { Link } from "react-router-dom"; */
 import { FaCheck } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 import FilterCars from "../../components/FilterCars/FilterCars";
 import "./CarSlider.css";
 
 import hero1 from "../../assets/Home/home-hero.png";
 import hero2 from "../../assets/Home/home-hero-2.png";
 
-const slides = [
-  {
-    image: hero1,
-    title: "Găsește automobilul perfect pentru tine la Fresh Auto",
-    text: "Peste 100 de automobile disponibile în stoc",
-  },
-
-  {
-    image: hero2,
-    title: "Descoperă cele mai avantajoase oferte la Fresh Auto",
-    text: "Economisește inteligent la următoarea mașină",
-  },
-];
-
 export default function HeroSlider() {
+  const { t } = useTranslation();
+
+  const slides = [
+    {
+      image: hero1,
+      title: t("home.hero.slide1Title"),
+      text: t("home.hero.slide1Text"),
+    },
+    {
+      image: hero2,
+      title: t("home.hero.slide2Title"),
+      text: t("home.hero.slide2Text"),
+    },
+  ];
+
   return (
     <section className="hero-slider">
       <Swiper
@@ -51,15 +52,18 @@ export default function HeroSlider() {
                   <h2>{slide.title}</h2>
                   <p>{slide.text}</p>
                 </div>
+
                 <div className="home-hero-benefits">
                   <span>
-                    <FaCheck /> Automobile verificate
+                    <FaCheck /> {t("home.hero.verified")}
                   </span>
+
                   <span>
-                    <FaCheck /> Credit rapid
+                    <FaCheck /> {t("home.hero.fastCredit")}
                   </span>
+
                   <span>
-                    <FaCheck /> Suport complet
+                    <FaCheck /> {t("home.hero.fullSupport")}
                   </span>
                 </div>
               </div>
@@ -67,6 +71,7 @@ export default function HeroSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
+
       <FilterCars />
     </section>
   );

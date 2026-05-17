@@ -6,14 +6,17 @@ import { IoCarSport } from "react-icons/io5";
 import PremiumCarCard from "../../components/PremiumCarCard/PremiumCarCard";
 import FavoriteImg from "../../assets/favorite.svg";
 import PageLoader from "../../components/PageLoader/PageLoader";
+import { useTranslation } from "react-i18next";
 import "./Favorite.css";
 
 export default function Favorite() {
+  const { t } = useTranslation();
+
   const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Favorite | Fresh-Auto";
+    document.title = `${t("favorite.title")} | Fresh-Auto`;
 
     async function loadFavorites() {
       try {
@@ -42,7 +45,7 @@ export default function Favorite() {
     return () => {
       window.removeEventListener("favoritesUpdated", loadFavorites);
     };
-  }, []);
+  }, [t]);
 
   return (
     <section className="favorite-page" data-aos="fade-down">
@@ -50,18 +53,19 @@ export default function Favorite() {
         <div className="favorite-breadcrumb-row">
           <nav className="breadcrumb" aria-label="Breadcrumb">
             <Link to="/" className="breadcrumb-link">
-              Pagina principală
+              {t("breadcrumb.home")}
             </Link>
 
             <span className="breadcrumb-separator" aria-hidden="true">
               ›
             </span>
 
-            <span className="breadcrumb-current">Favorite</span>
+            <span className="breadcrumb-current">{t("favorite.title")}</span>
           </nav>
         </div>
+
         <div className="favorite-header">
-          <h2>Automobile favorite</h2>
+          <h2>{t("favorite.title")}</h2>
         </div>
 
         {loading ? (
@@ -75,10 +79,12 @@ export default function Favorite() {
                 className="favorite-empty-fv"
               />
             </span>
-            <p>Nu ai adăugat încă mașini la favorite.</p>
+
+            <p>{t("favorite.empty")}</p>
+
             <Link to="/catalog" className="favorite-empty-btn">
               <IoCarSport />
-              Mergi la catalog
+              {t("favorite.goCatalog")}
             </Link>
           </div>
         ) : (

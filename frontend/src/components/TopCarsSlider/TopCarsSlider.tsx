@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getCars } from "../../services/api";
 import type { Car } from "../../types/car";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -7,6 +8,8 @@ import PremiumCarCard from "../PremiumCarCard/PremiumCarCard";
 import "./TopCarsSlider.css";
 
 export default function TopCarsSlider() {
+  const { t } = useTranslation();
+
   const [cars, setCars] = useState<Car[]>([]);
 
   useEffect(() => {
@@ -34,10 +37,10 @@ export default function TopCarsSlider() {
     <section className="top-cars-section">
       <div className="main-container">
         <div className="top-cars-header">
-          <h2>Adăugate recent</h2>
+          <h2>{t("home.topCars.title")}</h2>
 
           <Link to="/catalog#cars-list" className="top-cars-link">
-            Vezi toate
+            {t("home.topCars.viewAll")}
             <FaLongArrowAltRight style={{ marginLeft: 8 }} />
           </Link>
         </div>

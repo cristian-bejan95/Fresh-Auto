@@ -5,9 +5,11 @@ import { FaTiktok } from "react-icons/fa6";
 import { FaFacebookF, FaInstagram, FaMapMarkerAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
 import { MdAccessTimeFilled } from "react-icons/md";
-import "./Footer.css";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -21,12 +23,12 @@ export default function Footer() {
 
             <p>
               <FaMapMarkerAlt />
-              Mun. Chișinău, str. Pietrariei, 3
+              {t("footer.address")}
             </p>
 
             <p>
               <MdAccessTimeFilled />
-              Ore: 8:00 - 17:00, Lun - Dum
+              {t("footer.hours")}
             </p>
 
             <p>
@@ -39,16 +41,17 @@ export default function Footer() {
               </a>
             </p>
           </div>
+
           <div className="footer-nav-links">
             <div className="footer-column">
-              <Link to="/catalog">Catalog Auto</Link>
-              <Link to="/promotii">Promoții</Link>
-              <Link to="/trade-in">Schimb Trade-in</Link>
+              <Link to="/catalog">{t("nav.catalog")}</Link>
+              <Link to="/promotii">{t("nav.promotions")}</Link>
+              <Link to="/trade-in">{t("nav.tradeIn")}</Link>
             </div>
 
             <div className="footer-column">
-              <Link to="/leasing">Credit Auto</Link>
-              <Link to="/contact">Contacte</Link>
+              <Link to="/leasing">{t("nav.credit")}</Link>
+              <Link to="/contact">{t("nav.contacts")}</Link>
             </div>
           </div>
         </div>
@@ -56,7 +59,7 @@ export default function Footer() {
         <div className="footer-bottom-line" />
 
         <div className="footer-bottom">
-          <p>© 2026 Fresh-Auto. Toate drepturile rezervate.</p>
+          <p>{t("footer.rights")}</p>
 
           <div className="footer-social-icons">
             <a href="https://facebook.com" target="_blank" rel="noreferrer">

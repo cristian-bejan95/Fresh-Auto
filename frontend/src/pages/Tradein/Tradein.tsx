@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./Tradein.css";
 import tradeImg from "../../assets/trade-in.png";
+
 import { IoCarSportSharp } from "react-icons/io5";
 import { FaUserCheck } from "react-icons/fa";
 import { FaTags } from "react-icons/fa";
@@ -9,9 +11,11 @@ import { FaHandHoldingUsd } from "react-icons/fa";
 import { LiaTelegramPlane } from "react-icons/lia";
 
 export default function Tradein() {
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
-    document.title = "Trade-in | Fresh-Auto";
-  }, []);
+    document.title = `${t("tradein.title")} | Fresh-Auto`;
+  }, [t]);
 
   const [imagesCount, setImagesCount] = useState(0);
   const [offers, setOffers] = useState<any[]>([]);
@@ -45,7 +49,7 @@ export default function Tradein() {
     const mdNumber = digits.slice(3);
 
     if (!/^[267]\d{7}$/.test(mdNumber)) {
-      return "Număr invalid (trebuie să înceapă cu 6 sau 7)";
+      return t("tradein.invalidPhone");
     }
 
     return "";
@@ -82,42 +86,41 @@ export default function Tradein() {
           <div className="tradein-breadcrumb-row">
             <nav className="breadcrumb" aria-label="Breadcrumb">
               <Link to="/" className="breadcrumb-link">
-                Pagina principală
+                {t("breadcrumb.home")}
               </Link>
 
               <span className="breadcrumb-separator" aria-hidden="true">
                 ›
               </span>
 
-              <span className="breadcrumb-current">Trade-in</span>
+              <span className="breadcrumb-current">
+                {t("tradein.breadcrumb")}
+              </span>
             </nav>
           </div>
+
           <div className="trade-overlay"></div>
 
           <div className="tradein-hero-wrapper">
             <div className="trade-content">
-              <h1>
-                Schimbă mașina ta prin programul Trade-In rapid și avantajos
-              </h1>
+              <h1>{t("tradein.heroTitle")}</h1>
 
-              <p>
-                Adu automobilul tău actual, primește o evaluare corectă și alege
-                o mașină nouă din stocul Fresh Auto. Simplu, rapid și fără
-                stres.
-              </p>
+              <p>{t("tradein.heroText")}</p>
 
               <div className="trade-actions">
                 <a href="#trade-form" className="trade-btn primary">
-                  Cere evaluare
+                  {t("tradein.requestEvaluation")}
                 </a>
               </div>
             </div>
+
             <div className="trade-page-image">
               <img src={tradeImg} alt="Trade in auto" />
             </div>
           </div>
+
           <div className="trade-steps">
-            <h2>Pașii</h2>
+            <h2>{t("tradein.steps")}</h2>
 
             <div className="steps-wrapper">
               <div className="steps-grid">
@@ -126,8 +129,10 @@ export default function Tradein() {
                     <IoCarSportSharp />
                     <span className="step-number">1</span>
                   </div>
-                  <h3>Vino cu mașina ta</h3>
-                  <p>Aduci mașina ta pentru o evaluare rapidă.</p>
+
+                  <h3>{t("tradein.step1Title")}</h3>
+
+                  <p>{t("tradein.step1Text")}</p>
                 </div>
 
                 <div className="step-card">
@@ -135,8 +140,10 @@ export default function Tradein() {
                     <FaTags />
                     <span className="step-number">2</span>
                   </div>
-                  <h3>Primești oferta</h3>
-                  <p>Noi analizăm mașina și îți oferim o evaluare corectă.</p>
+
+                  <h3>{t("tradein.step2Title")}</h3>
+
+                  <p>{t("tradein.step2Text")}</p>
                 </div>
 
                 <div className="step-card">
@@ -144,8 +151,10 @@ export default function Tradein() {
                     <FaUserCheck />
                     <span className="step-number">3</span>
                   </div>
-                  <h3>Alegi mașina nouă</h3>
-                  <p>Selectezi automobilul dorit din stocul Fresh Auto.</p>
+
+                  <h3>{t("tradein.step3Title")}</h3>
+
+                  <p>{t("tradein.step3Text")}</p>
                 </div>
 
                 <div className="step-card">
@@ -153,8 +162,10 @@ export default function Tradein() {
                     <FaHandHoldingUsd />
                     <span className="step-number">4</span>
                   </div>
-                  <h3>Facem schimbul</h3>
-                  <p>Achită doar diferența și pleci cu noua mașină.</p>
+
+                  <h3>{t("tradein.step4Title")}</h3>
+
+                  <p>{t("tradein.step4Text")}</p>
                 </div>
               </div>
             </div>
@@ -164,29 +175,27 @@ export default function Tradein() {
 
       <section className="trade-benefits" data-aos="fade-down">
         <div className="main-container">
-          <h2>De ce să alegi Trade-In la Fresh Auto</h2>
-          <p>
-            Nu mai pierzi timp cu anunțuri, apeluri și negocieri. Noi preluăm
-            procesul și îți oferim o soluție comodă.
-          </p>
+          <h2>{t("tradein.benefitsTitle")}</h2>
+
+          <p>{t("tradein.benefitsText")}</p>
+
           <div className="trade-benefits-wrapper">
             <div className="benefit-trade">
               <div className="benefit-left">
                 <ul>
-                  <li>Evaluare rapidă și transparentă</li>
-                  <li>Posibilitate de finanțare</li>
-                  <li>Schimb în aceeași zi</li>
-                  <li>Fără stres și fără pierdere de timp</li>
+                  <li>{t("tradein.benefit1")}</li>
+                  <li>{t("tradein.benefit2")}</li>
+                  <li>{t("tradein.benefit3")}</li>
+                  <li>{t("tradein.benefit4")}</li>
                 </ul>
               </div>
 
               <div className="benefit-right">
-                <h3>Primește ofertă rapidă</h3>
-                <p>
-                  Lasă datele mașinii tale și echipa noastră te contactează
-                  pentru evaluare.
-                </p>
-                <a href="#trade-form">Completează formularul</a>
+                <h3>{t("tradein.fastOffer")}</h3>
+
+                <p>{t("tradein.fastOfferText")}</p>
+
+                <a href="#trade-form">{t("tradein.completeForm")}</a>
               </div>
             </div>
           </div>
@@ -198,25 +207,26 @@ export default function Tradein() {
           <div className="tradein-wrapper">
             <div className="tradein-box">
               <div className="tradein-form-title">
-                <h2>Formular Trade-In</h2>
-                <p>
-                  Introdu datele mașinii tale și atașează poze sau indică
-                  link-ul de pe 999.md sau alte platforme de vînzări.
-                </p>
+                <h2>{t("tradein.formTitle")}</h2>
+
+                <p>{t("tradein.formSubtitle")}</p>
               </div>
+
               <form className="trade-form">
                 <div className="trade-form-grid">
                   <div className="trade-field">
-                    <label>Link anunț vînzare (999.md, etc.)</label>
+                    <label>{t("tradein.saleLink")}</label>
+
                     <input type="text" />
                   </div>
 
                   <div className="trade-field">
-                    <label>Imagine</label>
+                    <label>{t("tradein.images")}</label>
 
                     <div className="file-upload-box">
                       <label className="file-btn">
-                        Alege fișierele
+                        {t("tradein.chooseFiles")}
+
                         <input
                           type="file"
                           accept="image/*"
@@ -230,41 +240,47 @@ export default function Tradein() {
 
                       <span className="file-name">
                         {imagesCount > 0
-                          ? `${imagesCount} ${imagesCount === 1 ? "imagine selectată" : "imagini selectate"}`
-                          : "Nu ai ales niciun fișier"}
+                          ? `${imagesCount} ${
+                              imagesCount === 1
+                                ? t("tradein.selectedImage")
+                                : t("tradein.selectedImages")
+                            }`
+                          : t("tradein.noFiles")}
                       </span>
                     </div>
                   </div>
 
                   <div className="trade-field">
-                    <label>Mașina dorită din parcul Fresh Auto (link)</label>
+                    <label>{t("tradein.desiredCar")}</label>
+
                     <input type="text" />
                   </div>
 
                   <div className="trade-field">
-                    <label>Diferența de preț propusă</label>
+                    <label>{t("tradein.priceDifference")}</label>
+
                     <input type="text" />
                   </div>
                 </div>
 
                 <div className="trade-field trade-field-full">
-                  <label>
-                    Marcă, model, an, parcurs km, tip combustibil, tip cutie de
-                    viteze, preț dorit și alte detalii
-                  </label>
-                  <textarea placeholder="Introdu datele..." />
+                  <label>{t("tradein.carDetails")}</label>
+
+                  <textarea placeholder={t("tradein.enterDetails")} />
                 </div>
 
-                <h3>Date de contact</h3>
+                <h3>{t("tradein.contactData")}</h3>
 
                 <div className="trade-form-grid">
                   <div className="trade-field">
-                    <label>Nume</label>
+                    <label>{t("tradein.name")}</label>
+
                     <input type="text" />
                   </div>
 
                   <div className="trade-field">
-                    <label>Număr telefon de contact</label>
+                    <label>{t("tradein.phone")}</label>
+
                     <input
                       type="tel"
                       value={phone}
@@ -284,12 +300,13 @@ export default function Tradein() {
 
                 <button type="submit">
                   <LiaTelegramPlane style={{ marginRight: 8 }} />
-                  Trimite cererea
+                  {t("tradein.sendRequest")}
                 </button>
               </form>
             </div>
+
             <div className="offers-box" data-aos="fade-left">
-              <h3>Oferte interesante</h3>
+              <h3>{t("tradein.interestingOffers")}</h3>
 
               <div className="offer-line" />
 
@@ -306,13 +323,22 @@ export default function Tradein() {
 
                   <div>
                     <strong>{offer.title}</strong>
+
                     <p>
-                      {offer.year}, {offer.mileage.toLocaleString("ro-RO")} km,{" "}
-                      {offer.fuel}, {offer.transmission}
+                      {offer.year},{" "}
+                      {offer.mileage.toLocaleString(
+                        i18n.language === "ru" ? "ru-RU" : "ro-RO",
+                      )}{" "}
+                      km, {offer.fuel}, {offer.transmission}
                     </p>
                   </div>
 
-                  <span>{offer.price.toLocaleString("ro-RO")}€</span>
+                  <span>
+                    {offer.price.toLocaleString(
+                      i18n.language === "ru" ? "ru-RU" : "ro-RO",
+                    )}
+                    €
+                  </span>
                 </Link>
               ))}
             </div>

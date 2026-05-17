@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getCars } from "../../services/api";
 import type { Car } from "../../types/car";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -7,6 +8,8 @@ import PremiumCarCard from "../PremiumCarCard/PremiumCarCard";
 import "./TopPromotions.css";
 
 export default function TopPromotions() {
+  const { t } = useTranslation();
+
   const [cars, setCars] = useState<Car[]>([]);
 
   useEffect(() => {
@@ -32,10 +35,10 @@ export default function TopPromotions() {
     <section className="top-promotions-section">
       <div className="main-container">
         <div className="top-promotions-header">
-          <h2>Oferte fierbinți</h2>
+          <h2>{t("home.promotions.title")}</h2>
 
           <Link to="/promotii" className="top-promotions-link">
-            Toate ofertele
+            {t("home.promotions.viewAll")}
             <FaLongArrowAltRight style={{ marginLeft: 8 }} />
           </Link>
         </div>

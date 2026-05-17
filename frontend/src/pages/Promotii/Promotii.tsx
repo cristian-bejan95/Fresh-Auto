@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCars } from "../../services/api";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { Car } from "../../types/car";
 import { FiRefreshCw } from "react-icons/fi";
 
@@ -9,13 +10,15 @@ import PageLoader from "../../components/PageLoader/PageLoader";
 import "./Promotii.css";
 
 export default function Promotii() {
+  const { t } = useTranslation();
+
   const [cars, setCars] = useState<Car[]>([]);
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
-    document.title = "Promoții și oferte speciale | Fresh-Auto";
-  }, []);
+    document.title = `${t("promotions.pageTitle")} | Fresh-Auto`;
+  }, [t]);
 
   useEffect(() => {
     async function loadPromotii() {
@@ -35,58 +38,59 @@ export default function Promotii() {
         setLoading(false);
       }
     }
+
     loadPromotii();
   }, []);
 
   return (
-    <>
-      <section className="promotii-page" data-aos="fade-down">
-        <div className="main-container">
-          <div className="promotii-breadcrumb-row">
-            <nav className="breadcrumb" aria-label="Breadcrumb">
-              <Link to="/" className="breadcrumb-link">
-                Pagina principală
-              </Link>
+    <section className="promotii-page" data-aos="fade-down">
+      <div className="main-container">
+        <div className="promotii-breadcrumb-row">
+          <nav className="breadcrumb" aria-label="Breadcrumb">
+            <Link to="/" className="breadcrumb-link">
+              {t("breadcrumb.home")}
+            </Link>
 
-              <span className="breadcrumb-separator" aria-hidden="true">
-                ›
-              </span>
+            <span className="breadcrumb-separator" aria-hidden="true">
+              ›
+            </span>
 
-              <span className="breadcrumb-current">Promoții</span>
-            </nav>
-          </div>
-
-          <div className="promotii-header">
-            <h2>Promoții și oferte speciale</h2>
-            <p>Descoperă cele mai avantajoase oferte Fresh Auto.</p>
-          </div>
-
-          {loading ? (
-            <PageLoader />
-          ) : cars.length === 0 ? (
-            <p>Momentan nu sunt automobile la promoție.</p>
-          ) : (
-            <section className="catalog-grid-light">
-              {cars.slice(0, visibleCount).map((car) => (
-                <PremiumCarCard key={car._id} car={car} />
-              ))}
-            </section>
-          )}
-
-          {visibleCount < cars.length && (
-            <div className="load-more-wrap">
-              <button
-                type="button"
-                className="load-more-btn-minimal"
-                onClick={() => setVisibleCount((prev) => prev + 4)}
-              >
-                <FiRefreshCw className="load-icon" />
-                Încarcă mai multe
-              </button>
-            </div>
-          )}
+            <span className="breadcrumb-current">
+              {t("promotions.breadcrumb")}
+            </span>
+          </nav>
         </div>
-      </section>
-    </>
+
+        <div className="promotii-header">
+          <h2>{t("promotions.title")}</h2>
+          <p>{t("promotions.subtitle")}</p>
+        </div>
+
+        {loading ? (
+          <PageLoader />
+        ) : cars.length === 0 ? (
+          <p>{t("promotions.empty")}</p>
+        ) : (
+          <section className="catalog-grid-light">
+            {cars.slice(0, visibleCount).map((car) => (
+              <PremiumCarCard key={car._id} car={car} />
+            ))}
+          </section>
+        )}
+
+        {visibleCount < cars.length && (
+          <div className="load-more-wrap">
+            <button
+              type="button"
+              className="load-more-btn-minimal"
+              onClick={() => setVisibleCount((prev) => prev + 4)}
+            >
+              <FiRefreshCw className="load-icon" />
+              {t("common.loadMore")}
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }

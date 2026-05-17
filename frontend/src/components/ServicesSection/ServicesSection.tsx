@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import SellAuto from "../../assets/services/auto-sell.svg";
 import EvaluareAuto from "../../assets/services/evaluare-auto.svg";
 import AutoTrade from "../../assets/services/trade.svg";
@@ -6,60 +8,68 @@ import Finance from "../../assets/services/creditauto.svg";
 
 import "./ServicesSection.css";
 
-const services = [
-  {
-    icon: <img src={SellAuto} alt="Vanzare Auto" className="services-icon" />,
-    title: "Vînzarea mașinii",
-    text: "Selectați marca și modelul mașinii care vi se potrivește",
-    link: "/catalog",
-  },
-  {
-    icon: (
-      <img src={EvaluareAuto} alt="Evaluare Auto" className="services-icon" />
-    ),
-    title: "Evaluarea auto",
-    text: "Primește o evaluare transparentă a mașinii tale",
-    link: "/trade-in",
-  },
-  {
-    icon: <img src={AutoTrade} alt="Auto-Trade" className="services-icon" />,
-    title: "Schimb auto",
-    text: "Utilizați mașina dvs. veche ca avans pentru a cumpăra o mașină nouă",
-    link: "/trade-in",
-  },
-  {
-    icon: <img src={Finance} alt="Leasing" className="services-icon" />,
-    title: "Finanțare rapidă",
-    text: "Aprobare rapidă și condiții flexibile de la partenerii noștrii",
-    link: "/leasing",
-  },
-];
-
-const stats = [
-  {
-    number: "7+",
-    label: "Ani pe Piață",
-  },
-  {
-    number: "300+",
-    label: "Mașini Vîndute",
-  },
-  {
-    number: "100+",
-    label: "Mașini Disponibile",
-  },
-  {
-    number: "100+",
-    label: "Mașini Schimbate",
-  },
-];
-
 export default function ServicesSection() {
+  const { t } = useTranslation();
+
+  const services = [
+    {
+      icon: <img src={SellAuto} alt="Vanzare Auto" className="services-icon" />,
+      title: t("home.services.sellTitle"),
+      text: t("home.services.sellText"),
+      link: "/catalog",
+    },
+
+    {
+      icon: (
+        <img src={EvaluareAuto} alt="Evaluare Auto" className="services-icon" />
+      ),
+      title: t("home.services.evaluateTitle"),
+      text: t("home.services.evaluateText"),
+      link: "/trade-in",
+    },
+
+    {
+      icon: <img src={AutoTrade} alt="Auto-Trade" className="services-icon" />,
+      title: t("home.services.tradeTitle"),
+      text: t("home.services.tradeText"),
+      link: "/trade-in",
+    },
+
+    {
+      icon: <img src={Finance} alt="Leasing" className="services-icon" />,
+      title: t("home.services.financeTitle"),
+      text: t("home.services.financeText"),
+      link: "/leasing",
+    },
+  ];
+
+  const stats = [
+    {
+      number: "7+",
+      label: t("home.stats.years"),
+    },
+
+    {
+      number: "300+",
+      label: t("home.stats.soldCars"),
+    },
+
+    {
+      number: "100+",
+      label: t("home.stats.availableCars"),
+    },
+
+    {
+      number: "100+",
+      label: t("home.stats.tradeCars"),
+    },
+  ];
+
   return (
     <section className="services-section" data-aos="fade-down">
       <div className="main-container">
         <div className="services-top">
-          <h2>Serviciile noastre</h2>
+          <h2>{t("home.services.title")}</h2>
         </div>
 
         <div className="services-grid">
@@ -73,6 +83,7 @@ export default function ServicesSection() {
             </Link>
           ))}
         </div>
+
         <div className="stats-box">
           {stats.map((item, index) => (
             <>
