@@ -1,12 +1,11 @@
 .car-details-page {
   min-height: 100vh;
   color: var(--text-color);
-  margin: 140px 0 90px 0;
+  margin: 140px 0 150px 0;
   position: relative;
 }
 
 .car-detail-tabs {
-  margin: 40px 0 0 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
@@ -14,36 +13,38 @@
 
 .car-tab-btn {
   height: 54px;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid rgba(34, 197, 94, 0.35);
   background: var(--light-color);
-  color: #16a34a;
+  color: var(--accent-color);
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
   transition: 0.25s ease;
-  box-shadow: 0 10px 25px rgba(34, 197, 94, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: 0.35s ease;
 }
 
 .car-tab-btn svg {
-  font-size: 17px;
+  font-size: 22px;
+  transition: 0.35s ease;
 }
 
 .car-tab-btn:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-color);
-  background: linear-gradient(180deg, #ecfdf3, #bbf7d0);
+  transform: translateY(-4px);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.car-tab-btn:hover svg {
+  transform: scale(1.18) rotate(-6deg);
 }
 
 .car-tab-btn.active {
-  border: none;
+  background: linear-gradient(135deg, var(--accent-color), #16a34a);
   color: var(--light-color);
-  background: var(--accent-color);
-  box-shadow: 0 14px 30px rgba(129, 249, 159, 0.28);
 }
 
 .details-breadcrumb {
@@ -53,7 +54,7 @@
 }
 
 .details-breadcrumb a {
-  color: #232323;
+  color: var(--text-color);
   text-decoration: none;
   transition: 0.2s ease;
 }
@@ -281,7 +282,7 @@
 .finance-header h3 {
   margin: 0;
   font-size: 24px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .finance-header span {
@@ -304,7 +305,7 @@
 .finance-grid p {
   margin: 0 0 14px;
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .finance-stepper {
@@ -571,15 +572,19 @@
 }
 
 .spec-card {
-  background: #e1fde3;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1),
+    rgba(34, 197, 94, 0.06)
+  );
   border-radius: 10px;
-  border: 1px solid #dde1de;
+  border: 1px solid rgba(34, 197, 94, 0.14);
+  backdrop-filter: blur(14px);
   padding: 16px;
   display: flex;
   align-items: center;
   gap: 14px;
   min-height: 78px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .spec-icon {
@@ -993,8 +998,13 @@
 
 .car-option-card {
   min-height: 62px;
-  background: #e1fde3;
-  border: 1px solid #dde1de;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.1),
+    rgba(34, 197, 94, 0.06)
+  );
+  border: 1px solid rgba(34, 197, 94, 0.14);
+  backdrop-filter: blur(14px);
   border-radius: 10px;
   padding: 0 20px;
   display: flex;
@@ -1003,7 +1013,6 @@
   gap: 14px;
   color: #696665;
   font-size: 15px;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.1);
 }
 
 .option-category {
@@ -1348,4 +1357,273 @@
   visibility: visible;
 }
 
-/* Loader */
+/* Car detail */
+
+.details-side-card {
+  background: var(--light-color);
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  margin-bottom: 24px;
+}
+
+.side-price {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.side-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 28px;
+}
+
+.side-phone-btn {
+  height: 64px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent-color), #16a34a);
+  color: var(--light-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 21px;
+  font-weight: 900;
+  text-decoration: none;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.side-phone-btn:hover {
+  transform: translateY(-3px) scale(1.01);
+  background: linear-gradient(135deg, #24d463, #15803d);
+}
+
+.side-phone-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.7s;
+}
+
+.side-phone-btn:hover::before {
+  left: 140%;
+}
+
+.side-socials {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;
+}
+
+.side-socials a {
+  padding: 10px;
+  border: 1px solid #d9dde6;
+  border-radius: 12px;
+  color: #2d313d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  flex: 1;
+}
+
+.side-socials a:hover {
+  transform: translateY(-5px);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.side-socials svg {
+  font-size: 30px;
+}
+
+.whatsapp {
+  color: #25d366;
+}
+
+.telegram {
+  color: #229ed9;
+}
+
+.viber {
+  color: #7360f2;
+}
+
+.side-help-text {
+  text-align: center;
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 16px 0 22px;
+}
+
+.side-report-box {
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.side-report-top {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.side-report-top img {
+  width: 95px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.side-report-top h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: #262a35;
+  margin-bottom: 8px;
+}
+
+.side-report-top p {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.side-report-btn {
+  height: 58px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0f6fff, #1677ff, #005eff);
+  background-size: 200% 200%;
+  color: var(--light-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background-position 0.5s ease;
+}
+
+.side-report-btn:hover {
+  transform: translateY(-3px) scale(1.01);
+  background-position: right center;
+}
+
+.side-report-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.8s ease;
+}
+
+.side-report-btn:hover::before {
+  left: 140%;
+}
+
+.side-report-btn svg {
+  transition: transform 0.35s ease;
+}
+
+.side-report-btn:hover svg {
+  transform: translateX(4px) rotate(-6deg);
+}
+
+.side-report-btn:active {
+  transform: scale(0.98);
+}
+
+.side-trade-btn {
+  height: 58px;
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  color: var(--accent-color);
+  background: var(--light-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 19px;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease;
+}
+
+.side-trade-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, var(--accent-color), #16a34a);
+  color: var(--light-color);
+}
+
+.side-trade-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: 0.7s;
+}
+
+.side-trade-btn:hover::before {
+  left: 140%;
+}
+
+.side-trade-btn svg {
+  transition: transform 0.35s ease;
+}
+
+.side-trade-btn:hover svg {
+  transform: translateX(4px);
+}

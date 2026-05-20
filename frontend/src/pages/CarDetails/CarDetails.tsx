@@ -1,21 +1,37 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, FreeMode } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { getCarById, getCars } from "../../services/api";
+import { FiChevronLeft, FiChevronRight, FiExternalLink } from "react-icons/fi";
 import { FaPhone } from "react-icons/fa6";
-import { FaArrowRight } from "react-icons/fa";
-import { FaGasPump, FaCalendarAlt, FaRoad, FaPalette } from "react-icons/fa";
-import { GiGearStickPattern, GiCarWheel } from "react-icons/gi";
-import { TbEngineFilled } from "react-icons/tb";
-import { MdSpeed } from "react-icons/md";
-import { FaFileAlt, FaListAlt, FaCheckSquare } from "react-icons/fa";
-import { FaCheck } from "react-icons/fa";
+import { GiCarWheel } from "react-icons/gi";
+import {
+  TbListDetails,
+  TbAutomaticGearboxFilled,
+  TbGaugeFilled,
+} from "react-icons/tb";
+import { MdOutlineVerifiedUser, MdLocalGasStation } from "react-icons/md";
+import {
+  FaCheck,
+  FaWhatsapp,
+  FaViber,
+  FaTelegramPlane,
+  FaArrowRight,
+} from "react-icons/fa";
+import {
+  PiCalendarBlankBold,
+  PiRoadHorizonBold,
+  PiEngineBold,
+  PiPaletteFill,
+} from "react-icons/pi";
+import { HiOutlineDocumentText } from "react-icons/hi";
 import { LiaTelegramPlane } from "react-icons/lia";
 import { GrFavorite } from "react-icons/gr";
 import type { Car } from "../../types/car";
+import { HiOutlineSwitchHorizontal } from "react-icons/hi";
 import microinvest from "../../assets/logos/microinvest.svg";
 import easycredit from "../../assets/logos/ecredit.svg";
 import iutecredit from "../../assets/logos/iutecredit.svg";
@@ -24,27 +40,41 @@ import creditrapid from "../../assets/logos/creditrapid.svg";
 import maib from "../../assets/logos/maib.svg";
 import reportImg from "../../assets/report.jpg";
 import PageLoader from "../../components/PageLoader/PageLoader";
+import PriceBox from "../../components/PriceBox/PriceBox";
 import "swiper/css/bundle";
 import "./CarDetails.css";
-import PriceBox from "../../components/PriceBox/PriceBox";
 
 export default function CarDetails() {
+  const { t, i18n } = useTranslation();
   const { id } = useParams();
+
+  const homePath = i18n.language === "ru" ? "/ru" : "/";
+  const catalogPath = i18n.language === "ru" ? "/ru/catalog" : "/catalog";
+  const tradeInPath = i18n.language === "ru" ? "/ru/trade-in" : "/trade-in";
+  const locale = i18n.language === "ru" ? "ru-RU" : "ro-RO";
+
   const [offers, setOffers] = useState<Car[]>([]);
   const [car, setCar] = useState<Car | null>(null);
   const [loading, setLoading] = useState(true);
   const [advancePercent, setAdvancePercent] = useState(10);
   const [months, setMonths] = useState(60);
-  const advance = Math.round(((car?.price || 0) * advancePercent) / 100);
-  const credit = (car?.price || 0) - advance;
-  const monthly = Math.round(credit / months);
-  const sliderRef = useRef<HTMLDivElement | null>(null);
   const [phone, setPhone] = useState("+373 ");
   const [isFavorite, setIsFavorite] = useState(false);
 
   const [activeTab, setActiveTab] = useState<
     "descriere" | "general" | "dotari"
   >("general");
+
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const [showOfferForm, setShowOfferForm] = useState(false);
+
+  const sliderRef = useRef<HTMLDivElement | null>(null);
+
+  const advance = Math.round(((car?.price || 0) * advancePercent) / 100);
+  const credit = (car?.price || 0) - advance;
+  const monthly = Math.round(credit / months);
 
   const increaseAdvance = () => {
     setAdvancePercent((prev) => Math.min(prev + 5, 90));
@@ -61,11 +91,6 @@ export default function CarDetails() {
   const decreaseMonths = () => {
     setMonths((prev) => Math.max(prev - 6, 6));
   };
-
-  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [showOfferForm, setShowOfferForm] = useState(false);
 
   const formatMDPhone = (value: string) => {
     let digits = value.replace(/\D/g, "");
@@ -94,27 +119,27 @@ export default function CarDetails() {
 
   const optionCategories = [
     {
-      title: "Confort",
+      title: t("details.options.comfort"),
       keywords: ["climat", "scaune", "incalz", "volan", "cruise", "keyless"],
     },
     {
-      title: "Siguranță",
+      title: t("details.options.safety"),
       keywords: ["abs", "esp", "airbag", "isofix", "franare"],
     },
     {
-      title: "Multimedia",
+      title: t("details.options.multimedia"),
       keywords: ["navig", "bluetooth", "carplay", "android", "audio", "usb"],
     },
     {
-      title: "Exterior",
+      title: t("details.options.exterior"),
       keywords: ["jante", "faruri", "led", "xenon", "panor", "trapa"],
     },
     {
-      title: "Interior",
+      title: t("details.options.interior"),
       keywords: ["piele", "alcantara", "ambient", "cotiera"],
     },
     {
-      title: "Asistență",
+      title: t("details.options.assistance"),
       keywords: ["camera", "senzori", "parcare", "lane", "blind", "pilot"],
     },
   ];
@@ -168,6 +193,7 @@ export default function CarDetails() {
       try {
         const data = await getCarById(id);
         setCar(data);
+
         const allCars = await getCars();
 
         const randomOffers = allCars
@@ -212,19 +238,11 @@ export default function CarDetails() {
   }, [car]);
 
   if (loading) {
-    return (
-      <>
-        <PageLoader />
-      </>
-    );
+    return <PageLoader />;
   }
 
   if (!car) {
-    return (
-      <>
-        <div className="details-loading">Mașina nu a fost găsită.</div>
-      </>
-    );
+    return <div className="details-loading">{t("details.notFound")}</div>;
   }
 
   const images = car.images || [];
@@ -251,14 +269,18 @@ export default function CarDetails() {
       <section className="car-details-page">
         <div className="main-container">
           <div className="details-breadcrumb">
-            <Link to="/">Acasă</Link>
+            <Link to={homePath}>{t("breadcrumb.home")}</Link>
+
             <span className="breadcrumb-separator" aria-hidden="true">
               ›
             </span>
-            <Link to="/catalog">Catalog</Link>
+
+            <Link to={catalogPath}>{t("catalog.breadcrumb")}</Link>
+
             <span className="breadcrumb-separator" aria-hidden="true">
               ›
             </span>
+
             {car.title}
           </div>
 
@@ -275,7 +297,9 @@ export default function CarDetails() {
                   </button>
 
                   <button
-                    className={`details-favorite-btn ${isFavorite ? "active" : ""}`}
+                    className={`details-favorite-btn ${
+                      isFavorite ? "active" : ""
+                    }`}
                     onClick={() => {
                       if (!car) return;
 
@@ -299,6 +323,7 @@ export default function CarDetails() {
                         "favorites",
                         JSON.stringify(updatedFavorites),
                       );
+
                       window.dispatchEvent(new Event("favoritesUpdated"));
                     }}
                   >
@@ -306,19 +331,27 @@ export default function CarDetails() {
                   </button>
 
                   {car.status === "discount" && (
-                    <span className="details-discount-ribbon">Preț redus</span>
+                    <span className="details-discount-ribbon">
+                      {t("details.status.discount")}
+                    </span>
                   )}
 
                   {car.status === "available" && (
-                    <span className="badge-diagonal-available">În stoc</span>
+                    <span className="badge-diagonal-available">
+                      {t("details.status.available")}
+                    </span>
                   )}
 
                   {car.status === "sold" && (
-                    <span className="badge-diagonal-sold">Vîndută</span>
+                    <span className="badge-diagonal-sold">
+                      {t("details.status.sold")}
+                    </span>
                   )}
 
                   {car.status === "reserved" && (
-                    <span className="badge-diagonal-reserved">Rezervată</span>
+                    <span className="badge-diagonal-reserved">
+                      {t("details.status.reserved")}
+                    </span>
                   )}
 
                   {images.length > 0 ? (
@@ -347,7 +380,9 @@ export default function CarDetails() {
                       ))}
                     </Swiper>
                   ) : (
-                    <div className="details-no-image">Fără imagine</div>
+                    <div className="details-no-image">
+                      {t("details.noImage")}
+                    </div>
                   )}
                 </div>
 
@@ -375,32 +410,35 @@ export default function CarDetails() {
               </section>
 
               <section className="details-characteristics">
-                <div className="details-characteristics-flex">
-                  <h2>{car.title}</h2>
-                  <PriceBox price={car.price} oldPrice={car.oldPrice} />
-                </div>
-
                 <div className="car-detail-tabs">
                   <button
-                    className={`car-tab-btn ${activeTab === "descriere" ? "active" : ""}`}
+                    className={`car-tab-btn ${
+                      activeTab === "descriere" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("descriere")}
                   >
-                    <FaFileAlt />
-                    Descriere
+                    <HiOutlineDocumentText />
+                    {t("details.tabs.description")}
                   </button>
+
                   <button
-                    className={`car-tab-btn ${activeTab === "general" ? "active" : ""}`}
+                    className={`car-tab-btn ${
+                      activeTab === "general" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("general")}
                   >
-                    <FaListAlt />
-                    Prezentare generală
+                    <TbListDetails />
+                    {t("details.tabs.general")}
                   </button>
+
                   <button
-                    className={`car-tab-btn ${activeTab === "dotari" ? "active" : ""}`}
+                    className={`car-tab-btn ${
+                      activeTab === "dotari" ? "active" : ""
+                    }`}
                     onClick={() => setActiveTab("dotari")}
                   >
-                    <FaCheckSquare />
-                    Dotări
+                    <MdOutlineVerifiedUser />
+                    {t("details.tabs.options")}
                   </button>
                 </div>
 
@@ -408,73 +446,77 @@ export default function CarDetails() {
                   <div className="details-specs-grid">
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <FaCalendarAlt />
+                        <PiCalendarBlankBold />
                       </div>
 
                       <div className="spec-content">
-                        <span>Anul fabricație:</span>
+                        <span>{t("details.specs.year")}</span>
                         <strong>{car.year}</strong>
                       </div>
                     </div>
 
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <FaRoad />
+                        <PiRoadHorizonBold />
                       </div>
+
                       <div className="spec-content">
-                        <span>Parcurs:</span>
-                        <strong>
-                          {car.mileage.toLocaleString("ro-RO")} Km
-                        </strong>
+                        <span>{t("details.specs.mileage")}</span>
+                        <strong>{car.mileage.toLocaleString(locale)} Km</strong>
                       </div>
                     </div>
 
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <GiGearStickPattern />
+                        <TbAutomaticGearboxFilled />
                       </div>
+
                       <div className="spec-content">
-                        <span>Cutie viteze:</span>
+                        <span>{t("details.specs.transmission")}</span>
                         <strong>{car.transmission}</strong>
                       </div>
                     </div>
 
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <FaGasPump />
+                        <MdLocalGasStation />
                       </div>
+
                       <div className="spec-content">
-                        <span>Combustibil:</span>
+                        <span>{t("details.specs.fuel")}</span>
                         <strong>{car.fuel}</strong>
                       </div>
                     </div>
 
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <TbEngineFilled />
+                        <PiEngineBold />
                       </div>
+
                       <div className="spec-content">
-                        <span>Capacitatea:</span>
+                        <span>{t("details.specs.engine")}</span>
                         <strong>{car.engine}</strong>
                       </div>
                     </div>
 
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <MdSpeed />
+                        <TbGaugeFilled />
                       </div>
+
                       <div className="spec-content">
-                        <span>Putere Motor:</span>
+                        <span>{t("details.specs.power")}</span>
                         <strong>{car.power}</strong>
                       </div>
                     </div>
 
                     <div className="spec-card">
                       <div className="spec-icon">
-                        <FaPalette />
+                        <PiPaletteFill />
                       </div>
+
                       <div className="spec-content">
-                        <span>Culoare exterior:</span>
+                        <span>{t("details.specs.color")}</span>
                         <strong>{car.color}</strong>
                       </div>
                     </div>
@@ -483,9 +525,12 @@ export default function CarDetails() {
                       <div className="spec-icon">
                         <GiCarWheel />
                       </div>
+
                       <div className="spec-content">
-                        <span>Tracțiune:</span>
-                        <strong>{car.wheldrive || "Nespecificat"}</strong>
+                        <span>{t("details.specs.drive")}</span>
+                        <strong>
+                          {car.wheldrive || t("details.notSpecified")}
+                        </strong>
                       </div>
                     </div>
                   </div>
@@ -493,15 +538,11 @@ export default function CarDetails() {
 
                 {activeTab === "descriere" && (
                   <div className="details-specs-descr">
-                    <h2>Descriere</h2>
-                    <p>
-                      {car.description ||
-                        "Nu există descriere pentru acest automobil."}
-                    </p>
+                    <h2>{t("details.tabs.description")}</h2>
+
+                    <p>{car.description || t("details.noDescription")}</p>
                   </div>
                 )}
-
-                {/* Optiuni si dotari */}
 
                 {activeTab === "dotari" && (
                   <div className="car-options-section">
@@ -518,6 +559,7 @@ export default function CarDetails() {
                             {items.map((option: string) => (
                               <div className="car-option-card" key={option}>
                                 <span>{option}</span>
+
                                 <div className="option-check">
                                   <FaCheck />
                                 </div>
@@ -532,7 +574,8 @@ export default function CarDetails() {
               </section>
 
               <div className="car-location-section">
-                <h2>Locația Fresh Auto</h2>
+                <h2>{t("details.location")}</h2>
+
                 <div className="car-location-map">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d43494.7867983281!2d28.781258622362138!3d47.05152899006127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40cbd630210f6669%3A0xffd3ce64404fcb60!2zU3RyYWRhIFBpZXRyxINyaWVpIDMsIE1ELTIwMDUsIENoaciZaW7Eg3UsIE1vbGRvdmE!5e0!3m2!1sro!2s!4v1777747265218!5m2!1sro!2s"
@@ -542,60 +585,84 @@ export default function CarDetails() {
                 </div>
               </div>
             </div>
-            <aside className="details-right-column">
-              <div className="details-buttons-contacts">
-                <Link
-                  to="/trade-in"
-                  target="_blank"
-                  className="details-buttons-contacts-tradein"
-                >
-                  Solicită Trade-in
-                </Link>
-                <a
-                  href="tel:37360000000"
-                  target="_blank"
-                  className="details-buttons-contacts-phone"
-                >
-                  <FaPhone style={{ marginRight: 8 }} />
-                  +373
-                  <span> 60 000 000</span>
-                </a>
-              </div>
-              <div className="car-report-box">
-                <div className="car-report-preview">
-                  <div className="report-paper">
-                    <img src={reportImg} alt="Raport auto" />
-                  </div>
-                </div>
-                <div className="car-report-content">
-                  <h3>Raport CarVertical</h3>
-                  <p>
-                    Obțineți un raport detaliat al vehiculului în doar cîteva
-                    minute.
-                  </p>
 
-                  <div className="car-report-action">
-                    <a
-                      href="https://www.carvertical.com/md"
-                      target="_blank"
-                      className="car-report-btn"
-                    >
-                      Obține raport
-                    </a>
-                  </div>
+            <aside className="details-right-column">
+              <div className="details-side-card">
+                <h2 className="side-price">
+                  {car.price.toLocaleString(locale)} €
+                </h2>
+
+                <h3 className="side-title">
+                  {car.title}, {car.year}
+                </h3>
+
+                <a href="tel:+37378170101" className="side-phone-btn">
+                  <FaPhone />
+                  +373 (78) 170 101
+                </a>
+                <div className="side-socials">
+                  <a
+                    href="https://wa.me/37378170101"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FaWhatsapp className="whatsapp" />
+                    <span>WhatsApp</span>
+                  </a>
+
+                  <a
+                    href="https://t.me/freshauto"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <FaTelegramPlane className="telegram" />
+                    <span>Telegram</span>
+                  </a>
+
+                  <a href="viber://chat?number=%2B37378170101">
+                    <FaViber className="viber" />
+                    <span>Viber</span>
+                  </a>
                 </div>
+
+                <p className="side-help-text">{t("details.contactHelp")}</p>
+
+                <div className="side-report-box">
+                  <div className="side-report-top">
+                    <img src={reportImg} alt="CarVertical" />
+
+                    <div>
+                      <h3>{t("details.report.title")}</h3>
+                      <p>{t("details.report.text")}</p>
+                    </div>
+                  </div>
+
+                  <a
+                    href="https://www.carvertical.com/md"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="side-report-btn"
+                  >
+                    {t("details.report.button")}
+                    <FiExternalLink />
+                  </a>
+                </div>
+                <Link to={tradeInPath} className="side-trade-btn">
+                  <HiOutlineSwitchHorizontal />
+                  {t("details.tradeInBtn")}
+                </Link>
               </div>
 
               <div className="finance-box">
                 <div className="finance-header">
-                  <h3>Calculator financiar</h3>
+                  <h3>{t("details.finance.title")}</h3>
                 </div>
 
                 <div className="finance-line" />
 
                 <div className="finance-grid">
                   <div>
-                    <p>Prețul mașinii</p>
+                    <p>{t("details.finance.carPrice")}</p>
 
                     <div className="finance-stepper">
                       <button onClick={decreaseAdvance}>−</button>
@@ -603,26 +670,28 @@ export default function CarDetails() {
                       <button onClick={increaseAdvance}>+</button>
                     </div>
 
-                    <p>Soldul rămas în credit</p>
+                    <p>{t("details.finance.creditBalance")}</p>
 
                     <div className="finance-stepper">
                       <button onClick={decreaseMonths}>−</button>
-                      <span>{months} luni</span>
+                      <span>
+                        {months} {t("credit.months")}
+                      </span>
                       <button onClick={increaseMonths}>+</button>
                     </div>
                   </div>
 
                   <div className="finance-values">
-                    <strong>{car.price.toLocaleString("ro-RO")}€</strong>
+                    <strong>{car.price.toLocaleString(locale)}€</strong>
 
-                    <p>Avans</p>
-                    <strong>{advance.toLocaleString("ro-RO")}€</strong>
+                    <p>{t("details.finance.advance")}</p>
+                    <strong>{advance.toLocaleString(locale)}€</strong>
 
-                    <strong>{credit.toLocaleString("ro-RO")}€</strong>
+                    <strong>{credit.toLocaleString(locale)}€</strong>
 
-                    <p>Rata lunară</p>
+                    <p>{t("details.finance.monthlyRate")}</p>
                     <strong className="finance-red">
-                      {monthly.toLocaleString("ro-RO")}€
+                      {monthly.toLocaleString(locale)}€
                     </strong>
 
                     <button
@@ -630,7 +699,7 @@ export default function CarDetails() {
                       className="finance-btn"
                       onClick={() => setShowOfferForm(true)}
                     >
-                      Solicită ofertă
+                      {t("details.finance.requestOffer")}
                       <FaArrowRight style={{ marginLeft: 8 }} />
                     </button>
                   </div>
@@ -638,17 +707,19 @@ export default function CarDetails() {
 
                 {showOfferForm && (
                   <div className="finance-contact-box show">
-                    <h2>Vă sunăm pentru detalii</h2>
-                    <p>Completează datele și te contactăm în scurt timp.</p>
+                    <h2>{t("details.finance.callTitle")}</h2>
+
+                    <p>{t("details.finance.callText")}</p>
 
                     <div className="finance-contact-row">
                       <div className="finance-contact-field">
-                        <label>Nume</label>
+                        <label>{t("tradein.name")}</label>
                         <input type="text" />
                       </div>
 
                       <div className="finance-contact-field">
-                        <label>Telefon</label>
+                        <label>{t("contacts.phoneLabel")}</label>
+
                         <input
                           type="tel"
                           value={phone}
@@ -662,29 +733,35 @@ export default function CarDetails() {
 
                     <button type="button" className="finance-contact-submit">
                       <LiaTelegramPlane style={{ marginRight: 8 }} />
-                      Trimite
+                      {t("details.finance.send")}
                     </button>
                   </div>
                 )}
+
                 <div className="partners-box">
-                  <h3>Parteneri</h3>
+                  <h3>{t("details.partners")}</h3>
 
                   <div className="partners-grid">
                     <div className="partner-logo">
                       <img src={creditrapid} alt="Creditrapid" />
                     </div>
+
                     <div className="partner-logo">
                       <img src={maib} alt="Maib" />
                     </div>
+
                     <div className="partner-logo">
                       <img src={microinvest} alt="Microinvest" />
                     </div>
+
                     <div className="partner-logo">
                       <img src={iutecredit} alt="Iutecredit" />
                     </div>
+
                     <div className="partner-logo">
                       <img src={easycredit} alt="eCredit" />
                     </div>
+
                     <div className="partner-logo">
                       <img src={mogo} alt="Mogo" />
                     </div>
@@ -693,13 +770,17 @@ export default function CarDetails() {
               </div>
 
               <div className="offers-box" data-aos="fade-left">
-                <h3>Oferte interesante</h3>
+                <h3>{t("tradein.interestingOffers")}</h3>
 
                 <div className="offer-line" />
 
                 {offers.map((offer) => (
                   <Link
-                    to={`/cars/${offer._id}`}
+                    to={
+                      i18n.language === "ru"
+                        ? `/ru/cars/${offer._id}`
+                        : `/cars/${offer._id}`
+                    }
                     key={offer._id}
                     className="offer-item"
                   >
@@ -710,13 +791,14 @@ export default function CarDetails() {
 
                     <div>
                       <strong>{offer.title}</strong>
+
                       <p>
-                        {offer.year}, {offer.mileage.toLocaleString("ro-RO")}{" "}
-                        km, {offer.fuel}, {offer.transmission}
+                        {offer.year}, {offer.mileage.toLocaleString(locale)} km,{" "}
+                        {offer.fuel}, {offer.transmission}
                       </p>
                     </div>
 
-                    <span>{offer.price.toLocaleString("ro-RO")}€</span>
+                    <span>{offer.price.toLocaleString(locale)}€</span>
                   </Link>
                 ))}
               </div>

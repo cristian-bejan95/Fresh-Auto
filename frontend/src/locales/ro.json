@@ -44,15 +44,15 @@
     "carPrice": "Preț Automobil",
     "advance": "Avans",
     "period": "Termenul creditului",
-    "interest": "Rata dobânzii",
+    "interest": "Rata dobînzii",
     "monthlyRate": "Rata lunară",
     "from": "de la",
-    "to": "până la",
+    "to": "pînă la",
     "months": "luni",
     "annual": "anual",
     "partnersTitle": "Partenerii noștri financiari",
     "partnersSubtitle": "Colaborăm cu instituții financiare de încredere pentru a vă oferi cele mai avantajoase soluții de credit și leasing auto.",
-    "disclaimer": "Calculatorul financiar are caracter informativ și oferă estimări aproximative ale ratelor lunare. Valoarea finală a creditului poate varia în funcție de suma finanțată, avans, perioada aleasă, rata dobânzii și condițiile partenerilor financiari."
+    "disclaimer": "Calculatorul financiar are caracter informativ și oferă estimări aproximative ale ratelor lunare. Valoarea finală a creditului poate varia în funcție de suma finanțată, avans, perioada aleasă, rata dobînzii și condițiile partenerilor financiari."
   },
   "tradein": {
     "breadcrumb": "Trade-in",
@@ -192,5 +192,66 @@
     "fuel": "Combustibil",
     "transmission": "Transmisie",
     "search": "Caută"
+  },
+  "details": {
+    "notFound": "Mașina nu a fost găsită.",
+    "noImage": "Fără imagine",
+    "notSpecified": "Nespecificat",
+    "noDescription": "Nu există descriere pentru acest automobil.",
+    "location": "Locația Fresh Auto",
+    "tradeInBtn": "Solicită Trade-in",
+    "partners": "Parteneri",
+    "contactHelp": "Ne puteți apela sau scrie, vă vom ajuta",
+
+    "status": {
+      "discount": "Preț redus",
+      "available": "În stoc",
+      "sold": "Vîndută",
+      "reserved": "Rezervată"
+    },
+
+    "tabs": {
+      "description": "Descriere",
+      "general": "Prezentare generală",
+      "options": "Dotări"
+    },
+
+    "specs": {
+      "year": "Anul fabricație:",
+      "mileage": "Parcurs:",
+      "transmission": "Cutie viteze:",
+      "fuel": "Combustibil:",
+      "engine": "Capacitatea:",
+      "power": "Putere Motor:",
+      "color": "Culoare exterior:",
+      "drive": "Tracțiune:"
+    },
+
+    "options": {
+      "comfort": "Confort",
+      "safety": "Siguranță",
+      "multimedia": "Multimedia",
+      "exterior": "Exterior",
+      "interior": "Interior",
+      "assistance": "Asistență"
+    },
+
+    "report": {
+      "title": "Raport CarVertical",
+      "text": "Obțineți un raport detaliat al vehiculului în doar cîteva minute.",
+      "button": "Obține raport"
+    },
+
+    "finance": {
+      "title": "Calculator financiar",
+      "carPrice": "Prețul mașinii",
+      "creditBalance": "Soldul rămas în credit",
+      "advance": "Avans",
+      "monthlyRate": "Rata lunară",
+      "requestOffer": "Solicită ofertă",
+      "callTitle": "Vă sunăm pentru detalii",
+      "callText": "Completează datele și te contactăm în scurt timp.",
+      "send": "Trimite"
+    }
   }
 }
